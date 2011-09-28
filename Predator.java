@@ -7,18 +7,29 @@ public class Predator extends Agent
 {
 	public enum AgentType{PREY, PREDATOR};
 	public enum Direction{UP, DOWN, LEFT, RIGHT, NONE};
+	private int targetID;
+	
+	class Position
+	{
+		public int x;
+		public int y;
+		
+		Position(int x, int y)
+		{
+			this.x = x;
+			this.y = y;
+		}
+	}
 
 	class ObjectSeen
 	{
-		public AgentType agent;
-		public int x;
-		public int y;
+		public AgentType type;
+		public Position pos;
 
 		ObjectSeen(AgentType agent, int x, int y)
 		{
-			this.agent = agent;
-			this.x = x;
-			this.y = y;
+			this.type = agent;
+			this.pos = new Position(x, y);
 		}
 	}
 
@@ -27,7 +38,7 @@ public class Predator extends Agent
 	public Predator()
 	{
 		seen = new LinkedList<ObjectSeen>();
-		
+		targetID = -1;
 	}
 
 	/**
@@ -70,70 +81,171 @@ public class Predator extends Agent
 	
 	private Direction determineMovementDirection()
 	{
-		int targetX = 0;
-		int targetY = 0;
-		int bestDist = Integer.MAX_VALUE;
+		if (targetID == -1)
+		{
+			findTarget();			
+		}
+
+		return followTarget();
+	}
+	
+	private void findTarget()
+	{
+		int id = 0;
+		int minMax = 15;
+		
+		for (ObjectSeen prey : seen)
+		{
+			if (prey.type.equals(AgentType.PREY))
+			{
+				int max = Math.abs(prey.pos.x) - Math.abs(prey.pos.y);
+				for (ObjectSeen predator : seen)
+				{
+					if (predator.type.equals(AgentType.PREDATOR))
+					{
+						int xDist = prey.pos.x - predator.pos.x;
+						if (xDist > 7)
+						{
+							xDist -= 15;
+						}
+						else if (xDist < -7)
+						{
+							xDist += 15;
+						}
+						
+						int yDist = prey.pos.y - predator.pos.y;
+						if (yDist > 7)
+						{
+							yDist -= 15;
+						}
+						else if (yDist < -7)
+						{
+							yDist += 15;
+						}
+						
+						int distance = Math.abs(xDist) + Math.abs(yDist);
+						if (distance > max)
+						{
+							max = distance;
+						}
+					}
+				}
+				if (max < minMax)
+				{
+					minMax = max;
+					targetID = id; 
+				}
+			}
+			id++;
+		}		
+	}
+
+	private Direction followTarget()
+	{
+		
+		//we assume that targetID has a valid value here
+		Position target = null;
+		int id = 0;
 		
 		for (ObjectSeen o : seen)
 		{
-			if (o.agent.equals(AgentType.PREY))
+			if (targetID == id)
 			{
-				int dist = Math.abs(o.x) + Math.abs(o.y);
-				if (dist < bestDist)
-				{
-					bestDist = dist;
-					targetX = o.x;
-					targetY = o.y;
-				}
+				target = o.pos;
+				break;
 			}
+			id++;
 		}
 		
 		//select path randomly
+		Direction move = Direction.NONE;
 		if (new Random().nextInt(2) == 0)
 		{
-			if (targetX > 0)
+			if (target.x > 1)
 			{
-				return Direction.RIGHT;
+				move = Direction.RIGHT;
 			}
-			else if (targetX < 0)
+			else if (target.x < -1)
 			{
-				return Direction.LEFT;
+				move = Direction.LEFT;
 			}
-			else if (targetY > 0)
+			else if (target.y > 1)
 			{
-				return Direction.UP;
+				move = Direction.UP;
 			}
-			else if (targetY < 0)
+			else if (target.y < -1)
 			{
-				return Direction.DOWN;
+				move = Direction.DOWN;
 			}
 		}
 		else
 		{
-			if (targetY > 0)
+			if (target.y > 1)
 			{
-				return Direction.UP;
+				move = Direction.UP;
 			}
-			else if (targetY < 0)
+			else if (target.y < -1)
 			{
-				return Direction.DOWN;
+				move = Direction.DOWN;
 			}
-			else if (targetX > 0)
+			else if (target.x > 1)
 			{
-				return Direction.RIGHT;
+				move = Direction.RIGHT;
 			}
-			else if (targetX < 0)
+			else if (target.x < -1)
 			{
-				return Direction.LEFT;
+				move = Direction.LEFT;
 			}
-		}
+		}		
 		
-		return Direction.NONE;
+		if(resultsInCollision(move))
+		{
+			return Direction.NONE;
+		}
+		else
+		{
+			return move;
+		}
 	}
 	
 
+	private boolean resultsInCollision(Direction move)
+	{
+		Position target = new Position(0,0);
+		
+		if (move.equals(Direction.UP))
+		{
+			target.y = 1;
+		}		
+		if (move.equals(Direction.DOWN))
+		{
+			target.y = -1;
+		}
+		if (move.equals(Direction.RIGHT))
+		{
+			target.x = 1;
+		}
+		if (move.equals(Direction.LEFT))
+		{
+			target.x = -1;
+		}
+		
+		for (ObjectSeen other : seen)
+		{
+			if (other.type.equals(AgentType.PREDATOR))
+			{
+				if (Math.abs(target.x - other.pos.x) + Math.abs(target.y - other.pos.y) <= 1)
+				{
+					return true;
+				}
+			}
+		}
+		return false;
+		
+	}
+
 	/**
-	 * This method processes the visual information. It receives a message
+	 * This method processes the vQisual information. It receives a message
 	 * containing the information of the preys and the predators that are
 	 * currently in the visible range of the predator.
 	 */
