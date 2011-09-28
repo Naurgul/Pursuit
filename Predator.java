@@ -8,6 +8,7 @@ public class Predator extends Agent
 	public enum AgentType{PREY, PREDATOR};
 	public enum Direction{UP, DOWN, LEFT, RIGHT, NONE};
 	private int targetID;
+	private HashMap<Integer, Direction> roles;
 	
 	class Position
 	{
@@ -39,6 +40,7 @@ public class Predator extends Agent
 	{
 		seen = new LinkedList<ObjectSeen>();
 		targetID = -1;
+		roles = new HashMap<Integer, Direction>();
 	}
 
 	/**
@@ -83,15 +85,17 @@ public class Predator extends Agent
 	{
 		if (targetID == -1)
 		{
-			findTarget();			
+			findTarget();	
 		}
-
+		castRoles();
 		return followTarget();
 	}
 	
+
+
 	private void findTarget()
 	{
-		int id = 0;
+		int id = 1;
 		int minMax = 15;
 		
 		for (ObjectSeen prey : seen)
@@ -104,27 +108,7 @@ public class Predator extends Agent
 				{
 					if (predator.type.equals(AgentType.PREDATOR))
 					{
-						int xDist = prey.pos.x - predator.pos.x;
-						if (xDist > 7)
-						{
-							xDist -= 15;
-						}
-						else if (xDist < -7)
-						{
-							xDist += 15;
-						}
-						
-						int yDist = prey.pos.y - predator.pos.y;
-						if (yDist > 7)
-						{
-							yDist -= 15;
-						}
-						else if (yDist < -7)
-						{
-							yDist += 15;
-						}
-						
-						int distance = Math.abs(xDist) + Math.abs(yDist);
+						int distance = getDistance(prey.pos, predator.pos);
 						if (distance > max)
 						{
 							max = distance;
@@ -134,35 +118,77 @@ public class Predator extends Agent
 				}
 				if (max < minMax)
 				{
-					System.out.println("max d(" + id + ") = " + max + " (better than previous of " + minMax + ")");
 					minMax = max;
 					targetID = id; 
-				}
-				else
-				{
-					System.out.println("max d(" + id + ") = " + max);
 				}
 			}
 			id++;
 		}	
-		System.out.println("Following prey " + targetID);
 	}
+	
+
+
+	private void castRoles()
+	{
+		Position target = null;
+		try
+		{
+			target = getPos(targetID);	
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		for (Direction dir : Direction.values())
+		{
+			if (!dir.equals(Direction.NONE))
+			{
+				int id = 0;
+				int roleID = id;
+				Position minPos = new Position(0,0);
+				int min = Math.abs(target.x) + Math.abs(target.y);
+				Position roleTarget = getRoleTarget(target, dir);
+				
+				for (ObjectSeen predator : seen)
+				{
+					id++;
+					if (predator.type.equals(AgentType.PREDATOR))
+					{	
+						if (roles.containsKey(id))
+						{
+							continue;
+						}
+						int distance = getDistance(roleTarget, predator.pos);
+						if (distance < min || (distance == min && breakTie(predator.pos, minPos, roleTarget)))
+						{
+							roleID = id;
+							minPos = predator.pos;
+							min = distance;
+						}
+					}
+				}
+				roles.put(roleID, dir);
+			}
+		}
+		System.out.println(roles.toString());
+	}
+
+
 
 	private Direction followTarget()
 	{
-		//we assume that targetID has a valid value here
 		Position target = null;
-		int id = 0;
-		
-		for (ObjectSeen o : seen)
+		try
 		{
-			if (targetID == id)
-			{
-				target = o.pos;
-				break;
-			}
-			id++;
+			target = getPos(targetID);	
 		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		target = getRoleTarget(target, roles.get(0));		
 		
 		//select path randomly
 		Direction move = Direction.NONE;
@@ -215,6 +241,147 @@ public class Predator extends Agent
 		}
 	}
 	
+
+	/* 
+	 	-1		no one
+	 	 0		self
+	 	 1+ 	others
+	*/
+	private Position getPos(int id) throws Exception
+	{
+		//we assume that targetID has a valid value here
+		Position pos = null;
+		
+		if (id < 0)
+		{
+			throw new Exception("Invalid object id");
+		}
+		else if (id == 0)
+		{
+			return new Position(0,0);
+		}
+		
+		int idCounter = 1;
+		for (ObjectSeen o : seen)
+		{
+			if (id == idCounter)
+			{
+				pos = o.pos;
+				break;
+			}
+			idCounter++;
+		}
+		if (pos != null)
+		{
+			return pos;		
+		}
+		else
+		{
+			throw new Exception("Invalid object id");
+		}
+	}
+	
+	private int getDistance(Position pos1, Position pos2)
+	{
+		int xDist = pos1.x - pos2.x;
+		if (xDist > 7)
+		{
+			xDist -= 15;
+		}
+		else if (xDist < -7)
+		{
+			xDist += 15;
+		}
+		
+		int yDist = pos1.y - pos2.y;
+		if (yDist > 7)
+		{
+			yDist -= 15;
+		}
+		else if (yDist < -7)
+		{
+			yDist += 15;
+		}
+		
+		return Math.abs(xDist) + Math.abs(yDist);
+	}
+	
+	private Position getRoleTarget(Position target, Direction dir)
+	{
+		Position roleTarget = new Position(target.x, target.y);
+		if (dir.equals(Direction.UP))
+		{
+			roleTarget.y++;
+		}
+		else if (dir.equals(Direction.DOWN))
+		{
+			roleTarget.y--;
+		}
+		else if (dir.equals(Direction.RIGHT))
+		{
+			roleTarget.x++;
+		}
+		else if (dir.equals(Direction.LEFT))
+		{
+			roleTarget.x--;
+		}
+		return roleTarget;
+	}
+	
+	private boolean breakTie(Position pos1, Position pos2, Position ref)
+	{
+		int xDist1 = pos1.x - ref.x;
+		if (xDist1 > 7)
+		{
+			xDist1 -= 15;
+		}
+		else if (xDist1 < -7)
+		{
+			xDist1 += 15;
+		}		
+		int yDist1 = pos1.y - ref.y;
+		if (yDist1 > 7)
+		{
+			yDist1 -= 15;
+		}
+		else if (yDist1 < -7)
+		{
+			yDist1 += 15;
+		}
+		
+		int xDist2 = pos2.x - ref.x;
+		if (xDist2 > 7)
+		{
+			xDist2 -= 15;
+		}
+		else if (xDist2 < -7)
+		{
+			xDist2 += 15;
+		}		
+		int yDist2 = pos2.y - ref.y;
+		if (yDist2 > 7)
+		{
+			yDist2 -= 15;
+		}
+		else if (yDist2 < -7)
+		{
+			yDist2 += 15;
+		}
+		
+		if (xDist1 > xDist2)
+		{
+			return true;
+		}
+		else if (xDist1 == xDist2)
+		{
+			if (yDist1 > yDist2)
+			{
+				return true;
+			}
+		}
+		
+		return false;
+	}
 
 	private boolean resultsInCollision(Direction move)
 	{
