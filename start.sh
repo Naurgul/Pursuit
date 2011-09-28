@@ -20,24 +20,28 @@ echo "*****************************************************************"
 
 export CLASSPATH=${CLASSPATH}:.
 
-pursuit_dir="/opt/stud/mas/bin"
+pursuit_dir="/home/nikolas/Desktop/pursuit/bin"
 pursuit="${pursuit_dir}/pursuit"
 pursuit_conf="pursuit.conf"
-monitor_dir="/opt/stud/mas/bin"
+monitor_dir="/home/nikolas/Desktop/pursuit/bin"
 monitor="${monitor_dir}/pursuit_monitor"
 monitor_conf="monitor.conf"
 predator="java Predator"
-prey="/opt/stud/mas/bin/prey"
+prey="/home/nikolas/Desktop/pursuit/bin/prey"
 
 ${pursuit} -conf ${pursuit_conf} &    # start the server (no visualization yet)
 sleep 1
-${predator}   &                       # start clients, only output info pred. 1
+${predator}   &                       
 sleep 1
-${predator} > /dev/null & 
+${predator}  & 
 sleep 1
-${prey}     > /dev/null & 
-#sleep 1
-${prey}     > /dev/null & 
+${predator}  & 
+sleep 1
+${predator}  & 
+sleep 1
+${prey}     & 
+sleep 1
+${prey}      & 
 
 ${monitor} -conf ${monitor_conf}       # start visualization
 

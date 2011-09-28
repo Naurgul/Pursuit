@@ -96,9 +96,10 @@ public class Predator extends Agent
 		
 		for (ObjectSeen prey : seen)
 		{
+
 			if (prey.type.equals(AgentType.PREY))
 			{
-				int max = Math.abs(prey.pos.x) - Math.abs(prey.pos.y);
+				int max = Math.abs(prey.pos.x) + Math.abs(prey.pos.y);
 				for (ObjectSeen predator : seen)
 				{
 					if (predator.type.equals(AgentType.PREDATOR))
@@ -128,21 +129,27 @@ public class Predator extends Agent
 						{
 							max = distance;
 						}
+
 					}
 				}
 				if (max < minMax)
 				{
+					System.out.println("max d(" + id + ") = " + max + " (better than previous of " + minMax + ")");
 					minMax = max;
 					targetID = id; 
 				}
+				else
+				{
+					System.out.println("max d(" + id + ") = " + max);
+				}
 			}
 			id++;
-		}		
+		}	
+		System.out.println("Following prey " + targetID);
 	}
 
 	private Direction followTarget()
 	{
-		
 		//we assume that targetID has a valid value here
 		Position target = null;
 		int id = 0;
