@@ -96,7 +96,7 @@ public class Predator extends Agent
 		public MoveComparator(Position predator, Position target, Direction role, int maxDist)
 		{
 			this.predator = predator;
-			this. target = target;
+			this.target = target;
 			this.role = role;
 			this.maxDist = maxDist;
 		}
@@ -125,16 +125,19 @@ public class Predator extends Agent
 
 		private int getRank(Direction dir)
 		{
-			int dist = getDistance(getNewPos(predator, dir), target);
+			int roleDist = getDistance(getNewPos(predator, dir), getNewPos(target, role));
+			int targetDist = getDistance(getNewPos(predator, dir), target);
+			int curDist = getDistance(predator, target);
 			
 			//rank is mainly affected by which move gets us closer to the target
-			int rank = 150 - 10 * dist;			
+			int rank = 150 - 10 * roleDist;		
 			
-			//also, we want to wait for anyone who is still far away
-			if (maxDist - dist > 1 && dir.equals(Direction.NONE))
+			//unless someone's really far away so we ought to wait up
+			if (roleDist <= 2 && maxDist > 2 )
 			{
-				rank += 100;
+				rank = targetDist * 10;
 			}
+	
 			
 			//each role has a minor preference over the type of move
 			if (role.equals(Direction.UP))
@@ -269,12 +272,10 @@ public class Predator extends Agent
 		if (targetID == -1)
 		{
 			findTarget();
+			castRoles();
 		}
-		castRoles();
 		return followTarget();
 	}
-	
-
 
 	private void findTarget()
 	{
@@ -296,8 +297,6 @@ public class Predator extends Agent
 			id++;
 		}	
 	}
-	
-
 
 	private void castRoles()
 	{
@@ -309,6 +308,7 @@ public class Predator extends Agent
 		}
 		catch (Exception e)
 		{
+			System.err.println(e);
 			e.printStackTrace();
 		}
 		
@@ -320,15 +320,16 @@ public class Predator extends Agent
 				int min = 15;
 				Position minPos = null;
 				
+				Position roleTarget = getNewPos(target, dir);
 				if (!roles.containsKey(0))	//initialise role to self if we don't already have a role
 				{
 					roleID = 0;
-					min = Math.abs(target.x) + Math.abs(target.y);
+					min = Math.abs(roleTarget.x) + Math.abs(roleTarget.y);
 					minPos = new Position(0,0);
 				}
 				
 				int id = 0;
-				Position roleTarget = getNewPos(target, dir);
+				
 				for (ObjectSeen predator : seen)
 				{
 					id++;
@@ -354,7 +355,7 @@ public class Predator extends Agent
 				
 			}
 		}
-		//System.out.println(roles.toString());
+		System.out.println(roles.toString());
 	}
 
 
@@ -414,8 +415,8 @@ public class Predator extends Agent
 		boolean foundCollision;
 		do
 		{
-			foundCollision = false;
 			Integer prIds[] = nextSquare.keySet().toArray(new Integer[nextSquare.keySet().size()]);
+			foundCollision = false;
 			
 			for (int i = 0; i < prIds.length-1; i++)
 			{
@@ -468,8 +469,13 @@ public class Predator extends Agent
 							nextMove.put(i, dir);
 							nextSquare.put(i, newPos);
 						}
+						break;
 
-					}
+					}					
+				}
+				if (foundCollision)
+				{
+					break;
 				}
 			}
 			
@@ -555,6 +561,7 @@ public class Predator extends Agent
 	private boolean breakTie(Position pos1, Position pos2, Position ref)
 	{
 		int xDist1 = pos1.x - ref.x;
+	
 		if (xDist1 > 7)
 		{
 			xDist1 -= 15;

@@ -33,11 +33,11 @@ ${pursuit} -conf ${pursuit_conf} &    # start the server (no visualization yet)
 sleep 1
 ${predator}  &                       
 sleep 1
-${predator}  > /dev/null & 
+${predator}  & 
 sleep 1
-${predator}  > /dev/null  & 
+${predator}  & 
 sleep 1
-${predator}  > /dev/null & 
+${predator}  & 
 sleep 1
 ${prey}     & 
 sleep 1
