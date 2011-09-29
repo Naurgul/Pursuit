@@ -23,6 +23,55 @@ public class Predator extends Agent
 			this.x = x;
 			this.y = y;
 		}
+
+		@Override
+		public int hashCode()
+		{
+			final int prime = 31;
+			int result = 1;
+			result = prime * result + getOuterType().hashCode();
+			result = prime * result + x;
+			result = prime * result + y;
+			return result;
+		}
+
+		@Override
+		public boolean equals(Object obj)
+		{
+			if (this == obj)
+			{
+				return true;
+			}
+			if (obj == null)
+			{
+				return false;
+			}
+			if (!(obj instanceof Position))
+			{
+				return false;
+			}
+			Position other = (Position) obj;
+			if (!getOuterType().equals(other.getOuterType()))
+			{
+				return false;
+			}
+			if (x != other.x)
+			{
+				return false;
+			}
+			if (y != other.y)
+			{
+				return false;
+			}
+			return true;
+		}
+
+		private Predator getOuterType()
+		{
+			return Predator.this;
+		}
+
+
 	}
 
 	class ObjectSeen
@@ -220,8 +269,8 @@ public class Predator extends Agent
 		if (targetID == -1)
 		{
 			findTarget();
-			castRoles();
 		}
+		castRoles();
 		return followTarget();
 	}
 	
@@ -305,25 +354,30 @@ public class Predator extends Agent
 				
 			}
 		}
-		System.out.println(roles.toString());
+		//System.out.println(roles.toString());
 	}
 
 
 
 	private Direction followTarget()
 	{
-		int id = 0;
 		HashMap<Integer, LinkedList<Direction>> allMoves = new HashMap<Integer, LinkedList<Direction>>();
-		int maxDist = 0;
+		
+		ObjectSeen targetPrey = null;
 		try
 		{
-			maxDist = getMaxDistance(getObject(targetID));	
+			targetPrey = getObject(targetID);
 		}
 		catch (Exception e)
 		{
 			System.err.println(e);
 		}
 		
+		int maxDist = getMaxDistance(targetPrey);
+		
+		//get lists for every predator's possible moves (ordered by preference) 
+		allMoves.put(0, getMovesPreference(0, maxDist));
+		int id = 1;
 		for (ObjectSeen predator : seen)
 		{
 			if (predator.type.equals(AgentType.PREDATOR))
@@ -333,12 +387,94 @@ public class Predator extends Agent
 			}			
 		}
 		
-		HashMap<Integer, Direction> nextMove = new HashMap<Integer, Direction>();		
+		//start with each predator's most preferred move
+		HashMap<Integer, Position> nextSquare = new HashMap<Integer, Position>();
+		HashMap<Integer, Direction> nextMove = new HashMap<Integer, Direction>();	
 		for (int predatorID : allMoves.keySet())
 		{
-			nextMove.put(predatorID, allMoves.get(predatorID).pollFirst());
+			Direction dir = allMoves.get(predatorID).pollFirst();
+			ObjectSeen predator = null;
+			try
+			{
+				predator = getObject(predatorID);
+			}
+			catch (Exception e)
+			{
+				System.err.println(e);
+				e.printStackTrace();
+			}
+			Position newPos = getNewPos(predator.pos, dir);
+			
+			nextMove.put(predatorID, dir);
+			nextSquare.put(predatorID, newPos);
 		}
+
 		
+		//look through all pairs of predators
+		boolean foundCollision;
+		do
+		{
+			foundCollision = false;
+			Integer prIds[] = nextSquare.keySet().toArray(new Integer[nextSquare.keySet().size()]);
+			
+			for (int i = 0; i < prIds.length-1; i++)
+			{
+				for (int j = i+1; j < prIds.length; j++)
+				{
+					Position iSquare = nextSquare.get(prIds[i]);
+					Position jSquare = nextSquare.get(prIds[j]);
+					
+					//check if their plans lead to a collision
+					if (iSquare.equals(jSquare))
+					{
+						foundCollision = true;
+						
+						//decide who gives way with an arbitrary deterministic rule 
+						if (breakTie(iSquare, jSquare, targetPrey.pos))
+						{
+							Direction dir = allMoves.get(j).pollFirst();
+							ObjectSeen predator = null;
+							try
+							{
+								predator = getObject(j);
+							}
+							catch (Exception e)
+							{
+								System.err.println(e);
+								e.printStackTrace();
+							}
+							Position newPos = getNewPos(predator.pos, dir);
+							
+							System.out.println("Changing move from " + nextMove.get(j) + " to " + dir + "(" + allMoves.get(j).size() + " alternates left)");
+							nextMove.put(j, dir);
+							nextSquare.put(j, newPos);
+						}
+						else 
+						{
+							Direction dir = allMoves.get(i).pollFirst();
+							ObjectSeen predator = null;
+							try
+							{
+								predator = getObject(i);
+							}
+							catch (Exception e)
+							{
+								System.err.println(e);
+								e.printStackTrace();
+							}
+							Position newPos = getNewPos(predator.pos, dir);
+							
+							System.out.println("Changing move from " + nextMove.get(i) + " to " + dir + "(" + allMoves.get(i).size() + " alternates left)");
+							nextMove.put(i, dir);
+							nextSquare.put(i, newPos);
+						}
+
+					}
+				}
+			}
+			
+			
+		}while (foundCollision);
 		
 		
 		return nextMove.get(0);
@@ -365,7 +501,7 @@ public class Predator extends Agent
 		}
 		else
 		{
-			return seen.get(id);
+			return seen.get(id-1);
 		}
 	}
 	
@@ -641,6 +777,7 @@ public class Predator extends Agent
 	 */
 	public void preyCaught()
 	{
+		targetID = -1;
 		System.out.println("PREY CAUGHT\n");
 	}
 

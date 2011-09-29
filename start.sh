@@ -31,13 +31,13 @@ prey="/home/nikolas/Desktop/pursuit/bin/prey"
 
 ${pursuit} -conf ${pursuit_conf} &    # start the server (no visualization yet)
 sleep 1
-${predator}   &                       
+${predator}  &                       
 sleep 1
-${predator}   & 
+${predator}  > /dev/null & 
 sleep 1
-${predator}    & 
+${predator}  > /dev/null  & 
 sleep 1
-${predator}   & 
+${predator}  > /dev/null & 
 sleep 1
 ${prey}     & 
 sleep 1
