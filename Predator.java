@@ -85,9 +85,9 @@ public class Predator extends Agent
 	{
 		if (targetID == -1)
 		{
-			findTarget();	
+			findTarget();
+			castRoles();
 		}
-		castRoles();
 		return followTarget();
 	}
 	
@@ -130,6 +130,7 @@ public class Predator extends Agent
 
 	private void castRoles()
 	{
+		roles.clear();
 		Position target = null;
 		try
 		{
@@ -144,12 +145,19 @@ public class Predator extends Agent
 		{
 			if (!dir.equals(Direction.NONE))
 			{
-				int id = 0;
-				int roleID = id;
-				Position minPos = new Position(0,0);
-				int min = Math.abs(target.x) + Math.abs(target.y);
-				Position roleTarget = getRoleTarget(target, dir);
+				int roleID = -1;
+				int min = 15;
+				Position minPos = null;
 				
+				if (!roles.containsKey(0))	//initialise role to self if we don't already have a role
+				{
+					roleID = 0;
+					min = Math.abs(target.x) + Math.abs(target.y);
+					minPos = new Position(0,0);
+				}
+				
+				int id = 0;
+				Position roleTarget = getRoleTarget(target, dir);
 				for (ObjectSeen predator : seen)
 				{
 					id++;
@@ -168,7 +176,11 @@ public class Predator extends Agent
 						}
 					}
 				}
-				roles.put(roleID, dir);
+				if (roleID >= 0)
+				{
+					roles.put(roleID, dir);	
+				}
+				
 			}
 		}
 		System.out.println(roles.toString());

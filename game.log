@@ -1,11 +1,1585 @@
 (server_param (visible_distance -1) (rows 15) (columns 15))
-(world (stats 1 1 0.000000 0 0) ((predator 1 ) 13 6) ((predator 2 ) 10 1) ((predator 3 ) 8 0) ((predator 4 ) 4 14) ((prey 1 ) 5 1) ((prey 2 ) 13 7))
-(world (stats 1 1 0.000000 0 0) ((predator 1 ) 13 6) ((predator 2 ) 10 1) ((predator 3 ) 8 0) ((predator 4 ) 4 14) ((prey 1 ) 5 1) ((prey 2 ) 13 7))
+(world (stats 1 1 0.000000 0 0) ((predator 1 ) 8 4) ((predator 2 ) 14 7) ((predator 3 ) 0 13) ((predator 4 ) 3 7) ((prey 1 ) 14 4) ((prey 2 ) 4 7))
+(world (stats 1 1 0.000000 0 0) ((predator 1 ) 8 4) ((predator 2 ) 14 7) ((predator 3 ) 0 13) ((predator 4 ) 3 7) ((prey 1 ) 14 4) ((prey 2 ) 4 7))
 EPISODE 1 CYCLE 1b ACTION PHASE
+Recv	(predator 3 ): (move north)
+Recv	(predator 4 ): (move west)
+Recv	(predator 2 ): (move south)
+Recv	(predator 1 ): (move east)
+(world (stats 1 2 0.000000 0 0) ((predator 1 ) 9 4) ((predator 2 ) 14 6) ((predator 3 ) 0 14) ((predator 4 ) 2 7) ((prey 1 ) 14 4) ((prey 2 ) 4 7))
+EPISODE 1 CYCLE 2a ACTION PHASE
+Recv	(prey 1 ): (move west)
+Recv	(prey 2 ): (move south)
+(world (stats 1 2 0.000000 0 0) ((predator 1 ) 9 4) ((predator 2 ) 14 6) ((predator 3 ) 0 14) ((predator 4 ) 2 7) ((prey 1 ) 13 4) ((prey 2 ) 4 6))
+EPISODE 1 CYCLE 2b ACTION PHASE
+Recv	(predator 1 ): (move east)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move north)
+Recv	(predator 4 ): (move west)
+(world (stats 1 3 0.000000 0 0) ((predator 1 ) 10 4) ((predator 2 ) 14 6) ((predator 3 ) 0 0) ((predator 4 ) 1 7) ((prey 1 ) 13 4) ((prey 2 ) 4 6))
+EPISODE 1 CYCLE 3a ACTION PHASE
+Recv	(prey 1 ): (move south)
+Recv	(prey 2 ): (move east)
+(world (stats 1 3 0.000000 0 0) ((predator 1 ) 10 4) ((predator 2 ) 14 6) ((predator 3 ) 0 0) ((predator 4 ) 1 7) ((prey 1 ) 13 3) ((prey 2 ) 5 6))
+EPISODE 1 CYCLE 3b ACTION PHASE
+Recv	(predator 1 ): (move east)
+Recv	(predator 2 ): (move south)
+Recv	(predator 3 ): (move north)
+Recv	(predator 4 ): (move south)
+(world (stats 1 4 0.000000 0 0) ((predator 1 ) 11 4) ((predator 2 ) 14 5) ((predator 3 ) 0 1) ((predator 4 ) 1 6) ((prey 1 ) 13 3) ((prey 2 ) 5 6))
+EPISODE 1 CYCLE 4a ACTION PHASE
+Recv	(prey 1 ): (move west)
+Recv	(prey 2 ): (move south)
+(world (stats 1 4 0.000000 0 0) ((predator 1 ) 11 4) ((predator 2 ) 14 5) ((predator 3 ) 0 1) ((predator 4 ) 1 6) ((prey 1 ) 12 3) ((prey 2 ) 5 5))
+EPISODE 1 CYCLE 4b ACTION PHASE
+Recv	(predator 1 ): (move none)
 Recv	(predator 2 ): (move west)
 Recv	(predator 3 ): (move west)
-Recv	(predator 4 ): (move north)
+Recv	(predator 4 ): (move west)
+(world (stats 1 5 0.000000 0 0) ((predator 1 ) 11 4) ((predator 2 ) 13 5) ((predator 3 ) 14 1) ((predator 4 ) 0 6) ((prey 1 ) 12 3) ((prey 2 ) 5 5))
+EPISODE 1 CYCLE 5a ACTION PHASE
+Recv	(prey 1 ): (move south)
+Recv	(prey 2 ): (move east)
+(world (stats 1 5 0.000000 0 0) ((predator 1 ) 11 4) ((predator 2 ) 13 5) ((predator 3 ) 14 1) ((predator 4 ) 0 6) ((prey 1 ) 12 2) ((prey 2 ) 6 5))
+EPISODE 1 CYCLE 5b ACTION PHASE
+Recv	(predator 1 ): (move south)
+Recv	(predator 2 ): (move south)
+Recv	(predator 3 ): (move west)
+Recv	(predator 4 ): (move south)
+(world (stats 1 6 0.000000 0 0) ((predator 1 ) 11 3) ((predator 2 ) 13 4) ((predator 3 ) 13 1) ((predator 4 ) 0 5) ((prey 1 ) 12 2) ((prey 2 ) 6 5))
+EPISODE 1 CYCLE 6a ACTION PHASE
+Recv	(prey 1 ): (move west)
+Recv	(prey 2 ): (move none)
+(world (stats 1 6 0.000000 0 0) ((predator 1 ) 11 3) ((predator 2 ) 13 4) ((predator 3 ) 13 1) ((predator 4 ) 0 5) ((prey 1 ) 11 2) ((prey 2 ) 6 5))
+EPISODE 1 CYCLE 6b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move west)
+Recv	(predator 3 ): (move west)
+Recv	(predator 4 ): (move south)
+(world (stats 1 7 0.000000 0 0) ((predator 1 ) 11 3) ((predator 2 ) 12 4) ((predator 3 ) 12 1) ((predator 4 ) 0 4) ((prey 1 ) 11 2) ((prey 2 ) 6 5))
+EPISODE 1 CYCLE 7a ACTION PHASE
+Recv	(prey 1 ): (move west)
+Recv	(prey 2 ): (move east)
+(world (stats 1 7 0.000000 0 0) ((predator 1 ) 11 3) ((predator 2 ) 12 4) ((predator 3 ) 12 1) ((predator 4 ) 0 4) ((prey 1 ) 10 2) ((prey 2 ) 7 5))
+EPISODE 1 CYCLE 7b ACTION PHASE
+Recv	(predator 1 ): (move west)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move west)
+Recv	(predator 4 ): (move west)
+(world (stats 1 8 0.000000 0 0) ((predator 1 ) 10 3) ((predator 2 ) 12 4) ((predator 3 ) 11 1) ((predator 4 ) 14 4) ((prey 1 ) 10 2) ((prey 2 ) 7 5))
+EPISODE 1 CYCLE 8a ACTION PHASE
+Recv	(prey 1 ): (move east)
+Recv	(prey 2 ): (move east)
+(world (stats 1 8 0.000000 0 0) ((predator 1 ) 10 3) ((predator 2 ) 12 4) ((predator 3 ) 11 1) ((predator 4 ) 14 4) ((prey 1 ) 11 2) ((prey 2 ) 8 5))
+EPISODE 1 CYCLE 8b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 9 0.000000 0 0) ((predator 1 ) 10 3) ((predator 2 ) 12 4) ((predator 3 ) 11 1) ((predator 4 ) 14 4) ((prey 1 ) 11 2) ((prey 2 ) 8 5))
+EPISODE 1 CYCLE 9a ACTION PHASE
+Recv	(prey 1 ): (move west)
+Recv	(prey 2 ): (move east)
+(world (stats 1 9 0.000000 0 0) ((predator 1 ) 10 3) ((predator 2 ) 12 4) ((predator 3 ) 11 1) ((predator 4 ) 14 4) ((prey 1 ) 10 2) ((prey 2 ) 9 5))
+EPISODE 1 CYCLE 9b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move west)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 10 0.000000 0 0) ((predator 1 ) 10 3) ((predator 2 ) 11 4) ((predator 3 ) 11 1) ((predator 4 ) 14 4) ((prey 1 ) 10 2) ((prey 2 ) 9 5))
+EPISODE 1 CYCLE 10a ACTION PHASE
+Recv	(prey 1 ): (move south)
+Recv	(prey 2 ): (move east)
+(world (stats 1 10 0.000000 0 0) ((predator 1 ) 10 3) ((predator 2 ) 11 4) ((predator 3 ) 11 1) ((predator 4 ) 14 4) ((prey 1 ) 10 1) ((prey 2 ) 10 5))
+EPISODE 1 CYCLE 10b ACTION PHASE
+Recv	(predator 1 ): (move south)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move west)
+(world (stats 1 11 0.000000 0 0) ((predator 1 ) 10 2) ((predator 2 ) 11 4) ((predator 3 ) 11 1) ((predator 4 ) 13 4) ((prey 1 ) 10 1) ((prey 2 ) 10 5))
+EPISODE 1 CYCLE 11a ACTION PHASE
+Recv	(prey 1 ): (move none)
+Recv	(prey 2 ): (move south)
+(world (stats 1 11 0.000000 0 0) ((predator 1 ) 10 2) ((predator 2 ) 11 4) ((predator 3 ) 11 1) ((predator 4 ) 13 4) ((prey 1 ) 10 1) ((prey 2 ) 10 4))
+EPISODE 1 CYCLE 11b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move south)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 12 0.000000 0 0) ((predator 1 ) 10 2) ((predator 2 ) 11 3) ((predator 3 ) 11 1) ((predator 4 ) 13 4) ((prey 1 ) 10 1) ((prey 2 ) 10 4))
+EPISODE 1 CYCLE 12a ACTION PHASE
+Recv	(prey 1 ): (move west)
+Recv	(prey 2 ): (move none)
+(world (stats 1 12 0.000000 0 0) ((predator 1 ) 10 2) ((predator 2 ) 11 3) ((predator 3 ) 11 1) ((predator 4 ) 13 4) ((prey 1 ) 9 1) ((prey 2 ) 10 4))
+EPISODE 1 CYCLE 12b ACTION PHASE
+Recv	(predator 1 ): (move west)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move west)
+(world (stats 1 13 0.000000 0 0) ((predator 1 ) 9 2) ((predator 2 ) 11 3) ((predator 3 ) 11 1) ((predator 4 ) 12 4) ((prey 1 ) 9 1) ((prey 2 ) 10 4))
+EPISODE 1 CYCLE 13a ACTION PHASE
+Recv	(prey 1 ): (move south)
+Recv	(prey 2 ): (move north)
+(world (stats 1 13 0.000000 0 0) ((predator 1 ) 9 2) ((predator 2 ) 11 3) ((predator 3 ) 11 1) ((predator 4 ) 12 4) ((prey 1 ) 9 0) ((prey 2 ) 10 5))
+EPISODE 1 CYCLE 13b ACTION PHASE
+Recv	(predator 1 ): (move south)
+Recv	(predator 2 ): (move west)
+Recv	(predator 3 ): (move west)
+Recv	(predator 4 ): (move none)
+(world (stats 1 14 0.000000 0 0) ((predator 1 ) 9 1) ((predator 2 ) 10 3) ((predator 3 ) 10 1) ((predator 4 ) 12 4) ((prey 1 ) 9 0) ((prey 2 ) 10 5))
+EPISODE 1 CYCLE 14a ACTION PHASE
+Recv	(prey 1 ): (move west)
+Recv	(prey 2 ): (move south)
+(world (stats 1 14 0.000000 0 0) ((predator 1 ) 9 1) ((predator 2 ) 10 3) ((predator 3 ) 10 1) ((predator 4 ) 12 4) ((prey 1 ) 8 0) ((prey 2 ) 10 4))
+EPISODE 1 CYCLE 14b ACTION PHASE
+Recv	(predator 1 ): (move west)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move west)
+(world (stats 1 15 0.000000 0 0) ((predator 1 ) 8 1) ((predator 2 ) 10 3) ((predator 3 ) 10 1) ((predator 4 ) 11 4) ((prey 1 ) 8 0) ((prey 2 ) 10 4))
+EPISODE 1 CYCLE 15a ACTION PHASE
+Recv	(prey 1 ): (move east)
+Recv	(prey 2 ): (move west)
+(world (stats 1 15 0.000000 0 0) ((predator 1 ) 8 1) ((predator 2 ) 10 3) ((predator 3 ) 10 1) ((predator 4 ) 11 4) ((prey 1 ) 9 0) ((prey 2 ) 9 4))
+EPISODE 1 CYCLE 15b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move south)
+Recv	(predator 4 ): (move none)
+(world (stats 1 16 0.000000 0 0) ((predator 1 ) 8 1) ((predator 2 ) 10 3) ((predator 3 ) 10 0) ((predator 4 ) 11 4) ((prey 1 ) 9 0) ((prey 2 ) 9 4))
+EPISODE 1 CYCLE 16a ACTION PHASE
+Recv	(prey 1 ): (move west)
+Recv	(prey 2 ): (move east)
+(world (stats 1 16 0.000000 0 0) ((predator 1 ) 8 1) ((predator 2 ) 10 3) ((predator 3 ) 10 0) ((predator 4 ) 11 4) ((prey 1 ) 8 0) ((prey 2 ) 10 4))
+EPISODE 1 CYCLE 16b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move west)
+Recv	(predator 3 ): (move west)
+Recv	(predator 4 ): (move none)
+(world (stats 1 17 0.000000 0 0) ((predator 1 ) 8 1) ((predator 2 ) 9 3) ((predator 3 ) 9 0) ((predator 4 ) 11 4) ((prey 1 ) 8 0) ((prey 2 ) 10 4))
+EPISODE 1 CYCLE 17a ACTION PHASE
+Recv	(prey 1 ): (move west)
+Recv	(prey 2 ): (move none)
+(world (stats 1 17 0.000000 0 0) ((predator 1 ) 8 1) ((predator 2 ) 9 3) ((predator 3 ) 9 0) ((predator 4 ) 11 4) ((prey 1 ) 7 0) ((prey 2 ) 10 4))
+EPISODE 1 CYCLE 17b ACTION PHASE
+Recv	(predator 1 ): (move west)
+Recv	(predator 2 ): (move west)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move west)
+(world (stats 1 18 0.000000 0 0) ((predator 1 ) 7 1) ((predator 2 ) 8 3) ((predator 3 ) 9 0) ((predator 4 ) 10 4) ((prey 1 ) 7 0) ((prey 2 ) 10 4))
+EPISODE 1 CYCLE 18a ACTION PHASE
+Recv	(prey 1 ): (move west)
+Recv	(prey 2 ): (move none)
+(world (stats 1 18 0.000000 0 0) ((predator 1 ) 7 1) ((predator 2 ) 8 3) ((predator 3 ) 9 0) ((predator 4 ) 10 4) ((prey 1 ) 6 0) ((prey 2 ) 10 4))
+EPISODE 1 CYCLE 18b ACTION PHASE
+Recv	(predator 1 ): (move west)
+Recv	(predator 2 ): (move south)
+Recv	(predator 3 ): (move west)
+Recv	(predator 4 ): (move south)
+(world (stats 1 19 0.000000 0 0) ((predator 1 ) 6 1) ((predator 2 ) 8 2) ((predator 3 ) 8 0) ((predator 4 ) 10 3) ((prey 1 ) 6 0) ((prey 2 ) 10 4))
+EPISODE 1 CYCLE 19a ACTION PHASE
+Recv	(prey 1 ): (move south)
+Recv	(prey 2 ): (move north)
+(world (stats 1 19 0.000000 0 0) ((predator 1 ) 6 1) ((predator 2 ) 8 2) ((predator 3 ) 8 0) ((predator 4 ) 10 3) ((prey 1 ) 6 14) ((prey 2 ) 10 5))
+EPISODE 1 CYCLE 19b ACTION PHASE
+Recv	(predator 4 ): (move west)
+Recv	(predator 3 ): (move west)
+Recv	(predator 2 ): (move west)
+Recv	(predator 1 ): (move south)
+(world (stats 1 20 0.000000 0 0) ((predator 1 ) 6 0) ((predator 2 ) 7 2) ((predator 3 ) 7 0) ((predator 4 ) 9 3) ((prey 1 ) 6 14) ((prey 2 ) 10 5))
+EPISODE 1 CYCLE 20a ACTION PHASE
+Recv	(prey 1 ): (move south)
+Recv	(prey 2 ): (move none)
+(world (stats 1 20 0.000000 0 0) ((predator 1 ) 6 0) ((predator 2 ) 7 2) ((predator 3 ) 7 0) ((predator 4 ) 9 3) ((prey 1 ) 6 13) ((prey 2 ) 10 5))
+EPISODE 1 CYCLE 20b ACTION PHASE
+Recv	(predator 1 ): (move south)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move south)
+Recv	(predator 4 ): (move south)
+(world (stats 1 21 0.000000 0 0) ((predator 1 ) 6 14) ((predator 2 ) 7 2) ((predator 3 ) 7 14) ((predator 4 ) 9 2) ((prey 1 ) 6 13) ((prey 2 ) 10 5))
+EPISODE 1 CYCLE 21a ACTION PHASE
+Recv	(prey 1 ): (move south)
+Recv	(prey 2 ): (move east)
+(world (stats 1 21 0.000000 0 0) ((predator 1 ) 6 14) ((predator 2 ) 7 2) ((predator 3 ) 7 14) ((predator 4 ) 9 2) ((prey 1 ) 6 12) ((prey 2 ) 11 5))
+EPISODE 1 CYCLE 21b ACTION PHASE
+Recv	(predator 1 ): (move south)
+Recv	(predator 2 ): (move south)
+Recv	(predator 3 ): (move south)
+Recv	(predator 4 ): (move none)
+(world (stats 1 22 0.000000 0 0) ((predator 1 ) 6 13) ((predator 2 ) 7 1) ((predator 3 ) 7 13) ((predator 4 ) 9 2) ((prey 1 ) 6 12) ((prey 2 ) 11 5))
+EPISODE 1 CYCLE 22a ACTION PHASE
+Recv	(prey 1 ): (move west)
+Recv	(prey 2 ): (move east)
+(world (stats 1 22 0.000000 0 0) ((predator 1 ) 6 13) ((predator 2 ) 7 1) ((predator 3 ) 7 13) ((predator 4 ) 9 2) ((prey 1 ) 5 12) ((prey 2 ) 12 5))
+EPISODE 1 CYCLE 22b ACTION PHASE
+Recv	(predator 1 ): (move west)
+Recv	(predator 2 ): (move south)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move west)
+(world (stats 1 23 0.000000 0 0) ((predator 1 ) 5 13) ((predator 2 ) 7 0) ((predator 3 ) 7 13) ((predator 4 ) 8 2) ((prey 1 ) 5 12) ((prey 2 ) 12 5))
+EPISODE 1 CYCLE 23a ACTION PHASE
+Recv	(prey 1 ): (move none)
+Recv	(prey 2 ): (move north)
+(world (stats 1 23 0.000000 0 0) ((predator 1 ) 5 13) ((predator 2 ) 7 0) ((predator 3 ) 7 13) ((predator 4 ) 8 2) ((prey 1 ) 5 12) ((prey 2 ) 12 6))
+EPISODE 1 CYCLE 23b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move south)
+Recv	(predator 4 ): (move west)
+(world (stats 1 24 0.000000 0 0) ((predator 1 ) 5 13) ((predator 2 ) 7 0) ((predator 3 ) 7 12) ((predator 4 ) 7 2) ((prey 1 ) 5 12) ((prey 2 ) 12 6))
+EPISODE 1 CYCLE 24a ACTION PHASE
+Recv	(prey 1 ): (move west)
+Recv	(prey 2 ): (move east)
+(world (stats 1 24 0.000000 0 0) ((predator 1 ) 5 13) ((predator 2 ) 7 0) ((predator 3 ) 7 12) ((predator 4 ) 7 2) ((prey 1 ) 4 12) ((prey 2 ) 13 6))
+EPISODE 1 CYCLE 24b ACTION PHASE
+Recv	(predator 1 ): (move west)
+Recv	(predator 2 ): (move south)
+Recv	(predator 3 ): (move west)
+Recv	(predator 4 ): (move west)
+(world (stats 1 25 0.000000 0 0) ((predator 1 ) 4 13) ((predator 2 ) 7 14) ((predator 3 ) 6 12) ((predator 4 ) 6 2) ((prey 1 ) 4 12) ((prey 2 ) 13 6))
+EPISODE 1 CYCLE 25a ACTION PHASE
+Recv	(prey 2 ): (move west)
+Recv	(prey 1 ): (move west)
+(world (stats 1 25 0.000000 0 0) ((predator 1 ) 4 13) ((predator 2 ) 7 14) ((predator 3 ) 6 12) ((predator 4 ) 6 2) ((prey 1 ) 3 12) ((prey 2 ) 12 6))
+EPISODE 1 CYCLE 25b ACTION PHASE
+Recv	(predator 1 ): (move west)
+Recv	(predator 2 ): (move west)
+Recv	(predator 3 ): (move west)
+Recv	(predator 4 ): (move west)
+(world (stats 1 26 0.000000 0 0) ((predator 1 ) 3 13) ((predator 2 ) 6 14) ((predator 3 ) 5 12) ((predator 4 ) 5 2) ((prey 1 ) 3 12) ((prey 2 ) 12 6))
+EPISODE 1 CYCLE 26a ACTION PHASE
+Recv	(prey 2 ): (move east)
+Recv	(prey 1 ): (move east)
+(world (stats 1 26 0.000000 0 0) ((predator 1 ) 3 13) ((predator 2 ) 6 14) ((predator 3 ) 5 12) ((predator 4 ) 5 2) ((prey 1 ) 4 12) ((prey 2 ) 13 6))
+EPISODE 1 CYCLE 26b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move west)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move south)
+(world (stats 1 27 0.000000 0 0) ((predator 1 ) 3 13) ((predator 2 ) 5 14) ((predator 3 ) 5 12) ((predator 4 ) 5 1) ((prey 1 ) 4 12) ((prey 2 ) 13 6))
+EPISODE 1 CYCLE 27a ACTION PHASE
+Recv	(prey 1 ): (move none)
+Recv	(prey 2 ): (move none)
+(world (stats 1 27 0.000000 0 0) ((predator 1 ) 3 13) ((predator 2 ) 5 14) ((predator 3 ) 5 12) ((predator 4 ) 5 1) ((prey 1 ) 4 12) ((prey 2 ) 13 6))
+EPISODE 1 CYCLE 27b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 28 0.000000 0 0) ((predator 1 ) 3 13) ((predator 2 ) 5 14) ((predator 3 ) 5 12) ((predator 4 ) 5 1) ((prey 1 ) 4 12) ((prey 2 ) 13 6))
+EPISODE 1 CYCLE 28a ACTION PHASE
+Recv	(prey 1 ): (move north)
+Recv	(prey 2 ): (move east)
+(world (stats 1 28 0.000000 0 0) ((predator 1 ) 3 13) ((predator 2 ) 5 14) ((predator 3 ) 5 12) ((predator 4 ) 5 1) ((prey 1 ) 4 13) ((prey 2 ) 14 6))
+EPISODE 1 CYCLE 28b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 29 0.000000 0 0) ((predator 1 ) 3 13) ((predator 2 ) 5 14) ((predator 3 ) 5 12) ((predator 4 ) 5 1) ((prey 1 ) 4 13) ((prey 2 ) 14 6))
+EPISODE 1 CYCLE 29a ACTION PHASE
+Recv	(prey 1 ): (move east)
+Recv	(prey 2 ): (move none)
+(world (stats 1 29 0.000000 0 0) ((predator 1 ) 3 13) ((predator 2 ) 5 14) ((predator 3 ) 5 12) ((predator 4 ) 5 1) ((prey 1 ) 5 13) ((prey 2 ) 14 6))
+EPISODE 1 CYCLE 29b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 30 0.000000 0 0) ((predator 1 ) 3 13) ((predator 2 ) 5 14) ((predator 3 ) 5 12) ((predator 4 ) 5 1) ((prey 1 ) 5 13) ((prey 2 ) 14 6))
+EPISODE 1 CYCLE 30a ACTION PHASE
+Recv	(prey 1 ): (move east)
+Recv	(prey 2 ): (move east)
+(world (stats 1 30 0.000000 0 0) ((predator 1 ) 3 13) ((predator 2 ) 5 14) ((predator 3 ) 5 12) ((predator 4 ) 5 1) ((prey 1 ) 6 13) ((prey 2 ) 0 6))
+EPISODE 1 CYCLE 30b ACTION PHASE
 Recv	(predator 1 ): (move east)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 31 0.000000 0 0) ((predator 1 ) 4 13) ((predator 2 ) 5 14) ((predator 3 ) 5 12) ((predator 4 ) 5 1) ((prey 1 ) 6 13) ((prey 2 ) 0 6))
+EPISODE 1 CYCLE 31a ACTION PHASE
+Recv	(prey 1 ): (move west)
+Recv	(prey 2 ): (move south)
+(world (stats 1 31 0.000000 0 0) ((predator 1 ) 4 13) ((predator 2 ) 5 14) ((predator 3 ) 5 12) ((predator 4 ) 5 1) ((prey 1 ) 5 13) ((prey 2 ) 0 5))
+EPISODE 1 CYCLE 31b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 32 0.000000 0 0) ((predator 1 ) 4 13) ((predator 2 ) 5 14) ((predator 3 ) 5 12) ((predator 4 ) 5 1) ((prey 1 ) 5 13) ((prey 2 ) 0 5))
+EPISODE 1 CYCLE 32a ACTION PHASE
+Recv	(prey 1 ): (move east)
+Recv	(prey 2 ): (move south)
+(world (stats 1 32 0.000000 0 0) ((predator 1 ) 4 13) ((predator 2 ) 5 14) ((predator 3 ) 5 12) ((predator 4 ) 5 1) ((prey 1 ) 6 13) ((prey 2 ) 0 4))
+EPISODE 1 CYCLE 32b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 33 0.000000 0 0) ((predator 1 ) 4 13) ((predator 2 ) 5 14) ((predator 3 ) 5 12) ((predator 4 ) 5 1) ((prey 1 ) 6 13) ((prey 2 ) 0 4))
+EPISODE 1 CYCLE 33a ACTION PHASE
+Recv	(prey 1 ): (move south)
+Recv	(prey 2 ): (move north)
+(world (stats 1 33 0.000000 0 0) ((predator 1 ) 4 13) ((predator 2 ) 5 14) ((predator 3 ) 5 12) ((predator 4 ) 5 1) ((prey 1 ) 6 12) ((prey 2 ) 0 5))
+EPISODE 1 CYCLE 33b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move east)
+(world (stats 1 34 0.000000 0 0) ((predator 1 ) 4 13) ((predator 2 ) 5 14) ((predator 3 ) 5 12) ((predator 4 ) 6 1) ((prey 1 ) 6 12) ((prey 2 ) 0 5))
+EPISODE 1 CYCLE 34a ACTION PHASE
+Recv	(prey 1 ): (move north)
+Recv	(prey 2 ): (move east)
+(world (stats 1 34 0.000000 0 0) ((predator 1 ) 4 13) ((predator 2 ) 5 14) ((predator 3 ) 5 12) ((predator 4 ) 6 1) ((prey 1 ) 6 13) ((prey 2 ) 1 5))
+EPISODE 1 CYCLE 34b ACTION PHASE
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move south)
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+(world (stats 1 35 0.000000 0 0) ((predator 1 ) 4 13) ((predator 2 ) 5 14) ((predator 3 ) 5 12) ((predator 4 ) 6 0) ((prey 1 ) 6 13) ((prey 2 ) 1 5))
+EPISODE 1 CYCLE 35a ACTION PHASE
+Recv	(prey 2 ): (move west)
+Recv	(prey 1 ): (move east)
+(world (stats 1 35 0.000000 0 0) ((predator 1 ) 4 13) ((predator 2 ) 5 14) ((predator 3 ) 5 12) ((predator 4 ) 6 0) ((prey 1 ) 7 13) ((prey 2 ) 0 5))
+EPISODE 1 CYCLE 35b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move east)
+Recv	(predator 4 ): (move none)
+(world (stats 1 36 0.000000 0 0) ((predator 1 ) 4 13) ((predator 2 ) 5 14) ((predator 3 ) 6 12) ((predator 4 ) 6 0) ((prey 1 ) 7 13) ((prey 2 ) 0 5))
+EPISODE 1 CYCLE 36a ACTION PHASE
+Recv	(prey 2 ): (move none)
+Recv	(prey 1 ): (move north)
+(world (stats 1 36 0.000000 0 0) ((predator 1 ) 4 13) ((predator 2 ) 5 14) ((predator 3 ) 6 12) ((predator 4 ) 6 0) ((prey 1 ) 7 14) ((prey 2 ) 0 5))
+EPISODE 1 CYCLE 36b ACTION PHASE
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move east)
+Recv	(predator 1 ): (move none)
+(world (stats 1 37 0.000000 0 0) ((predator 1 ) 4 13) ((predator 2 ) 5 14) ((predator 3 ) 6 12) ((predator 4 ) 7 0) ((prey 1 ) 7 14) ((prey 2 ) 0 5))
+EPISODE 1 CYCLE 37a ACTION PHASE
+Recv	(prey 1 ): (move south)
+Recv	(prey 2 ): (move none)
+(world (stats 1 37 0.000000 0 0) ((predator 1 ) 4 13) ((predator 2 ) 5 14) ((predator 3 ) 6 12) ((predator 4 ) 7 0) ((prey 1 ) 7 13) ((prey 2 ) 0 5))
+EPISODE 1 CYCLE 37b ACTION PHASE
+Recv	(predator 2 ): (move east)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move south)
+Recv	(predator 1 ): (move none)
+(world (stats 1 38 0.000000 0 0) ((predator 1 ) 4 13) ((predator 2 ) 6 14) ((predator 3 ) 6 12) ((predator 4 ) 7 14) ((prey 1 ) 7 13) ((prey 2 ) 0 5))
+EPISODE 1 CYCLE 38a ACTION PHASE
+Recv	(prey 2 ): (move east)
+Recv	(prey 1 ): (move south)
+(world (stats 1 38 0.000000 0 0) ((predator 1 ) 4 13) ((predator 2 ) 6 14) ((predator 3 ) 6 12) ((predator 4 ) 7 14) ((prey 1 ) 7 12) ((prey 2 ) 1 5))
+EPISODE 1 CYCLE 38b ACTION PHASE
+Recv	(predator 1 ): (move east)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move south)
+(world (stats 1 39 0.000000 0 0) ((predator 1 ) 5 13) ((predator 2 ) 6 14) ((predator 3 ) 6 12) ((predator 4 ) 7 13) ((prey 1 ) 7 12) ((prey 2 ) 1 5))
+EPISODE 1 CYCLE 39a ACTION PHASE
+Recv	(prey 2 ): (move north)
+Recv	(prey 1 ): (move none)
+(world (stats 1 39 0.000000 0 0) ((predator 1 ) 5 13) ((predator 2 ) 6 14) ((predator 3 ) 6 12) ((predator 4 ) 7 13) ((prey 1 ) 7 12) ((prey 2 ) 1 6))
+EPISODE 1 CYCLE 39b ACTION PHASE
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+Recv	(predator 1 ): (move none)
+(world (stats 1 40 0.000000 0 0) ((predator 1 ) 5 13) ((predator 2 ) 6 14) ((predator 3 ) 6 12) ((predator 4 ) 7 13) ((prey 1 ) 7 12) ((prey 2 ) 1 6))
+EPISODE 1 CYCLE 40a ACTION PHASE
+Recv	(prey 1 ): (move none)
+Recv	(prey 2 ): (move none)
+(world (stats 1 40 0.000000 0 0) ((predator 1 ) 5 13) ((predator 2 ) 6 14) ((predator 3 ) 6 12) ((predator 4 ) 7 13) ((prey 1 ) 7 12) ((prey 2 ) 1 6))
+EPISODE 1 CYCLE 40b ACTION PHASE
+Recv	(predator 3 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 4 ): (move none)
+Recv	(predator 1 ): (move none)
+(world (stats 1 41 0.000000 0 0) ((predator 1 ) 5 13) ((predator 2 ) 6 14) ((predator 3 ) 6 12) ((predator 4 ) 7 13) ((prey 1 ) 7 12) ((prey 2 ) 1 6))
+EPISODE 1 CYCLE 41a ACTION PHASE
+Recv	(prey 2 ): (move north)
+Recv	(prey 1 ): (move south)
+(world (stats 1 41 0.000000 0 0) ((predator 1 ) 5 13) ((predator 2 ) 6 14) ((predator 3 ) 6 12) ((predator 4 ) 7 13) ((prey 1 ) 7 11) ((prey 2 ) 1 7))
+EPISODE 1 CYCLE 41b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move south)
+Recv	(predator 4 ): (move none)
+(world (stats 1 42 0.000000 0 0) ((predator 1 ) 5 13) ((predator 2 ) 6 14) ((predator 3 ) 6 11) ((predator 4 ) 7 13) ((prey 1 ) 7 11) ((prey 2 ) 1 7))
+EPISODE 1 CYCLE 42a ACTION PHASE
+Recv	(prey 1 ): (move none)
+Recv	(prey 2 ): (move west)
+(world (stats 1 42 0.000000 0 0) ((predator 1 ) 5 13) ((predator 2 ) 6 14) ((predator 3 ) 6 11) ((predator 4 ) 7 13) ((prey 1 ) 7 11) ((prey 2 ) 0 7))
+EPISODE 1 CYCLE 42b ACTION PHASE
+Recv	(predator 2 ): (move none)
+Recv	(predator 1 ): (move south)
+Recv	(predator 4 ): (move south)
+Recv	(predator 3 ): (move none)
+(world (stats 1 43 0.000000 0 0) ((predator 1 ) 5 12) ((predator 2 ) 6 14) ((predator 3 ) 6 11) ((predator 4 ) 7 12) ((prey 1 ) 7 11) ((prey 2 ) 0 7))
+EPISODE 1 CYCLE 43a ACTION PHASE
+Recv	(prey 1 ): (move south)
+Recv	(prey 2 ): (move south)
+(world (stats 1 43 0.000000 0 0) ((predator 1 ) 5 12) ((predator 2 ) 6 14) ((predator 3 ) 6 11) ((predator 4 ) 7 12) ((prey 1 ) 7 10) ((prey 2 ) 0 6))
+EPISODE 1 CYCLE 43b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move south)
+Recv	(predator 3 ): (move south)
+Recv	(predator 4 ): (move none)
+(world (stats 1 44 0.000000 0 0) ((predator 1 ) 5 12) ((predator 2 ) 6 13) ((predator 3 ) 6 10) ((predator 4 ) 7 12) ((prey 1 ) 7 10) ((prey 2 ) 0 6))
+EPISODE 1 CYCLE 44a ACTION PHASE
+Recv	(prey 2 ): (move south)
+Recv	(prey 1 ): (move south)
+(world (stats 1 44 0.000000 0 0) ((predator 1 ) 5 12) ((predator 2 ) 6 13) ((predator 3 ) 6 10) ((predator 4 ) 7 12) ((prey 1 ) 7 9) ((prey 2 ) 0 5))
+EPISODE 1 CYCLE 44b ACTION PHASE
+Recv	(predator 4 ): (move south)
+Recv	(predator 2 ): (move none)
+Recv	(predator 1 ): (move south)
+Recv	(predator 3 ): (move south)
+(world (stats 1 45 0.000000 0 0) ((predator 1 ) 5 11) ((predator 2 ) 6 13) ((predator 3 ) 6 9) ((predator 4 ) 7 11) ((prey 1 ) 7 9) ((prey 2 ) 0 5))
+EPISODE 1 CYCLE 45a ACTION PHASE
+Recv	(prey 1 ): (move north)
+Recv	(prey 2 ): (move none)
+(world (stats 1 45 0.000000 0 0) ((predator 1 ) 5 11) ((predator 2 ) 6 13) ((predator 3 ) 6 9) ((predator 4 ) 7 11) ((prey 1 ) 7 10) ((prey 2 ) 0 5))
+EPISODE 1 CYCLE 45b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move south)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 46 0.000000 0 0) ((predator 1 ) 5 11) ((predator 2 ) 6 12) ((predator 3 ) 6 9) ((predator 4 ) 7 11) ((prey 1 ) 7 10) ((prey 2 ) 0 5))
+EPISODE 1 CYCLE 46a ACTION PHASE
+Recv	(prey 1 ): (move west)
+Recv	(prey 2 ): (move west)
+(world (stats 1 46 0.000000 0 0) ((predator 1 ) 5 11) ((predator 2 ) 6 12) ((predator 3 ) 6 9) ((predator 4 ) 7 11) ((prey 1 ) 6 10) ((prey 2 ) 14 5))
+EPISODE 1 CYCLE 46b ACTION PHASE
+Recv	(predator 4 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 1 ): (move none)
+Recv	(predator 3 ): (move none)
+(world (stats 1 47 0.000000 0 0) ((predator 1 ) 5 11) ((predator 2 ) 6 12) ((predator 3 ) 6 9) ((predator 4 ) 7 11) ((prey 1 ) 6 10) ((prey 2 ) 14 5))
+EPISODE 1 CYCLE 47a ACTION PHASE
+Recv	(prey 1 ): (move west)
+Recv	(prey 2 ): (move south)
+(world (stats 1 47 0.000000 0 0) ((predator 1 ) 5 11) ((predator 2 ) 6 12) ((predator 3 ) 6 9) ((predator 4 ) 7 11) ((prey 1 ) 5 10) ((prey 2 ) 14 4))
+EPISODE 1 CYCLE 47b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 48 0.000000 0 0) ((predator 1 ) 5 11) ((predator 2 ) 6 12) ((predator 3 ) 6 9) ((predator 4 ) 7 11) ((prey 1 ) 5 10) ((prey 2 ) 14 4))
+EPISODE 1 CYCLE 48a ACTION PHASE
+Recv	(prey 1 ): (move east)
+Recv	(prey 2 ): (move none)
+(world (stats 1 48 0.000000 0 0) ((predator 1 ) 5 11) ((predator 2 ) 6 12) ((predator 3 ) 6 9) ((predator 4 ) 7 11) ((prey 1 ) 6 10) ((prey 2 ) 14 4))
+EPISODE 1 CYCLE 48b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 49 0.000000 0 0) ((predator 1 ) 5 11) ((predator 2 ) 6 12) ((predator 3 ) 6 9) ((predator 4 ) 7 11) ((prey 1 ) 6 10) ((prey 2 ) 14 4))
+EPISODE 1 CYCLE 49a ACTION PHASE
+Recv	(prey 2 ): (move south)
+Recv	(prey 1 ): (move north)
+(world (stats 1 49 0.000000 0 0) ((predator 1 ) 5 11) ((predator 2 ) 6 12) ((predator 3 ) 6 9) ((predator 4 ) 7 11) ((prey 1 ) 6 11) ((prey 2 ) 14 3))
+EPISODE 1 CYCLE 49b ACTION PHASE
+Recv	(predator 3 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 1 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 50 0.000000 0 0) ((predator 1 ) 5 11) ((predator 2 ) 6 12) ((predator 3 ) 6 9) ((predator 4 ) 7 11) ((prey 1 ) 6 11) ((prey 2 ) 14 3))
+EPISODE 1 CYCLE 50a ACTION PHASE
+Recv	(prey 1 ): (move south)
+Recv	(prey 2 ): (move none)
+(world (stats 1 50 0.000000 0 0) ((predator 1 ) 5 11) ((predator 2 ) 6 12) ((predator 3 ) 6 9) ((predator 4 ) 7 11) ((prey 1 ) 6 10) ((prey 2 ) 14 3))
+EPISODE 1 CYCLE 50b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 51 0.000000 0 0) ((predator 1 ) 5 11) ((predator 2 ) 6 12) ((predator 3 ) 6 9) ((predator 4 ) 7 11) ((prey 1 ) 6 10) ((prey 2 ) 14 3))
+EPISODE 1 CYCLE 51a ACTION PHASE
+Recv	(prey 1 ): (move east)
+Recv	(prey 2 ): (move west)
+(world (stats 1 51 0.000000 0 0) ((predator 1 ) 5 11) ((predator 2 ) 6 12) ((predator 3 ) 6 9) ((predator 4 ) 7 11) ((prey 1 ) 7 10) ((prey 2 ) 13 3))
+EPISODE 1 CYCLE 51b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 52 0.000000 0 0) ((predator 1 ) 5 11) ((predator 2 ) 6 12) ((predator 3 ) 6 9) ((predator 4 ) 7 11) ((prey 1 ) 7 10) ((prey 2 ) 13 3))
+EPISODE 1 CYCLE 52a ACTION PHASE
+Recv	(prey 2 ): (move west)
+Recv	(prey 1 ): (move east)
+(world (stats 1 52 0.000000 0 0) ((predator 1 ) 5 11) ((predator 2 ) 6 12) ((predator 3 ) 6 9) ((predator 4 ) 7 11) ((prey 1 ) 8 10) ((prey 2 ) 12 3))
+EPISODE 1 CYCLE 52b ACTION PHASE
+Recv	(predator 3 ): (move east)
+Recv	(predator 4 ): (move east)
+Recv	(predator 2 ): (move none)
+Recv	(predator 1 ): (move none)
+(world (stats 1 53 0.000000 0 0) ((predator 1 ) 5 11) ((predator 2 ) 6 12) ((predator 3 ) 7 9) ((predator 4 ) 8 11) ((prey 1 ) 8 10) ((prey 2 ) 12 3))
+EPISODE 1 CYCLE 53a ACTION PHASE
+Recv	(prey 2 ): (move north)
+Recv	(prey 1 ): (move west)
+(world (stats 1 53 0.000000 0 0) ((predator 1 ) 5 11) ((predator 2 ) 6 12) ((predator 3 ) 7 9) ((predator 4 ) 8 11) ((prey 1 ) 7 10) ((prey 2 ) 12 4))
+EPISODE 1 CYCLE 53b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 54 0.000000 0 0) ((predator 1 ) 5 11) ((predator 2 ) 6 12) ((predator 3 ) 7 9) ((predator 4 ) 8 11) ((prey 1 ) 7 10) ((prey 2 ) 12 4))
+EPISODE 1 CYCLE 54a ACTION PHASE
+Recv	(prey 1 ): (move west)
+Recv	(prey 2 ): (move east)
+(world (stats 1 54 0.000000 0 0) ((predator 1 ) 5 11) ((predator 2 ) 6 12) ((predator 3 ) 7 9) ((predator 4 ) 8 11) ((prey 1 ) 6 10) ((prey 2 ) 13 4))
+EPISODE 1 CYCLE 54b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 55 0.000000 0 0) ((predator 1 ) 5 11) ((predator 2 ) 6 12) ((predator 3 ) 7 9) ((predator 4 ) 8 11) ((prey 1 ) 6 10) ((prey 2 ) 13 4))
+EPISODE 1 CYCLE 55a ACTION PHASE
+Recv	(prey 1 ): (move south)
+Recv	(prey 2 ): (move south)
+(world (stats 1 55 0.000000 0 0) ((predator 1 ) 5 11) ((predator 2 ) 6 12) ((predator 3 ) 7 9) ((predator 4 ) 8 11) ((prey 1 ) 6 9) ((prey 2 ) 13 3))
+EPISODE 1 CYCLE 55b ACTION PHASE
+Recv	(predator 1 ): (move south)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move south)
+(world (stats 1 56 0.000000 0 0) ((predator 1 ) 5 10) ((predator 2 ) 6 12) ((predator 3 ) 7 9) ((predator 4 ) 8 10) ((prey 1 ) 6 9) ((prey 2 ) 13 3))
+EPISODE 1 CYCLE 56a ACTION PHASE
+Recv	(prey 1 ): (move none)
+Recv	(prey 2 ): (move west)
+(world (stats 1 56 0.000000 0 0) ((predator 1 ) 5 10) ((predator 2 ) 6 12) ((predator 3 ) 7 9) ((predator 4 ) 8 10) ((prey 1 ) 6 9) ((prey 2 ) 12 3))
+EPISODE 1 CYCLE 56b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+Recv	(predator 2 ): (move south)
+(world (stats 1 57 0.000000 0 0) ((predator 1 ) 5 10) ((predator 2 ) 6 11) ((predator 3 ) 7 9) ((predator 4 ) 8 10) ((prey 1 ) 6 9) ((prey 2 ) 12 3))
+EPISODE 1 CYCLE 57a ACTION PHASE
+Recv	(prey 1 ): (move west)
+Recv	(prey 2 ): (move north)
+(world (stats 1 57 0.000000 0 0) ((predator 1 ) 5 10) ((predator 2 ) 6 11) ((predator 3 ) 7 9) ((predator 4 ) 8 10) ((prey 1 ) 5 9) ((prey 2 ) 12 4))
+EPISODE 1 CYCLE 57b ACTION PHASE
+Recv	(predator 4 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move west)
+Recv	(predator 1 ): (move none)
+(world (stats 1 58 0.000000 0 0) ((predator 1 ) 5 10) ((predator 2 ) 6 11) ((predator 3 ) 6 9) ((predator 4 ) 8 10) ((prey 1 ) 5 9) ((prey 2 ) 12 4))
+EPISODE 1 CYCLE 58a ACTION PHASE
+Recv	(prey 1 ): (move none)
+Recv	(prey 2 ): (move none)
+(world (stats 1 58 0.000000 0 0) ((predator 1 ) 5 10) ((predator 2 ) 6 11) ((predator 3 ) 6 9) ((predator 4 ) 8 10) ((prey 1 ) 5 9) ((prey 2 ) 12 4))
+EPISODE 1 CYCLE 58b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move west)
+(world (stats 1 59 0.000000 0 0) ((predator 1 ) 5 10) ((predator 2 ) 6 11) ((predator 3 ) 6 9) ((predator 4 ) 7 10) ((prey 1 ) 5 9) ((prey 2 ) 12 4))
+EPISODE 1 CYCLE 59a ACTION PHASE
+Recv	(prey 2 ): (move west)
+Recv	(prey 1 ): (move west)
+(world (stats 1 59 0.000000 0 0) ((predator 1 ) 5 10) ((predator 2 ) 6 11) ((predator 3 ) 6 9) ((predator 4 ) 7 10) ((prey 1 ) 4 9) ((prey 2 ) 11 4))
+EPISODE 1 CYCLE 59b ACTION PHASE
+Recv	(predator 1 ): (move west)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 60 0.000000 0 0) ((predator 1 ) 4 10) ((predator 2 ) 6 11) ((predator 3 ) 6 9) ((predator 4 ) 7 10) ((prey 1 ) 4 9) ((prey 2 ) 11 4))
+EPISODE 1 CYCLE 60a ACTION PHASE
+Recv	(prey 1 ): (move south)
+Recv	(prey 2 ): (move north)
+(world (stats 1 60 0.000000 0 0) ((predator 1 ) 4 10) ((predator 2 ) 6 11) ((predator 3 ) 6 9) ((predator 4 ) 7 10) ((prey 1 ) 4 8) ((prey 2 ) 11 5))
+EPISODE 1 CYCLE 60b ACTION PHASE
+Recv	(predator 3 ): (move south)
+Recv	(predator 4 ): (move none)
+Recv	(predator 2 ): (move west)
+Recv	(predator 1 ): (move south)
+(world (stats 1 61 0.000000 0 0) ((predator 1 ) 4 9) ((predator 2 ) 5 11) ((predator 3 ) 6 8) ((predator 4 ) 7 10) ((prey 1 ) 4 8) ((prey 2 ) 11 5))
+EPISODE 1 CYCLE 61a ACTION PHASE
+Recv	(prey 1 ): (move east)
+Recv	(prey 2 ): (move north)
+(world (stats 1 61 0.000000 0 0) ((predator 1 ) 4 9) ((predator 2 ) 5 11) ((predator 3 ) 6 8) ((predator 4 ) 7 10) ((prey 1 ) 5 8) ((prey 2 ) 11 6))
+EPISODE 1 CYCLE 61b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move south)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move south)
+(world (stats 1 62 0.000000 0 0) ((predator 1 ) 4 9) ((predator 2 ) 5 10) ((predator 3 ) 6 8) ((predator 4 ) 7 9) ((prey 1 ) 5 8) ((prey 2 ) 11 6))
+EPISODE 1 CYCLE 62a ACTION PHASE
+Recv	(prey 1 ): (move west)
+Recv	(prey 2 ): (move south)
+(world (stats 1 62 0.000000 0 0) ((predator 1 ) 4 9) ((predator 2 ) 5 10) ((predator 3 ) 6 8) ((predator 4 ) 7 9) ((prey 1 ) 4 8) ((prey 2 ) 11 5))
+EPISODE 1 CYCLE 62b ACTION PHASE
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move west)
+Recv	(predator 1 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 63 0.000000 0 0) ((predator 1 ) 4 9) ((predator 2 ) 5 10) ((predator 3 ) 5 8) ((predator 4 ) 7 9) ((prey 1 ) 4 8) ((prey 2 ) 11 5))
+EPISODE 1 CYCLE 63a ACTION PHASE
+Recv	(prey 2 ): (move east)
+Recv	(prey 1 ): (move none)
+(world (stats 1 63 0.000000 0 0) ((predator 1 ) 4 9) ((predator 2 ) 5 10) ((predator 3 ) 5 8) ((predator 4 ) 7 9) ((prey 1 ) 4 8) ((prey 2 ) 12 5))
+EPISODE 1 CYCLE 63b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move west)
+(world (stats 1 64 0.000000 0 0) ((predator 1 ) 4 9) ((predator 2 ) 5 10) ((predator 3 ) 5 8) ((predator 4 ) 6 9) ((prey 1 ) 4 8) ((prey 2 ) 12 5))
+EPISODE 1 CYCLE 64a ACTION PHASE
+Recv	(prey 1 ): (move south)
+Recv	(prey 2 ): (move east)
+(world (stats 1 64 0.000000 0 0) ((predator 1 ) 4 9) ((predator 2 ) 5 10) ((predator 3 ) 5 8) ((predator 4 ) 6 9) ((prey 1 ) 4 7) ((prey 2 ) 13 5))
+EPISODE 1 CYCLE 64b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move south)
+Recv	(predator 4 ): (move none)
+(world (stats 1 65 0.000000 0 0) ((predator 1 ) 4 9) ((predator 2 ) 5 10) ((predator 3 ) 5 7) ((predator 4 ) 6 9) ((prey 1 ) 4 7) ((prey 2 ) 13 5))
+EPISODE 1 CYCLE 65a ACTION PHASE
+Recv	(prey 1 ): (move west)
+Recv	(prey 2 ): (move south)
+(world (stats 1 65 0.000000 0 0) ((predator 1 ) 4 9) ((predator 2 ) 5 10) ((predator 3 ) 5 7) ((predator 4 ) 6 9) ((prey 1 ) 3 7) ((prey 2 ) 13 4))
+EPISODE 1 CYCLE 65b ACTION PHASE
+Recv	(predator 1 ): (move south)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move west)
+Recv	(predator 4 ): (move south)
+(world (stats 1 66 0.000000 0 0) ((predator 1 ) 4 8) ((predator 2 ) 5 10) ((predator 3 ) 4 7) ((predator 4 ) 6 8) ((prey 1 ) 3 7) ((prey 2 ) 13 4))
+EPISODE 1 CYCLE 66a ACTION PHASE
+Recv	(prey 1 ): (move none)
+Recv	(prey 2 ): (move west)
+(world (stats 1 66 0.000000 0 0) ((predator 1 ) 4 8) ((predator 2 ) 5 10) ((predator 3 ) 4 7) ((predator 4 ) 6 8) ((prey 1 ) 3 7) ((prey 2 ) 12 4))
+EPISODE 1 CYCLE 66b ACTION PHASE
+Recv	(predator 1 ): (move west)
+Recv	(predator 2 ): (move south)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 67 0.000000 0 0) ((predator 1 ) 3 8) ((predator 2 ) 5 9) ((predator 3 ) 4 7) ((predator 4 ) 6 8) ((prey 1 ) 3 7) ((prey 2 ) 12 4))
+EPISODE 1 CYCLE 67a ACTION PHASE
+Recv	(prey 1 ): (move south)
+Recv	(prey 2 ): (move south)
+(world (stats 1 67 0.000000 0 0) ((predator 1 ) 3 8) ((predator 2 ) 5 9) ((predator 3 ) 4 7) ((predator 4 ) 6 8) ((prey 1 ) 3 6) ((prey 2 ) 12 3))
+EPISODE 1 CYCLE 67b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move west)
+Recv	(predator 3 ): (move south)
+Recv	(predator 4 ): (move none)
+(world (stats 1 68 0.000000 0 0) ((predator 1 ) 3 8) ((predator 2 ) 4 9) ((predator 3 ) 4 6) ((predator 4 ) 6 8) ((prey 1 ) 3 6) ((prey 2 ) 12 3))
+EPISODE 1 CYCLE 68a ACTION PHASE
+Recv	(prey 1 ): (move south)
+Recv	(prey 2 ): (move east)
+(world (stats 1 68 0.000000 0 0) ((predator 1 ) 3 8) ((predator 2 ) 4 9) ((predator 3 ) 4 6) ((predator 4 ) 6 8) ((prey 1 ) 3 5) ((prey 2 ) 13 3))
+EPISODE 1 CYCLE 68b ACTION PHASE
+Recv	(predator 1 ): (move south)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move south)
+Recv	(predator 4 ): (move south)
+(world (stats 1 69 0.000000 0 0) ((predator 1 ) 3 7) ((predator 2 ) 4 9) ((predator 3 ) 4 5) ((predator 4 ) 6 7) ((prey 1 ) 3 5) ((prey 2 ) 13 3))
+EPISODE 1 CYCLE 69a ACTION PHASE
+Recv	(prey 2 ): (move north)
+Recv	(prey 1 ): (move none)
+(world (stats 1 69 0.000000 0 0) ((predator 1 ) 3 7) ((predator 2 ) 4 9) ((predator 3 ) 4 5) ((predator 4 ) 6 7) ((prey 1 ) 3 5) ((prey 2 ) 13 4))
+EPISODE 1 CYCLE 69b ACTION PHASE
+Recv	(predator 1 ): (move south)
+Recv	(predator 2 ): (move south)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move west)
+(world (stats 1 70 0.000000 0 0) ((predator 1 ) 3 6) ((predator 2 ) 4 8) ((predator 3 ) 4 5) ((predator 4 ) 5 7) ((prey 1 ) 3 5) ((prey 2 ) 13 4))
+EPISODE 1 CYCLE 70a ACTION PHASE
+Recv	(prey 1 ): (move none)
+Recv	(prey 2 ): (move none)
+(world (stats 1 70 0.000000 0 0) ((predator 1 ) 3 6) ((predator 2 ) 4 8) ((predator 3 ) 4 5) ((predator 4 ) 5 7) ((prey 1 ) 3 5) ((prey 2 ) 13 4))
+EPISODE 1 CYCLE 70b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move south)
+(world (stats 1 71 0.000000 0 0) ((predator 1 ) 3 6) ((predator 2 ) 4 8) ((predator 3 ) 4 5) ((predator 4 ) 5 6) ((prey 1 ) 3 5) ((prey 2 ) 13 4))
+EPISODE 1 CYCLE 71a ACTION PHASE
+Recv	(prey 1 ): (move south)
+Recv	(prey 2 ): (move west)
+(world (stats 1 71 0.000000 0 0) ((predator 1 ) 3 6) ((predator 2 ) 4 8) ((predator 3 ) 4 5) ((predator 4 ) 5 6) ((prey 1 ) 3 4) ((prey 2 ) 12 4))
+EPISODE 1 CYCLE 71b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move south)
+Recv	(predator 3 ): (move south)
+Recv	(predator 4 ): (move none)
+(world (stats 1 72 0.000000 0 0) ((predator 1 ) 3 6) ((predator 2 ) 4 7) ((predator 3 ) 4 4) ((predator 4 ) 5 6) ((prey 1 ) 3 4) ((prey 2 ) 12 4))
+EPISODE 1 CYCLE 72a ACTION PHASE
+Recv	(prey 1 ): (move north)
+Recv	(prey 2 ): (move none)
+(world (stats 1 72 0.000000 0 0) ((predator 1 ) 3 6) ((predator 2 ) 4 7) ((predator 3 ) 4 4) ((predator 4 ) 5 6) ((prey 1 ) 3 5) ((prey 2 ) 12 4))
+EPISODE 1 CYCLE 72b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 73 0.000000 0 0) ((predator 1 ) 3 6) ((predator 2 ) 4 7) ((predator 3 ) 4 4) ((predator 4 ) 5 6) ((prey 1 ) 3 5) ((prey 2 ) 12 4))
+EPISODE 1 CYCLE 73a ACTION PHASE
+Recv	(prey 1 ): (move west)
+Recv	(prey 2 ): (move west)
+(world (stats 1 73 0.000000 0 0) ((predator 1 ) 3 6) ((predator 2 ) 4 7) ((predator 3 ) 4 4) ((predator 4 ) 5 6) ((prey 1 ) 2 5) ((prey 2 ) 11 4))
+EPISODE 1 CYCLE 73b ACTION PHASE
+Recv	(predator 1 ): (move west)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move west)
+Recv	(predator 4 ): (move none)
+(world (stats 1 74 0.000000 0 0) ((predator 1 ) 2 6) ((predator 2 ) 4 7) ((predator 3 ) 3 4) ((predator 4 ) 5 6) ((prey 1 ) 2 5) ((prey 2 ) 11 4))
+EPISODE 1 CYCLE 74a ACTION PHASE
+Recv	(prey 1 ): (move east)
+Recv	(prey 2 ): (move none)
+(world (stats 1 74 0.000000 0 0) ((predator 1 ) 2 6) ((predator 2 ) 4 7) ((predator 3 ) 3 4) ((predator 4 ) 5 6) ((prey 1 ) 3 5) ((prey 2 ) 11 4))
+EPISODE 1 CYCLE 74b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 75 0.000000 0 0) ((predator 1 ) 2 6) ((predator 2 ) 4 7) ((predator 3 ) 3 4) ((predator 4 ) 5 6) ((prey 1 ) 3 5) ((prey 2 ) 11 4))
+EPISODE 1 CYCLE 75a ACTION PHASE
+Recv	(prey 2 ): (move west)
+Recv	(prey 1 ): (move north)
+(world (stats 1 75 0.000000 0 0) ((predator 1 ) 2 6) ((predator 2 ) 4 7) ((predator 3 ) 3 4) ((predator 4 ) 5 6) ((prey 1 ) 3 6) ((prey 2 ) 10 4))
+EPISODE 1 CYCLE 75b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 76 0.000000 0 0) ((predator 1 ) 2 6) ((predator 2 ) 4 7) ((predator 3 ) 3 4) ((predator 4 ) 5 6) ((prey 1 ) 3 6) ((prey 2 ) 10 4))
+EPISODE 1 CYCLE 76a ACTION PHASE
+Recv	(prey 1 ): (move south)
+Recv	(prey 2 ): (move south)
+(world (stats 1 76 0.000000 0 0) ((predator 1 ) 2 6) ((predator 2 ) 4 7) ((predator 3 ) 3 4) ((predator 4 ) 5 6) ((prey 1 ) 3 5) ((prey 2 ) 10 3))
+EPISODE 1 CYCLE 76b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 77 0.000000 0 0) ((predator 1 ) 2 6) ((predator 2 ) 4 7) ((predator 3 ) 3 4) ((predator 4 ) 5 6) ((prey 1 ) 3 5) ((prey 2 ) 10 3))
+EPISODE 1 CYCLE 77a ACTION PHASE
+Recv	(prey 1 ): (move east)
+Recv	(prey 2 ): (move west)
+(world (stats 1 77 0.000000 0 0) ((predator 1 ) 2 6) ((predator 2 ) 4 7) ((predator 3 ) 3 4) ((predator 4 ) 5 6) ((prey 1 ) 4 5) ((prey 2 ) 9 3))
+EPISODE 1 CYCLE 77b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 78 0.000000 0 0) ((predator 1 ) 2 6) ((predator 2 ) 4 7) ((predator 3 ) 3 4) ((predator 4 ) 5 6) ((prey 1 ) 4 5) ((prey 2 ) 9 3))
+EPISODE 1 CYCLE 78a ACTION PHASE
+Recv	(prey 2 ): (move north)
+Recv	(prey 1 ): (move none)
+(world (stats 1 78 0.000000 0 0) ((predator 1 ) 2 6) ((predator 2 ) 4 7) ((predator 3 ) 3 4) ((predator 4 ) 5 6) ((prey 1 ) 4 5) ((prey 2 ) 9 4))
+EPISODE 1 CYCLE 78b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 79 0.000000 0 0) ((predator 1 ) 2 6) ((predator 2 ) 4 7) ((predator 3 ) 3 4) ((predator 4 ) 5 6) ((prey 1 ) 4 5) ((prey 2 ) 9 4))
+EPISODE 1 CYCLE 79a ACTION PHASE
+Recv	(prey 1 ): (move none)
+Recv	(prey 2 ): (move south)
+(world (stats 1 79 0.000000 0 0) ((predator 1 ) 2 6) ((predator 2 ) 4 7) ((predator 3 ) 3 4) ((predator 4 ) 5 6) ((prey 1 ) 4 5) ((prey 2 ) 9 3))
+EPISODE 1 CYCLE 79b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 80 0.000000 0 0) ((predator 1 ) 2 6) ((predator 2 ) 4 7) ((predator 3 ) 3 4) ((predator 4 ) 5 6) ((prey 1 ) 4 5) ((prey 2 ) 9 3))
+EPISODE 1 CYCLE 80a ACTION PHASE
+Recv	(prey 1 ): (move west)
+Recv	(prey 2 ): (move none)
+(world (stats 1 80 0.000000 0 0) ((predator 1 ) 2 6) ((predator 2 ) 4 7) ((predator 3 ) 3 4) ((predator 4 ) 5 6) ((prey 1 ) 3 5) ((prey 2 ) 9 3))
+EPISODE 1 CYCLE 80b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 81 0.000000 0 0) ((predator 1 ) 2 6) ((predator 2 ) 4 7) ((predator 3 ) 3 4) ((predator 4 ) 5 6) ((prey 1 ) 3 5) ((prey 2 ) 9 3))
+EPISODE 1 CYCLE 81a ACTION PHASE
+Recv	(prey 1 ): (move north)
+Recv	(prey 2 ): (move none)
+(world (stats 1 81 0.000000 0 0) ((predator 1 ) 2 6) ((predator 2 ) 4 7) ((predator 3 ) 3 4) ((predator 4 ) 5 6) ((prey 1 ) 3 6) ((prey 2 ) 9 3))
+EPISODE 1 CYCLE 81b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 82 0.000000 0 0) ((predator 1 ) 2 6) ((predator 2 ) 4 7) ((predator 3 ) 3 4) ((predator 4 ) 5 6) ((prey 1 ) 3 6) ((prey 2 ) 9 3))
+EPISODE 1 CYCLE 82a ACTION PHASE
+Recv	(prey 1 ): (move north)
+Recv	(prey 2 ): (move north)
+(world (stats 1 82 0.000000 0 0) ((predator 1 ) 2 6) ((predator 2 ) 4 7) ((predator 3 ) 3 4) ((predator 4 ) 5 6) ((prey 1 ) 3 7) ((prey 2 ) 9 4))
+EPISODE 1 CYCLE 82b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move north)
+Recv	(predator 4 ): (move none)
+(world (stats 1 83 0.000000 0 0) ((predator 1 ) 2 6) ((predator 2 ) 4 7) ((predator 3 ) 3 5) ((predator 4 ) 5 6) ((prey 1 ) 3 7) ((prey 2 ) 9 4))
+EPISODE 1 CYCLE 83a ACTION PHASE
+Recv	(prey 1 ): (move none)
+Recv	(prey 2 ): (move east)
+(world (stats 1 83 0.000000 0 0) ((predator 1 ) 2 6) ((predator 2 ) 4 7) ((predator 3 ) 3 5) ((predator 4 ) 5 6) ((prey 1 ) 3 7) ((prey 2 ) 10 4))
+EPISODE 1 CYCLE 83b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 84 0.000000 0 0) ((predator 1 ) 2 6) ((predator 2 ) 4 7) ((predator 3 ) 3 5) ((predator 4 ) 5 6) ((prey 1 ) 3 7) ((prey 2 ) 10 4))
+EPISODE 1 CYCLE 84a ACTION PHASE
+Recv	(prey 1 ): (move north)
+Recv	(prey 2 ): (move south)
+(world (stats 1 84 0.000000 0 0) ((predator 1 ) 2 6) ((predator 2 ) 4 7) ((predator 3 ) 3 5) ((predator 4 ) 5 6) ((prey 1 ) 3 8) ((prey 2 ) 10 3))
+EPISODE 1 CYCLE 84b ACTION PHASE
+Recv	(predator 1 ): (move north)
+Recv	(predator 2 ): (move north)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 85 0.000000 0 0) ((predator 1 ) 2 7) ((predator 2 ) 4 8) ((predator 3 ) 3 5) ((predator 4 ) 5 6) ((prey 1 ) 3 8) ((prey 2 ) 10 3))
+EPISODE 1 CYCLE 85a ACTION PHASE
+Recv	(prey 1 ): (move north)
+Recv	(prey 2 ): (move north)
+(world (stats 1 85 0.000000 0 0) ((predator 1 ) 2 7) ((predator 2 ) 4 8) ((predator 3 ) 3 5) ((predator 4 ) 5 6) ((prey 1 ) 3 9) ((prey 2 ) 10 4))
+EPISODE 1 CYCLE 85b ACTION PHASE
+Recv	(predator 4 ): (move north)
+Recv	(predator 2 ): (move north)
+Recv	(predator 1 ): (move north)
+Recv	(predator 3 ): (move north)
+(world (stats 1 86 0.000000 0 0) ((predator 1 ) 2 8) ((predator 2 ) 4 9) ((predator 3 ) 3 6) ((predator 4 ) 5 7) ((prey 1 ) 3 9) ((prey 2 ) 10 4))
+EPISODE 1 CYCLE 86a ACTION PHASE
+Recv	(prey 1 ): (move west)
+Recv	(prey 2 ): (move west)
+(world (stats 1 86 0.000000 0 0) ((predator 1 ) 2 8) ((predator 2 ) 4 9) ((predator 3 ) 3 6) ((predator 4 ) 5 7) ((prey 1 ) 2 9) ((prey 2 ) 9 4))
+EPISODE 1 CYCLE 86b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move west)
+Recv	(predator 3 ): (move north)
+Recv	(predator 4 ): (move north)
+(world (stats 1 87 0.000000 0 0) ((predator 1 ) 2 8) ((predator 2 ) 3 9) ((predator 3 ) 3 7) ((predator 4 ) 5 8) ((prey 1 ) 2 9) ((prey 2 ) 9 4))
+EPISODE 1 CYCLE 87a ACTION PHASE
+Recv	(prey 1 ): (move north)
+Recv	(prey 2 ): (move east)
+(world (stats 1 87 0.000000 0 0) ((predator 1 ) 2 8) ((predator 2 ) 3 9) ((predator 3 ) 3 7) ((predator 4 ) 5 8) ((prey 1 ) 2 10) ((prey 2 ) 10 4))
+EPISODE 1 CYCLE 87b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move north)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move west)
+(world (stats 1 88 0.000000 0 0) ((predator 1 ) 2 8) ((predator 2 ) 3 10) ((predator 3 ) 3 7) ((predator 4 ) 4 8) ((prey 1 ) 2 10) ((prey 2 ) 10 4))
+EPISODE 1 CYCLE 88a ACTION PHASE
+Recv	(prey 1 ): (move north)
+Recv	(prey 2 ): (move west)
+(world (stats 1 88 0.000000 0 0) ((predator 1 ) 2 8) ((predator 2 ) 3 10) ((predator 3 ) 3 7) ((predator 4 ) 4 8) ((prey 1 ) 2 11) ((prey 2 ) 9 4))
+EPISODE 1 CYCLE 88b ACTION PHASE
+Recv	(predator 1 ): (move north)
+Recv	(predator 2 ): (move north)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move north)
+(world (stats 1 89 0.000000 0 0) ((predator 1 ) 2 9) ((predator 2 ) 3 11) ((predator 3 ) 3 7) ((predator 4 ) 4 9) ((prey 1 ) 2 11) ((prey 2 ) 9 4))
+EPISODE 1 CYCLE 89a ACTION PHASE
+Recv	(prey 1 ): (move none)
+Recv	(prey 2 ): (move north)
+(world (stats 1 89 0.000000 0 0) ((predator 1 ) 2 9) ((predator 2 ) 3 11) ((predator 3 ) 3 7) ((predator 4 ) 4 9) ((prey 1 ) 2 11) ((prey 2 ) 9 5))
+EPISODE 1 CYCLE 89b ACTION PHASE
+Recv	(predator 4 ): (move north)
+Recv	(predator 2 ): (move none)
+Recv	(predator 1 ): (move north)
+Recv	(predator 3 ): (move north)
+(world (stats 1 90 0.000000 0 0) ((predator 1 ) 2 10) ((predator 2 ) 3 11) ((predator 3 ) 3 8) ((predator 4 ) 4 10) ((prey 1 ) 2 11) ((prey 2 ) 9 5))
+EPISODE 1 CYCLE 90a ACTION PHASE
+Recv	(prey 2 ): (move north)
+Recv	(prey 1 ): (move west)
+(world (stats 1 90 0.000000 0 0) ((predator 1 ) 2 10) ((predator 2 ) 3 11) ((predator 3 ) 3 8) ((predator 4 ) 4 10) ((prey 1 ) 1 11) ((prey 2 ) 9 6))
+EPISODE 1 CYCLE 90b ACTION PHASE
+Recv	(predator 1 ): (move west)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move west)
+Recv	(predator 4 ): (move none)
+(world (stats 1 91 0.000000 0 0) ((predator 1 ) 1 10) ((predator 2 ) 3 11) ((predator 3 ) 2 8) ((predator 4 ) 4 10) ((prey 1 ) 1 11) ((prey 2 ) 9 6))
+EPISODE 1 CYCLE 91a ACTION PHASE
+Recv	(prey 1 ): (move east)
+Recv	(prey 2 ): (move south)
+(world (stats 1 91 0.000000 0 0) ((predator 1 ) 1 10) ((predator 2 ) 3 11) ((predator 3 ) 2 8) ((predator 4 ) 4 10) ((prey 1 ) 2 11) ((prey 2 ) 9 5))
+EPISODE 1 CYCLE 91b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 3 ): (move north)
+Recv	(predator 4 ): (move none)
+Recv	(predator 2 ): (move none)
+(world (stats 1 92 0.000000 0 0) ((predator 1 ) 1 10) ((predator 2 ) 3 11) ((predator 3 ) 2 9) ((predator 4 ) 4 10) ((prey 1 ) 2 11) ((prey 2 ) 9 5))
+EPISODE 1 CYCLE 92a ACTION PHASE
+Recv	(prey 1 ): (move west)
+Recv	(prey 2 ): (move west)
+(world (stats 1 92 0.000000 0 0) ((predator 1 ) 1 10) ((predator 2 ) 3 11) ((predator 3 ) 2 9) ((predator 4 ) 4 10) ((prey 1 ) 1 11) ((prey 2 ) 8 5))
+EPISODE 1 CYCLE 92b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move west)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 93 0.000000 0 0) ((predator 1 ) 1 10) ((predator 2 ) 2 11) ((predator 3 ) 2 9) ((predator 4 ) 4 10) ((prey 1 ) 1 11) ((prey 2 ) 8 5))
+EPISODE 1 CYCLE 93a ACTION PHASE
+Recv	(prey 1 ): (move north)
+Recv	(prey 2 ): (move north)
+(world (stats 1 93 0.000000 0 0) ((predator 1 ) 1 10) ((predator 2 ) 2 11) ((predator 3 ) 2 9) ((predator 4 ) 4 10) ((prey 1 ) 1 12) ((prey 2 ) 8 6))
+EPISODE 1 CYCLE 93b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move north)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move north)
+(world (stats 1 94 0.000000 0 0) ((predator 1 ) 1 10) ((predator 2 ) 2 12) ((predator 3 ) 2 9) ((predator 4 ) 4 11) ((prey 1 ) 1 12) ((prey 2 ) 8 6))
+EPISODE 1 CYCLE 94a ACTION PHASE
+Recv	(prey 1 ): (move south)
+Recv	(prey 2 ): (move west)
+(world (stats 1 94 0.000000 0 0) ((predator 1 ) 1 10) ((predator 2 ) 2 12) ((predator 3 ) 2 9) ((predator 4 ) 4 11) ((prey 1 ) 1 11) ((prey 2 ) 7 6))
+EPISODE 1 CYCLE 94b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move west)
+(world (stats 1 95 0.000000 0 0) ((predator 1 ) 1 10) ((predator 2 ) 2 12) ((predator 3 ) 2 9) ((predator 4 ) 3 11) ((prey 1 ) 1 11) ((prey 2 ) 7 6))
+EPISODE 1 CYCLE 95a ACTION PHASE
+Recv	(prey 1 ): (move east)
+Recv	(prey 2 ): (move south)
+(world (stats 1 95 0.000000 0 0) ((predator 1 ) 1 10) ((predator 2 ) 2 12) ((predator 3 ) 2 9) ((predator 4 ) 3 11) ((prey 1 ) 2 11) ((prey 2 ) 7 5))
+EPISODE 1 CYCLE 95b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 96 0.000000 0 0) ((predator 1 ) 1 10) ((predator 2 ) 2 12) ((predator 3 ) 2 9) ((predator 4 ) 3 11) ((prey 1 ) 2 11) ((prey 2 ) 7 5))
+EPISODE 1 CYCLE 96a ACTION PHASE
+Recv	(prey 1 ): (move west)
+Recv	(prey 2 ): (move east)
+(world (stats 1 96 0.000000 0 0) ((predator 1 ) 1 10) ((predator 2 ) 2 12) ((predator 3 ) 2 9) ((predator 4 ) 3 11) ((prey 1 ) 1 11) ((prey 2 ) 8 5))
+EPISODE 1 CYCLE 96b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 97 0.000000 0 0) ((predator 1 ) 1 10) ((predator 2 ) 2 12) ((predator 3 ) 2 9) ((predator 4 ) 3 11) ((prey 1 ) 1 11) ((prey 2 ) 8 5))
+EPISODE 1 CYCLE 97a ACTION PHASE
+Recv	(prey 1 ): (move west)
+Recv	(prey 2 ): (move south)
+(world (stats 1 97 0.000000 0 0) ((predator 1 ) 1 10) ((predator 2 ) 2 12) ((predator 3 ) 2 9) ((predator 4 ) 3 11) ((prey 1 ) 0 11) ((prey 2 ) 8 4))
+EPISODE 1 CYCLE 97b ACTION PHASE
+Recv	(predator 1 ): (move west)
+Recv	(predator 2 ): (move west)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 98 0.000000 0 0) ((predator 1 ) 0 10) ((predator 2 ) 1 12) ((predator 3 ) 2 9) ((predator 4 ) 3 11) ((prey 1 ) 0 11) ((prey 2 ) 8 4))
+EPISODE 1 CYCLE 98a ACTION PHASE
+Recv	(prey 1 ): (move none)
+Recv	(prey 2 ): (move none)
+(world (stats 1 98 0.000000 0 0) ((predator 1 ) 0 10) ((predator 2 ) 1 12) ((predator 3 ) 2 9) ((predator 4 ) 3 11) ((prey 1 ) 0 11) ((prey 2 ) 8 4))
+EPISODE 1 CYCLE 98b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move west)
+Recv	(predator 4 ): (move west)
+(world (stats 1 99 0.000000 0 0) ((predator 1 ) 0 10) ((predator 2 ) 1 12) ((predator 3 ) 1 9) ((predator 4 ) 2 11) ((prey 1 ) 0 11) ((prey 2 ) 8 4))
+EPISODE 1 CYCLE 99a ACTION PHASE
+Recv	(prey 1 ): (move north)
+Recv	(prey 2 ): (move east)
+(world (stats 1 99 0.000000 0 0) ((predator 1 ) 0 10) ((predator 2 ) 1 12) ((predator 3 ) 1 9) ((predator 4 ) 2 11) ((prey 1 ) 0 12) ((prey 2 ) 9 4))
+EPISODE 1 CYCLE 99b ACTION PHASE
+Recv	(predator 1 ): (move north)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 100 0.000000 0 0) ((predator 1 ) 0 11) ((predator 2 ) 1 12) ((predator 3 ) 1 9) ((predator 4 ) 2 11) ((prey 1 ) 0 12) ((prey 2 ) 9 4))
+EPISODE 1 CYCLE 100a ACTION PHASE
+Recv	(prey 1 ): (move north)
+Recv	(prey 2 ): (move east)
+(world (stats 1 100 0.000000 0 0) ((predator 1 ) 0 11) ((predator 2 ) 1 12) ((predator 3 ) 1 9) ((predator 4 ) 2 11) ((prey 1 ) 0 13) ((prey 2 ) 10 4))
+EPISODE 1 CYCLE 100b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move north)
+Recv	(predator 3 ): (move north)
+Recv	(predator 4 ): (move none)
+(world (stats 1 101 0.000000 0 0) ((predator 1 ) 0 11) ((predator 2 ) 1 13) ((predator 3 ) 1 10) ((predator 4 ) 2 11) ((prey 1 ) 0 13) ((prey 2 ) 10 4))
+EPISODE 1 CYCLE 101a ACTION PHASE
+Recv	(prey 1 ): (move west)
+Recv	(prey 2 ): (move none)
+(world (stats 1 101 0.000000 0 0) ((predator 1 ) 0 11) ((predator 2 ) 1 13) ((predator 3 ) 1 10) ((predator 4 ) 2 11) ((prey 1 ) 14 13) ((prey 2 ) 10 4))
+EPISODE 1 CYCLE 101b ACTION PHASE
+Recv	(predator 1 ): (move west)
+Recv	(predator 2 ): (move west)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move north)
+(world (stats 1 102 0.000000 0 0) ((predator 1 ) 14 11) ((predator 2 ) 0 13) ((predator 3 ) 1 10) ((predator 4 ) 2 12) ((prey 1 ) 14 13) ((prey 2 ) 10 4))
+EPISODE 1 CYCLE 102a ACTION PHASE
+Recv	(prey 1 ): (move none)
+Recv	(prey 2 ): (move north)
+(world (stats 1 102 0.000000 0 0) ((predator 1 ) 14 11) ((predator 2 ) 0 13) ((predator 3 ) 1 10) ((predator 4 ) 2 12) ((prey 1 ) 14 13) ((prey 2 ) 10 5))
+EPISODE 1 CYCLE 102b ACTION PHASE
+Recv	(predator 1 ): (move north)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move west)
+Recv	(predator 4 ): (move west)
+(world (stats 1 103 0.000000 0 0) ((predator 1 ) 14 12) ((predator 2 ) 0 13) ((predator 3 ) 0 10) ((predator 4 ) 1 12) ((prey 1 ) 14 13) ((prey 2 ) 10 5))
+EPISODE 1 CYCLE 103a ACTION PHASE
+Recv	(prey 1 ): (move none)
+Recv	(prey 2 ): (move north)
+(world (stats 1 103 0.000000 0 0) ((predator 1 ) 14 12) ((predator 2 ) 0 13) ((predator 3 ) 0 10) ((predator 4 ) 1 12) ((prey 1 ) 14 13) ((prey 2 ) 10 6))
+EPISODE 1 CYCLE 103b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move north)
+Recv	(predator 4 ): (move none)
+(world (stats 1 104 0.000000 0 0) ((predator 1 ) 14 12) ((predator 2 ) 0 13) ((predator 3 ) 0 11) ((predator 4 ) 1 12) ((prey 1 ) 14 13) ((prey 2 ) 10 6))
+EPISODE 1 CYCLE 104a ACTION PHASE
+Recv	(prey 1 ): (move west)
+Recv	(prey 2 ): (move west)
+(world (stats 1 104 0.000000 0 0) ((predator 1 ) 14 12) ((predator 2 ) 0 13) ((predator 3 ) 0 11) ((predator 4 ) 1 12) ((prey 1 ) 13 13) ((prey 2 ) 9 6))
+EPISODE 1 CYCLE 104b ACTION PHASE
+Recv	(predator 1 ): (move west)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 105 0.000000 0 0) ((predator 1 ) 13 12) ((predator 2 ) 0 13) ((predator 3 ) 0 11) ((predator 4 ) 1 12) ((prey 1 ) 13 13) ((prey 2 ) 9 6))
+EPISODE 1 CYCLE 105a ACTION PHASE
+Recv	(prey 1 ): (move east)
+Recv	(prey 2 ): (move none)
+(world (stats 1 105 0.000000 0 0) ((predator 1 ) 13 12) ((predator 2 ) 0 13) ((predator 3 ) 0 11) ((predator 4 ) 1 12) ((prey 1 ) 14 13) ((prey 2 ) 9 6))
+EPISODE 1 CYCLE 105b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 106 0.000000 0 0) ((predator 1 ) 13 12) ((predator 2 ) 0 13) ((predator 3 ) 0 11) ((predator 4 ) 1 12) ((prey 1 ) 14 13) ((prey 2 ) 9 6))
+EPISODE 1 CYCLE 106a ACTION PHASE
+Recv	(prey 2 ): (move south)
+Recv	(prey 1 ): (move south)
+(world (stats 1 106 0.000000 0 0) ((predator 1 ) 13 12) ((predator 2 ) 0 13) ((predator 3 ) 0 11) ((predator 4 ) 1 12) ((prey 1 ) 14 12) ((prey 2 ) 9 5))
+EPISODE 1 CYCLE 106b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 107 0.000000 0 0) ((predator 1 ) 13 12) ((predator 2 ) 0 13) ((predator 3 ) 0 11) ((predator 4 ) 1 12) ((prey 1 ) 14 12) ((prey 2 ) 9 5))
+EPISODE 1 CYCLE 107a ACTION PHASE
+Recv	(prey 1 ): (move east)
+Recv	(prey 2 ): (move north)
+(world (stats 1 107 0.000000 0 0) ((predator 1 ) 13 12) ((predator 2 ) 0 13) ((predator 3 ) 0 11) ((predator 4 ) 1 12) ((prey 1 ) 0 12) ((prey 2 ) 9 6))
+EPISODE 1 CYCLE 107b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 108 0.000000 0 0) ((predator 1 ) 13 12) ((predator 2 ) 0 13) ((predator 3 ) 0 11) ((predator 4 ) 1 12) ((prey 1 ) 0 12) ((prey 2 ) 9 6))
+EPISODE 1 CYCLE 108a ACTION PHASE
+Recv	(prey 1 ): (move none)
+Recv	(prey 2 ): (move none)
+(world (stats 1 108 0.000000 0 0) ((predator 1 ) 13 12) ((predator 2 ) 0 13) ((predator 3 ) 0 11) ((predator 4 ) 1 12) ((prey 1 ) 0 12) ((prey 2 ) 9 6))
+EPISODE 1 CYCLE 108b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 109 0.000000 0 0) ((predator 1 ) 13 12) ((predator 2 ) 0 13) ((predator 3 ) 0 11) ((predator 4 ) 1 12) ((prey 1 ) 0 12) ((prey 2 ) 9 6))
+EPISODE 1 CYCLE 109a ACTION PHASE
+Recv	(prey 1 ): (move none)
+Recv	(prey 2 ): (move none)
+(world (stats 1 109 0.000000 0 0) ((predator 1 ) 13 12) ((predator 2 ) 0 13) ((predator 3 ) 0 11) ((predator 4 ) 1 12) ((prey 1 ) 0 12) ((prey 2 ) 9 6))
+EPISODE 1 CYCLE 109b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 110 0.000000 0 0) ((predator 1 ) 13 12) ((predator 2 ) 0 13) ((predator 3 ) 0 11) ((predator 4 ) 1 12) ((prey 1 ) 0 12) ((prey 2 ) 9 6))
+EPISODE 1 CYCLE 110a ACTION PHASE
+Recv	(prey 1 ): (move west)
+Recv	(prey 2 ): (move east)
+(world (stats 1 110 0.000000 0 0) ((predator 1 ) 13 12) ((predator 2 ) 0 13) ((predator 3 ) 0 11) ((predator 4 ) 1 12) ((prey 1 ) 14 12) ((prey 2 ) 10 6))
+EPISODE 1 CYCLE 110b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 111 0.000000 0 0) ((predator 1 ) 13 12) ((predator 2 ) 0 13) ((predator 3 ) 0 11) ((predator 4 ) 1 12) ((prey 1 ) 14 12) ((prey 2 ) 10 6))
+EPISODE 1 CYCLE 111a ACTION PHASE
+Recv	(prey 1 ): (move south)
+Recv	(prey 2 ): (move north)
+(world (stats 1 111 0.000000 0 0) ((predator 1 ) 13 12) ((predator 2 ) 0 13) ((predator 3 ) 0 11) ((predator 4 ) 1 12) ((prey 1 ) 14 11) ((prey 2 ) 10 7))
+EPISODE 1 CYCLE 111b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 112 0.000000 0 0) ((predator 1 ) 13 12) ((predator 2 ) 0 13) ((predator 3 ) 0 11) ((predator 4 ) 1 12) ((prey 1 ) 14 11) ((prey 2 ) 10 7))
+EPISODE 1 CYCLE 112a ACTION PHASE
+Recv	(prey 1 ): (move none)
+Recv	(prey 2 ): (move south)
+(world (stats 1 112 0.000000 0 0) ((predator 1 ) 13 12) ((predator 2 ) 0 13) ((predator 3 ) 0 11) ((predator 4 ) 1 12) ((prey 1 ) 14 11) ((prey 2 ) 10 6))
+EPISODE 1 CYCLE 112b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 113 0.000000 0 0) ((predator 1 ) 13 12) ((predator 2 ) 0 13) ((predator 3 ) 0 11) ((predator 4 ) 1 12) ((prey 1 ) 14 11) ((prey 2 ) 10 6))
+EPISODE 1 CYCLE 113a ACTION PHASE
+Recv	(prey 1 ): (move south)
+Recv	(prey 2 ): (move west)
+(world (stats 1 113 0.000000 0 0) ((predator 1 ) 13 12) ((predator 2 ) 0 13) ((predator 3 ) 0 11) ((predator 4 ) 1 12) ((prey 1 ) 14 10) ((prey 2 ) 9 6))
+EPISODE 1 CYCLE 113b ACTION PHASE
+Recv	(predator 1 ): (move south)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move south)
+Recv	(predator 4 ): (move none)
+(world (stats 1 114 0.000000 0 0) ((predator 1 ) 13 11) ((predator 2 ) 0 13) ((predator 3 ) 0 10) ((predator 4 ) 1 12) ((prey 1 ) 14 10) ((prey 2 ) 9 6))
+EPISODE 1 CYCLE 114a ACTION PHASE
+Recv	(prey 1 ): (move none)
+Recv	(prey 2 ): (move west)
+(world (stats 1 114 0.000000 0 0) ((predator 1 ) 13 11) ((predator 2 ) 0 13) ((predator 3 ) 0 10) ((predator 4 ) 1 12) ((prey 1 ) 14 10) ((prey 2 ) 8 6))
+EPISODE 1 CYCLE 114b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move south)
+(world (stats 1 115 0.000000 0 0) ((predator 1 ) 13 11) ((predator 2 ) 0 13) ((predator 3 ) 0 10) ((predator 4 ) 1 11) ((prey 1 ) 14 10) ((prey 2 ) 8 6))
+EPISODE 1 CYCLE 115a ACTION PHASE
+Recv	(prey 1 ): (move south)
+Recv	(prey 2 ): (move east)
+(world (stats 1 115 0.000000 0 0) ((predator 1 ) 13 11) ((predator 2 ) 0 13) ((predator 3 ) 0 10) ((predator 4 ) 1 11) ((prey 1 ) 14 9) ((prey 2 ) 9 6))
+EPISODE 1 CYCLE 115b ACTION PHASE
+Recv	(predator 1 ): (move south)
+Recv	(predator 2 ): (move south)
+Recv	(predator 3 ): (move south)
+Recv	(predator 4 ): (move none)
+(world (stats 1 116 0.000000 0 0) ((predator 1 ) 13 10) ((predator 2 ) 0 12) ((predator 3 ) 0 9) ((predator 4 ) 1 11) ((prey 1 ) 14 9) ((prey 2 ) 9 6))
+EPISODE 1 CYCLE 116a ACTION PHASE
+Recv	(prey 1 ): (move north)
+Recv	(prey 2 ): (move none)
+(world (stats 1 116 0.000000 0 0) ((predator 1 ) 13 10) ((predator 2 ) 0 12) ((predator 3 ) 0 9) ((predator 4 ) 1 11) ((prey 1 ) 14 10) ((prey 2 ) 9 6))
+EPISODE 1 CYCLE 116b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 117 0.000000 0 0) ((predator 1 ) 13 10) ((predator 2 ) 0 12) ((predator 3 ) 0 9) ((predator 4 ) 1 11) ((prey 1 ) 14 10) ((prey 2 ) 9 6))
+EPISODE 1 CYCLE 117a ACTION PHASE
+Recv	(prey 1 ): (move east)
+Recv	(prey 2 ): (move east)
+(world (stats 1 117 0.000000 0 0) ((predator 1 ) 13 10) ((predator 2 ) 0 12) ((predator 3 ) 0 9) ((predator 4 ) 1 11) ((prey 1 ) 0 10) ((prey 2 ) 10 6))
+EPISODE 1 CYCLE 117b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 118 0.000000 0 0) ((predator 1 ) 13 10) ((predator 2 ) 0 12) ((predator 3 ) 0 9) ((predator 4 ) 1 11) ((prey 1 ) 0 10) ((prey 2 ) 10 6))
+EPISODE 1 CYCLE 118a ACTION PHASE
+Recv	(prey 1 ): (move none)
+Recv	(prey 2 ): (move west)
+(world (stats 1 118 0.000000 0 0) ((predator 1 ) 13 10) ((predator 2 ) 0 12) ((predator 3 ) 0 9) ((predator 4 ) 1 11) ((prey 1 ) 0 10) ((prey 2 ) 9 6))
+EPISODE 1 CYCLE 118b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 119 0.000000 0 0) ((predator 1 ) 13 10) ((predator 2 ) 0 12) ((predator 3 ) 0 9) ((predator 4 ) 1 11) ((prey 1 ) 0 10) ((prey 2 ) 9 6))
+EPISODE 1 CYCLE 119a ACTION PHASE
+Recv	(prey 1 ): (move none)
+Recv	(prey 2 ): (move north)
+(world (stats 1 119 0.000000 0 0) ((predator 1 ) 13 10) ((predator 2 ) 0 12) ((predator 3 ) 0 9) ((predator 4 ) 1 11) ((prey 1 ) 0 10) ((prey 2 ) 9 7))
+EPISODE 1 CYCLE 119b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 120 0.000000 0 0) ((predator 1 ) 13 10) ((predator 2 ) 0 12) ((predator 3 ) 0 9) ((predator 4 ) 1 11) ((prey 1 ) 0 10) ((prey 2 ) 9 7))
+EPISODE 1 CYCLE 120a ACTION PHASE
+Recv	(prey 1 ): (move none)
+Recv	(prey 2 ): (move south)
+(world (stats 1 120 0.000000 0 0) ((predator 1 ) 13 10) ((predator 2 ) 0 12) ((predator 3 ) 0 9) ((predator 4 ) 1 11) ((prey 1 ) 0 10) ((prey 2 ) 9 6))
+EPISODE 1 CYCLE 120b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 121 0.000000 0 0) ((predator 1 ) 13 10) ((predator 2 ) 0 12) ((predator 3 ) 0 9) ((predator 4 ) 1 11) ((prey 1 ) 0 10) ((prey 2 ) 9 6))
+EPISODE 1 CYCLE 121a ACTION PHASE
+Recv	(prey 1 ): (move east)
+Recv	(prey 2 ): (move west)
+(world (stats 1 121 0.000000 0 0) ((predator 1 ) 13 10) ((predator 2 ) 0 12) ((predator 3 ) 0 9) ((predator 4 ) 1 11) ((prey 1 ) 1 10) ((prey 2 ) 8 6))
+EPISODE 1 CYCLE 121b ACTION PHASE
+Recv	(predator 1 ): (move east)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 122 0.000000 0 0) ((predator 1 ) 14 10) ((predator 2 ) 0 12) ((predator 3 ) 0 9) ((predator 4 ) 1 11) ((prey 1 ) 1 10) ((prey 2 ) 8 6))
+EPISODE 1 CYCLE 122a ACTION PHASE
+Recv	(prey 1 ): (move east)
+Recv	(prey 2 ): (move north)
+(world (stats 1 122 0.000000 0 0) ((predator 1 ) 14 10) ((predator 2 ) 0 12) ((predator 3 ) 0 9) ((predator 4 ) 1 11) ((prey 1 ) 2 10) ((prey 2 ) 8 7))
+EPISODE 1 CYCLE 122b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move east)
+Recv	(predator 4 ): (move east)
+(world (stats 1 123 0.000000 0 0) ((predator 1 ) 14 10) ((predator 2 ) 0 12) ((predator 3 ) 1 9) ((predator 4 ) 2 11) ((prey 1 ) 2 10) ((prey 2 ) 8 7))
+EPISODE 1 CYCLE 123a ACTION PHASE
+Recv	(prey 1 ): (move none)
+Recv	(prey 2 ): (move east)
+(world (stats 1 123 0.000000 0 0) ((predator 1 ) 14 10) ((predator 2 ) 0 12) ((predator 3 ) 1 9) ((predator 4 ) 2 11) ((prey 1 ) 2 10) ((prey 2 ) 9 7))
+EPISODE 1 CYCLE 123b ACTION PHASE
+Recv	(predator 1 ): (move east)
+Recv	(predator 2 ): (move east)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 124 0.000000 0 0) ((predator 1 ) 0 10) ((predator 2 ) 1 12) ((predator 3 ) 1 9) ((predator 4 ) 2 11) ((prey 1 ) 2 10) ((prey 2 ) 9 7))
+EPISODE 1 CYCLE 124a ACTION PHASE
+Recv	(prey 1 ): (move east)
+Recv	(prey 2 ): (move south)
+(world (stats 1 124 0.000000 0 0) ((predator 1 ) 0 10) ((predator 2 ) 1 12) ((predator 3 ) 1 9) ((predator 4 ) 2 11) ((prey 1 ) 3 10) ((prey 2 ) 9 6))
+EPISODE 1 CYCLE 124b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move east)
+Recv	(predator 4 ): (move east)
+(world (stats 1 125 0.000000 0 0) ((predator 1 ) 0 10) ((predator 2 ) 1 12) ((predator 3 ) 2 9) ((predator 4 ) 3 11) ((prey 1 ) 3 10) ((prey 2 ) 9 6))
+EPISODE 1 CYCLE 125a ACTION PHASE
+Recv	(prey 1 ): (move none)
+Recv	(prey 2 ): (move north)
+(world (stats 1 125 0.000000 0 0) ((predator 1 ) 0 10) ((predator 2 ) 1 12) ((predator 3 ) 2 9) ((predator 4 ) 3 11) ((prey 1 ) 3 10) ((prey 2 ) 9 7))
+EPISODE 1 CYCLE 125b ACTION PHASE
+Recv	(predator 1 ): (move east)
+Recv	(predator 2 ): (move east)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 126 0.000000 0 0) ((predator 1 ) 1 10) ((predator 2 ) 2 12) ((predator 3 ) 2 9) ((predator 4 ) 3 11) ((prey 1 ) 3 10) ((prey 2 ) 9 7))
+EPISODE 1 CYCLE 126a ACTION PHASE
+Recv	(prey 1 ): (move west)
+Recv	(prey 2 ): (move none)
+(world (stats 1 126 0.000000 0 0) ((predator 1 ) 1 10) ((predator 2 ) 2 12) ((predator 3 ) 2 9) ((predator 4 ) 3 11) ((prey 1 ) 2 10) ((prey 2 ) 9 7))
+EPISODE 1 CYCLE 126b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 127 0.000000 0 0) ((predator 1 ) 1 10) ((predator 2 ) 2 12) ((predator 3 ) 2 9) ((predator 4 ) 3 11) ((prey 1 ) 2 10) ((prey 2 ) 9 7))
+EPISODE 1 CYCLE 127a ACTION PHASE
+Recv	(prey 1 ): (move none)
+Recv	(prey 2 ): (move east)
+(world (stats 1 127 0.000000 0 0) ((predator 1 ) 1 10) ((predator 2 ) 2 12) ((predator 3 ) 2 9) ((predator 4 ) 3 11) ((prey 1 ) 2 10) ((prey 2 ) 10 7))
+EPISODE 1 CYCLE 127b ACTION PHASE
+Recv	(predator 3 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 1 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 128 0.000000 0 0) ((predator 1 ) 1 10) ((predator 2 ) 2 12) ((predator 3 ) 2 9) ((predator 4 ) 3 11) ((prey 1 ) 2 10) ((prey 2 ) 10 7))
+EPISODE 1 CYCLE 128a ACTION PHASE
+Recv	(prey 2 ): (move north)
+Recv	(prey 1 ): (move north)
+(world (stats 1 128 0.000000 0 0) ((predator 1 ) 1 10) ((predator 2 ) 2 12) ((predator 3 ) 2 9) ((predator 4 ) 3 11) ((prey 1 ) 2 11) ((prey 2 ) 10 8))
+EPISODE 1 CYCLE 128b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 129 0.000000 0 0) ((predator 1 ) 1 10) ((predator 2 ) 2 12) ((predator 3 ) 2 9) ((predator 4 ) 3 11) ((prey 1 ) 2 11) ((prey 2 ) 10 8))
+EPISODE 1 CYCLE 129a ACTION PHASE
+Recv	(prey 1 ): (move none)
+Recv	(prey 2 ): (move east)
+(world (stats 1 129 0.000000 0 0) ((predator 1 ) 1 10) ((predator 2 ) 2 12) ((predator 3 ) 2 9) ((predator 4 ) 3 11) ((prey 1 ) 2 11) ((prey 2 ) 11 8))
+EPISODE 1 CYCLE 129b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 130 0.000000 0 0) ((predator 1 ) 1 10) ((predator 2 ) 2 12) ((predator 3 ) 2 9) ((predator 4 ) 3 11) ((prey 1 ) 2 11) ((prey 2 ) 11 8))
+EPISODE 1 CYCLE 130a ACTION PHASE
+Recv	(prey 1 ): (move west)
+Recv	(prey 2 ): (move west)
+(world (stats 1 130 0.000000 0 0) ((predator 1 ) 1 10) ((predator 2 ) 2 12) ((predator 3 ) 2 9) ((predator 4 ) 3 11) ((prey 1 ) 1 11) ((prey 2 ) 10 8))
+EPISODE 1 CYCLE 130b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 131 0.000000 0 0) ((predator 1 ) 1 10) ((predator 2 ) 2 12) ((predator 3 ) 2 9) ((predator 4 ) 3 11) ((prey 1 ) 1 11) ((prey 2 ) 10 8))
+EPISODE 1 CYCLE 131a ACTION PHASE
+Recv	(prey 1 ): (move east)
+Recv	(prey 2 ): (move north)
+(world (stats 1 131 0.000000 0 0) ((predator 1 ) 1 10) ((predator 2 ) 2 12) ((predator 3 ) 2 9) ((predator 4 ) 3 11) ((prey 1 ) 2 11) ((prey 2 ) 10 9))
+EPISODE 1 CYCLE 131b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 132 0.000000 0 0) ((predator 1 ) 1 10) ((predator 2 ) 2 12) ((predator 3 ) 2 9) ((predator 4 ) 3 11) ((prey 1 ) 2 11) ((prey 2 ) 10 9))
+EPISODE 1 CYCLE 132a ACTION PHASE
+Recv	(prey 1 ): (move west)
+Recv	(prey 2 ): (move north)
+(world (stats 1 132 0.000000 0 0) ((predator 1 ) 1 10) ((predator 2 ) 2 12) ((predator 3 ) 2 9) ((predator 4 ) 3 11) ((prey 1 ) 1 11) ((prey 2 ) 10 10))
+EPISODE 1 CYCLE 132b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 133 0.000000 0 0) ((predator 1 ) 1 10) ((predator 2 ) 2 12) ((predator 3 ) 2 9) ((predator 4 ) 3 11) ((prey 1 ) 1 11) ((prey 2 ) 10 10))
+EPISODE 1 CYCLE 133a ACTION PHASE
+Recv	(prey 1 ): (move north)
+Recv	(prey 2 ): (move south)
+(world (stats 1 133 0.000000 0 0) ((predator 1 ) 1 10) ((predator 2 ) 2 12) ((predator 3 ) 2 9) ((predator 4 ) 3 11) ((prey 1 ) 1 12) ((prey 2 ) 10 9))
+EPISODE 1 CYCLE 133b ACTION PHASE
+Recv	(predator 1 ): (move north)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 134 0.000000 0 0) ((predator 1 ) 1 11) ((predator 2 ) 2 12) ((predator 3 ) 2 9) ((predator 4 ) 3 11) ((prey 1 ) 1 12) ((prey 2 ) 10 9))
+EPISODE 1 CYCLE 134a ACTION PHASE
+Recv	(prey 1 ): (move north)
+Recv	(prey 2 ): (move east)
+(world (stats 1 134 0.000000 0 0) ((predator 1 ) 1 11) ((predator 2 ) 2 12) ((predator 3 ) 2 9) ((predator 4 ) 3 11) ((prey 1 ) 1 13) ((prey 2 ) 11 9))
+EPISODE 1 CYCLE 134b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move north)
+Recv	(predator 3 ): (move north)
+Recv	(predator 4 ): (move none)
+(world (stats 1 135 0.000000 0 0) ((predator 1 ) 1 11) ((predator 2 ) 2 13) ((predator 3 ) 2 10) ((predator 4 ) 3 11) ((prey 1 ) 1 13) ((prey 2 ) 11 9))
+EPISODE 1 CYCLE 135a ACTION PHASE
+Recv	(prey 1 ): (move none)
+Recv	(prey 2 ): (move south)
+(world (stats 1 135 0.000000 0 0) ((predator 1 ) 1 11) ((predator 2 ) 2 13) ((predator 3 ) 2 10) ((predator 4 ) 3 11) ((prey 1 ) 1 13) ((prey 2 ) 11 8))
+EPISODE 1 CYCLE 135b ACTION PHASE
+Recv	(predator 4 ): (move north)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 1 ): (move north)
+(world (stats 1 136 0.000000 0 0) ((predator 1 ) 1 12) ((predator 2 ) 2 13) ((predator 3 ) 2 10) ((predator 4 ) 3 12) ((prey 1 ) 1 13) ((prey 2 ) 11 8))
+EPISODE 1 CYCLE 136a ACTION PHASE
+Recv	(prey 1 ): (move north)
+Recv	(prey 2 ): (move south)
+(world (stats 1 136 0.000000 0 0) ((predator 1 ) 1 12) ((predator 2 ) 2 13) ((predator 3 ) 2 10) ((predator 4 ) 3 12) ((prey 1 ) 1 14) ((prey 2 ) 11 7))
+EPISODE 1 CYCLE 136b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move north)
+Recv	(predator 3 ): (move north)
+Recv	(predator 4 ): (move none)
+(world (stats 1 137 0.000000 0 0) ((predator 1 ) 1 12) ((predator 2 ) 2 14) ((predator 3 ) 2 11) ((predator 4 ) 3 12) ((prey 1 ) 1 14) ((prey 2 ) 11 7))
+EPISODE 1 CYCLE 137a ACTION PHASE
+Recv	(prey 1 ): (move north)
+Recv	(prey 2 ): (move north)
+(world (stats 1 137 0.000000 0 0) ((predator 1 ) 1 12) ((predator 2 ) 2 14) ((predator 3 ) 2 11) ((predator 4 ) 3 12) ((prey 1 ) 1 0) ((prey 2 ) 11 8))
+EPISODE 1 CYCLE 137b ACTION PHASE
+Recv	(predator 1 ): (move north)
+Recv	(predator 2 ): (move north)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move north)
+(world (stats 1 138 0.000000 0 0) ((predator 1 ) 1 13) ((predator 2 ) 2 0) ((predator 3 ) 2 11) ((predator 4 ) 3 13) ((prey 1 ) 1 0) ((prey 2 ) 11 8))
+EPISODE 1 CYCLE 138a ACTION PHASE
+Recv	(prey 1 ): (move south)
+Recv	(prey 2 ): (move west)
+(world (stats 1 138 0.000000 0 0) ((predator 1 ) 1 13) ((predator 2 ) 2 0) ((predator 3 ) 2 11) ((predator 4 ) 3 13) ((prey 1 ) 1 14) ((prey 2 ) 10 8))
+EPISODE 1 CYCLE 138b ACTION PHASE
+Recv	(predator 3 ): (move north)
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 139 0.000000 0 0) ((predator 1 ) 1 13) ((predator 2 ) 2 0) ((predator 3 ) 2 12) ((predator 4 ) 3 13) ((prey 1 ) 1 14) ((prey 2 ) 10 8))
+EPISODE 1 CYCLE 139a ACTION PHASE
+Recv	(prey 1 ): (move none)
+Recv	(prey 2 ): (move none)
+(world (stats 1 139 0.000000 0 0) ((predator 1 ) 1 13) ((predator 2 ) 2 0) ((predator 3 ) 2 12) ((predator 4 ) 3 13) ((prey 1 ) 1 14) ((prey 2 ) 10 8))
+EPISODE 1 CYCLE 139b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 140 0.000000 0 0) ((predator 1 ) 1 13) ((predator 2 ) 2 0) ((predator 3 ) 2 12) ((predator 4 ) 3 13) ((prey 1 ) 1 14) ((prey 2 ) 10 8))
+EPISODE 1 CYCLE 140a ACTION PHASE
+Recv	(prey 1 ): (move east)
+Recv	(prey 2 ): (move west)
+(world (stats 1 140 0.000000 0 0) ((predator 1 ) 1 13) ((predator 2 ) 2 0) ((predator 3 ) 2 12) ((predator 4 ) 3 13) ((prey 1 ) 2 14) ((prey 2 ) 9 8))
+EPISODE 1 CYCLE 140b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 141 0.000000 0 0) ((predator 1 ) 1 13) ((predator 2 ) 2 0) ((predator 3 ) 2 12) ((predator 4 ) 3 13) ((prey 1 ) 2 14) ((prey 2 ) 9 8))
+EPISODE 1 CYCLE 141a ACTION PHASE
+Recv	(prey 1 ): (move east)
+Recv	(prey 2 ): (move east)
+(world (stats 1 141 0.000000 0 0) ((predator 1 ) 1 13) ((predator 2 ) 2 0) ((predator 3 ) 2 12) ((predator 4 ) 3 13) ((prey 1 ) 3 14) ((prey 2 ) 10 8))
+EPISODE 1 CYCLE 141b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 142 0.000000 0 0) ((predator 1 ) 1 13) ((predator 2 ) 2 0) ((predator 3 ) 2 12) ((predator 4 ) 3 13) ((prey 1 ) 3 14) ((prey 2 ) 10 8))
+EPISODE 1 CYCLE 142a ACTION PHASE
+Recv	(prey 1 ): (move west)
+Recv	(prey 2 ): (move south)
+(world (stats 1 142 0.000000 0 0) ((predator 1 ) 1 13) ((predator 2 ) 2 0) ((predator 3 ) 2 12) ((predator 4 ) 3 13) ((prey 1 ) 2 14) ((prey 2 ) 10 7))
+EPISODE 1 CYCLE 142b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 143 0.000000 0 0) ((predator 1 ) 1 13) ((predator 2 ) 2 0) ((predator 3 ) 2 12) ((predator 4 ) 3 13) ((prey 1 ) 2 14) ((prey 2 ) 10 7))
+EPISODE 1 CYCLE 143a ACTION PHASE
+Recv	(prey 1 ): (move east)
+Recv	(prey 2 ): (move none)
+(world (stats 1 143 0.000000 0 0) ((predator 1 ) 1 13) ((predator 2 ) 2 0) ((predator 3 ) 2 12) ((predator 4 ) 3 13) ((prey 1 ) 3 14) ((prey 2 ) 10 7))
+EPISODE 1 CYCLE 143b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move none)
+(world (stats 1 144 0.000000 0 0) ((predator 1 ) 1 13) ((predator 2 ) 2 0) ((predator 3 ) 2 12) ((predator 4 ) 3 13) ((prey 1 ) 3 14) ((prey 2 ) 10 7))
+EPISODE 1 CYCLE 144a ACTION PHASE
+Recv	(prey 1 ): (move east)
+Recv	(prey 2 ): (move north)
+(world (stats 1 144 0.000000 0 0) ((predator 1 ) 1 13) ((predator 2 ) 2 0) ((predator 3 ) 2 12) ((predator 4 ) 3 13) ((prey 1 ) 4 14) ((prey 2 ) 10 8))
+EPISODE 1 CYCLE 144b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move east)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move east)
+(world (stats 1 145 0.000000 0 0) ((predator 1 ) 1 13) ((predator 2 ) 3 0) ((predator 3 ) 2 12) ((predator 4 ) 4 13) ((prey 1 ) 4 14) ((prey 2 ) 10 8))
+EPISODE 1 CYCLE 145a ACTION PHASE
+Recv	(prey 1 ): (move north)
+Recv	(prey 2 ): (move north)
+(world (stats 1 145 0.000000 0 0) ((predator 1 ) 1 13) ((predator 2 ) 3 0) ((predator 3 ) 2 12) ((predator 4 ) 4 13) ((prey 1 ) 4 0) ((prey 2 ) 10 9))
+EPISODE 1 CYCLE 145b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move east)
+Recv	(predator 4 ): (move north)
+(world (stats 1 146 0.000000 0 0) ((predator 1 ) 1 13) ((predator 2 ) 3 0) ((predator 3 ) 3 12) ((predator 4 ) 4 14) ((prey 1 ) 4 0) ((prey 2 ) 10 9))
+EPISODE 1 CYCLE 146a ACTION PHASE
+Recv	(prey 1 ): (move east)
+Recv	(prey 2 ): (move west)
+(world (stats 1 146 0.000000 0 0) ((predator 1 ) 1 13) ((predator 2 ) 3 0) ((predator 3 ) 3 12) ((predator 4 ) 4 14) ((prey 1 ) 5 0) ((prey 2 ) 9 9))
+EPISODE 1 CYCLE 146b ACTION PHASE
+Recv	(predator 1 ): (move east)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move east)
+Recv	(predator 4 ): (move east)
+(world (stats 1 147 0.000000 0 0) ((predator 1 ) 2 13) ((predator 2 ) 3 0) ((predator 3 ) 4 12) ((predator 4 ) 5 14) ((prey 1 ) 5 0) ((prey 2 ) 9 9))
+EPISODE 1 CYCLE 147a ACTION PHASE
+Recv	(prey 1 ): (move none)
+Recv	(prey 2 ): (move none)
+(world (stats 1 147 0.000000 0 0) ((predator 1 ) 2 13) ((predator 2 ) 3 0) ((predator 3 ) 4 12) ((predator 4 ) 5 14) ((prey 1 ) 5 0) ((prey 2 ) 9 9))
+EPISODE 1 CYCLE 147b ACTION PHASE
+Recv	(predator 1 ): (move north)
+Recv	(predator 2 ): (move east)
+Recv	(predator 3 ): (move north)
+Recv	(predator 4 ): (move none)
+(world (stats 1 148 0.000000 0 0) ((predator 1 ) 2 14) ((predator 2 ) 4 0) ((predator 3 ) 4 13) ((predator 4 ) 5 14) ((prey 1 ) 5 0) ((prey 2 ) 9 9))
+EPISODE 1 CYCLE 148a ACTION PHASE
+Recv	(prey 1 ): (move east)
+Recv	(prey 2 ): (move north)
+(world (stats 1 148 0.000000 0 0) ((predator 1 ) 2 14) ((predator 2 ) 4 0) ((predator 3 ) 4 13) ((predator 4 ) 5 14) ((prey 1 ) 6 0) ((prey 2 ) 9 10))
+EPISODE 1 CYCLE 148b ACTION PHASE
+Recv	(predator 1 ): (move east)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move east)
+Recv	(predator 2 ): (move none)
+(world (stats 1 149 0.000000 0 0) ((predator 1 ) 3 14) ((predator 2 ) 4 0) ((predator 3 ) 4 13) ((predator 4 ) 6 14) ((prey 1 ) 6 0) ((prey 2 ) 9 10))
+EPISODE 1 CYCLE 149a ACTION PHASE
+Recv	(prey 1 ): (move none)
+Recv	(prey 2 ): (move west)
+(world (stats 1 149 0.000000 0 0) ((predator 1 ) 3 14) ((predator 2 ) 4 0) ((predator 3 ) 4 13) ((predator 4 ) 6 14) ((prey 1 ) 6 0) ((prey 2 ) 8 10))
+EPISODE 1 CYCLE 149b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 3 ): (move east)
+Recv	(predator 2 ): (move east)
+Recv	(predator 4 ): (move none)
+(world (stats 1 150 0.000000 0 0) ((predator 1 ) 3 14) ((predator 2 ) 5 0) ((predator 3 ) 5 13) ((predator 4 ) 6 14) ((prey 1 ) 6 0) ((prey 2 ) 8 10))
+EPISODE 1 CYCLE 150a ACTION PHASE
+Recv	(prey 1 ): (move north)
+Recv	(prey 2 ): (move south)
+(world (stats 1 150 0.000000 0 0) ((predator 1 ) 3 14) ((predator 2 ) 5 0) ((predator 3 ) 5 13) ((predator 4 ) 6 14) ((prey 1 ) 6 1) ((prey 2 ) 8 9))
+EPISODE 1 CYCLE 150b ACTION PHASE
+Recv	(predator 4 ): (move none)
+Recv	(predator 2 ): (move north)
+Recv	(predator 1 ): (move north)
+Recv	(predator 3 ): (move none)
+(world (stats 1 151 0.000000 0 0) ((predator 1 ) 3 0) ((predator 2 ) 5 1) ((predator 3 ) 5 13) ((predator 4 ) 6 14) ((prey 1 ) 6 1) ((prey 2 ) 8 9))
+EPISODE 1 CYCLE 151a ACTION PHASE
+Recv	(prey 1 ): (move north)
+Recv	(prey 2 ): (move north)
+(world (stats 1 151 0.000000 0 0) ((predator 1 ) 3 0) ((predator 2 ) 5 1) ((predator 3 ) 5 13) ((predator 4 ) 6 14) ((prey 1 ) 6 2) ((prey 2 ) 8 10))
+EPISODE 1 CYCLE 151b ACTION PHASE
+Recv	(predator 1 ): (move east)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move north)
+Recv	(predator 2 ): (move north)
+(world (stats 1 152 0.000000 0 0) ((predator 1 ) 4 0) ((predator 2 ) 5 2) ((predator 3 ) 5 13) ((predator 4 ) 6 0) ((prey 1 ) 6 2) ((prey 2 ) 8 10))
+EPISODE 1 CYCLE 152a ACTION PHASE
+Recv	(prey 1 ): (move north)
+Recv	(prey 2 ): (move west)
+(world (stats 1 152 0.000000 0 0) ((predator 1 ) 4 0) ((predator 2 ) 5 2) ((predator 3 ) 5 13) ((predator 4 ) 6 0) ((prey 1 ) 6 3) ((prey 2 ) 7 10))
+EPISODE 1 CYCLE 152b ACTION PHASE
+Recv	(predator 1 ): (move north)
+Recv	(predator 2 ): (move north)
+Recv	(predator 3 ): (move north)
+Recv	(predator 4 ): (move north)
+(world (stats 1 153 0.000000 0 0) ((predator 1 ) 4 1) ((predator 2 ) 5 3) ((predator 3 ) 5 14) ((predator 4 ) 6 1) ((prey 1 ) 6 3) ((prey 2 ) 7 10))
+EPISODE 1 CYCLE 153a ACTION PHASE
+Recv	(prey 1 ): (move east)
+Recv	(prey 2 ): (move none)
+(world (stats 1 153 0.000000 0 0) ((predator 1 ) 4 1) ((predator 2 ) 5 3) ((predator 3 ) 5 14) ((predator 4 ) 6 1) ((prey 1 ) 7 3) ((prey 2 ) 7 10))
+EPISODE 1 CYCLE 153b ACTION PHASE
+Recv	(predator 1 ): (move north)
+Recv	(predator 2 ): (move east)
+Recv	(predator 3 ): (move north)
+Recv	(predator 4 ): (move east)
+(world (stats 1 154 0.000000 0 0) ((predator 1 ) 4 2) ((predator 2 ) 6 3) ((predator 3 ) 5 0) ((predator 4 ) 7 1) ((prey 1 ) 7 3) ((prey 2 ) 7 10))
+EPISODE 1 CYCLE 154a ACTION PHASE
+Recv	(prey 1 ): (move north)
+Recv	(prey 2 ): (move east)
+(world (stats 1 154 0.000000 0 0) ((predator 1 ) 4 2) ((predator 2 ) 6 3) ((predator 3 ) 5 0) ((predator 4 ) 7 1) ((prey 1 ) 7 4) ((prey 2 ) 8 10))
+EPISODE 1 CYCLE 154b ACTION PHASE
+Recv	(predator 1 ): (move east)
+Recv	(predator 2 ): (move north)
+Recv	(predator 3 ): (move east)
+Recv	(predator 4 ): (move north)
+(world (stats 1 155 0.000000 0 0) ((predator 1 ) 5 2) ((predator 2 ) 6 4) ((predator 3 ) 6 0) ((predator 4 ) 7 2) ((prey 1 ) 7 4) ((prey 2 ) 8 10))
+EPISODE 1 CYCLE 155a ACTION PHASE
+Recv	(prey 1 ): (move south)
+Recv	(prey 2 ): (move west)
+(world (stats 1 155 0.000000 0 0) ((predator 1 ) 5 2) ((predator 2 ) 6 4) ((predator 3 ) 6 0) ((predator 4 ) 7 2) ((prey 1 ) 7 3) ((prey 2 ) 7 10))
+EPISODE 1 CYCLE 155b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move north)
+Recv	(predator 4 ): (move none)
+(world (stats 1 156 0.000000 0 0) ((predator 1 ) 5 2) ((predator 2 ) 6 4) ((predator 3 ) 6 1) ((predator 4 ) 7 2) ((prey 1 ) 7 3) ((prey 2 ) 7 10))
+EPISODE 1 CYCLE 156a ACTION PHASE
+Recv	(prey 1 ): (move east)
+Recv	(prey 2 ): (move west)
+(world (stats 1 156 0.000000 0 0) ((predator 1 ) 5 2) ((predator 2 ) 6 4) ((predator 3 ) 6 1) ((predator 4 ) 7 2) ((prey 1 ) 8 3) ((prey 2 ) 6 10))
+EPISODE 1 CYCLE 156b ACTION PHASE
+Recv	(predator 1 ): (move none)
+Recv	(predator 2 ): (move east)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move east)
+(world (stats 1 157 0.000000 0 0) ((predator 1 ) 5 2) ((predator 2 ) 7 4) ((predator 3 ) 6 1) ((predator 4 ) 8 2) ((prey 1 ) 8 3) ((prey 2 ) 6 10))
+EPISODE 1 CYCLE 157a ACTION PHASE
+Recv	(prey 1 ): (move north)
+Recv	(prey 2 ): (move west)
+(world (stats 1 157 0.000000 0 0) ((predator 1 ) 5 2) ((predator 2 ) 7 4) ((predator 3 ) 6 1) ((predator 4 ) 8 2) ((prey 1 ) 8 4) ((prey 2 ) 5 10))
+EPISODE 1 CYCLE 157b ACTION PHASE
+Recv	(predator 1 ): (move north)
+Recv	(predator 2 ): (move none)
+Recv	(predator 3 ): (move none)
+Recv	(predator 4 ): (move north)
+(world (stats 1 158 0.000000 0 0) ((predator 1 ) 5 3) ((predator 2 ) 7 4) ((predator 3 ) 6 1) ((predator 4 ) 8 3) ((prey 1 ) 8 4) ((prey 2 ) 5 10))
+EPISODE 1 CYCLE 158a ACTION PHASE
+Recv	(prey 2 ): (move west)
+Recv	(prey 1 ): (move east)
+(world (stats 1 158 0.000000 0 0) ((predator 1 ) 5 3) ((predator 2 ) 7 4) ((predator 3 ) 6 1) ((predator 4 ) 8 3) ((prey 1 ) 9 4) ((prey 2 ) 4 10))
+EPISODE 1 CYCLE 158b ACTION PHASE
+Recv	(predator 3 ): (move east)
+Recv	(predator 1 ): (move east)
+Recv	(predator 2 ): (move none)
+Recv	(predator 4 ): (move east)
+(world (stats 1 159 0.000000 0 0) ((predator 1 ) 6 3) ((predator 2 ) 7 4) ((predator 3 ) 7 1) ((predator 4 ) 9 3) ((prey 1 ) 9 4) ((prey 2 ) 4 10))
+EPISODE 1 CYCLE 159a ACTION PHASE
+Recv	(prey 2 ): (move north)
+Recv	(prey 1 ): (move east)
 Recv	(predator 1 ): (quit)
 Recv	(predator 2 ): (quit)
 Recv	(predator 3 ): (quit)
