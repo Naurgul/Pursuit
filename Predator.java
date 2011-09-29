@@ -5,10 +5,13 @@ import java.util.*;
 /** This class defines the functionality of the predator. */
 public class Predator extends Agent
 {
-	public enum AgentType{PREY, PREDATOR};
-	public enum Direction{UP, DOWN, LEFT, RIGHT, NONE};
 	private int targetID;
 	private HashMap<Integer, Direction> roles;
+	public LinkedList<ObjectSeen> seen;
+	
+	
+	public enum AgentType{PREY, PREDATOR};
+	public enum Direction{UP, DOWN, LEFT, RIGHT, NONE};
 	
 	class Position
 	{
@@ -33,8 +36,139 @@ public class Predator extends Agent
 			this.pos = new Position(x, y);
 		}
 	}
+	
+	public class MoveComparator implements Comparator<Direction>
+	{
+		private Position predator;
+		private Position target;
+		private Direction role;
+		private int maxDist;
+		
+		public MoveComparator(Position predator, Position target, Direction role, int maxDist)
+		{
+			this.predator = predator;
+			this. target = target;
+			this.role = role;
+			this.maxDist = maxDist;
+		}
 
-	public LinkedList<ObjectSeen> seen;
+	    @Override
+	    public int compare(Direction dir1, Direction dir2) throws RuntimeException
+	    {
+
+	        int rank1 = getRank(dir1);
+	        int rank2 = getRank(dir2);
+
+	        if (rank1 > rank2)
+	        {
+	            return -1;
+	        }
+	        else if (rank1 < rank2)
+	        {
+	            return +1;
+	        }
+	        else
+	        {
+	        	//needless to say, this should never occur!
+	        	throw new RuntimeException("Could not find strict preference over directions.");
+	        }
+	    }
+
+		private int getRank(Direction dir)
+		{
+			int dist = getDistance(getNewPos(predator, dir), target);
+			
+			//rank is mainly affected by which move gets us closer to the target
+			int rank = 150 - 10 * dist;			
+			
+			//also, we want to wait for anyone who is still far away
+			if (maxDist - dist > 1 && dir.equals(Direction.NONE))
+			{
+				rank += 100;
+			}
+			
+			//each role has a minor preference over the type of move
+			if (role.equals(Direction.UP))
+			{
+				if (dir.equals(Direction.DOWN))
+				{
+					rank+=3;
+				}
+				else if (dir.equals(Direction.LEFT))
+				{
+					rank+=2;
+				}
+				else if (dir.equals(Direction.RIGHT))
+				{
+					rank+=1;
+				}
+				else if (dir.equals(Direction.UP))
+				{
+					rank--;
+				}
+			}
+			if (role.equals(Direction.DOWN))
+			{
+				if (dir.equals(Direction.UP))
+				{
+					rank+=3;
+				}
+				else if (dir.equals(Direction.RIGHT))
+				{
+					rank+=2;
+				}
+				else if (dir.equals(Direction.LEFT))
+				{
+					rank+=1;
+				}
+				else if (dir.equals(Direction.DOWN))
+				{
+					rank--;
+				}
+			}
+			if (role.equals(Direction.RIGHT))
+			{
+				if (dir.equals(Direction.LEFT))
+				{
+					rank+=3;
+				}
+				else if (dir.equals(Direction.UP))
+				{
+					rank+=2;
+				}
+				else if (dir.equals(Direction.DOWN))
+				{
+					rank+=1;
+				}
+				else if (dir.equals(Direction.RIGHT))
+				{
+					rank--;
+				}
+			}
+			if (role.equals(Direction.LEFT))
+			{
+				if (dir.equals(Direction.RIGHT))
+				{
+					rank+=3;
+				}
+				else if (dir.equals(Direction.DOWN))
+				{
+					rank+=2;
+				}
+				else if (dir.equals(Direction.UP))
+				{
+					rank+=1;
+				}
+				else if (dir.equals(Direction.LEFT))
+				{
+					rank--;
+				}
+			}			
+			
+			return rank;
+		}
+	}
+
 
 	public Predator()
 	{
@@ -103,19 +237,7 @@ public class Predator extends Agent
 
 			if (prey.type.equals(AgentType.PREY))
 			{
-				int max = Math.abs(prey.pos.x) + Math.abs(prey.pos.y);
-				for (ObjectSeen predator : seen)
-				{
-					if (predator.type.equals(AgentType.PREDATOR))
-					{
-						int distance = getDistance(prey.pos, predator.pos);
-						if (distance > max)
-						{
-							max = distance;
-						}
-
-					}
-				}
+				int max = getMaxDistance(prey);
 				if (max < minMax)
 				{
 					minMax = max;
@@ -134,7 +256,7 @@ public class Predator extends Agent
 		Position target = null;
 		try
 		{
-			target = getPos(targetID);	
+			target = getObject(targetID).pos;	
 		}
 		catch (Exception e)
 		{
@@ -157,7 +279,7 @@ public class Predator extends Agent
 				}
 				
 				int id = 0;
-				Position roleTarget = getRoleTarget(target, dir);
+				Position roleTarget = getNewPos(target, dir);
 				for (ObjectSeen predator : seen)
 				{
 					id++;
@@ -190,67 +312,36 @@ public class Predator extends Agent
 
 	private Direction followTarget()
 	{
-		Position target = null;
+		int id = 0;
+		HashMap<Integer, LinkedList<Direction>> allMoves = new HashMap<Integer, LinkedList<Direction>>();
+		int maxDist = 0;
 		try
 		{
-			target = getPos(targetID);	
+			maxDist = getMaxDistance(getObject(targetID));	
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+			System.err.println(e);
 		}
 		
-		target = getRoleTarget(target, roles.get(0));		
+		for (ObjectSeen predator : seen)
+		{
+			if (predator.type.equals(AgentType.PREDATOR))
+			{
+				allMoves.put(id, getMovesPreference(id, maxDist));
+				id++;	
+			}			
+		}
 		
-		//select path randomly
-		Direction move = Direction.NONE;
-		if (new Random().nextInt(2) == 0)
+		HashMap<Integer, Direction> nextMove = new HashMap<Integer, Direction>();		
+		for (int predatorID : allMoves.keySet())
 		{
-			if (target.x > 1)
-			{
-				move = Direction.RIGHT;
-			}
-			else if (target.x < -1)
-			{
-				move = Direction.LEFT;
-			}
-			else if (target.y > 1)
-			{
-				move = Direction.UP;
-			}
-			else if (target.y < -1)
-			{
-				move = Direction.DOWN;
-			}
+			nextMove.put(predatorID, allMoves.get(predatorID).pollFirst());
 		}
-		else
-		{
-			if (target.y > 1)
-			{
-				move = Direction.UP;
-			}
-			else if (target.y < -1)
-			{
-				move = Direction.DOWN;
-			}
-			else if (target.x > 1)
-			{
-				move = Direction.RIGHT;
-			}
-			else if (target.x < -1)
-			{
-				move = Direction.LEFT;
-			}
-		}		
 		
-		if(resultsInCollision(move))
-		{
-			return Direction.NONE;
-		}
-		else
-		{
-			return move;
-		}
+		
+		
+		return nextMove.get(0);
 	}
 	
 
@@ -259,7 +350,7 @@ public class Predator extends Agent
 	 	 0		self
 	 	 1+ 	others
 	*/
-	private Position getPos(int id) throws Exception
+	private ObjectSeen getObject(int id) throws Exception
 	{
 		//we assume that targetID has a valid value here
 		Position pos = null;
@@ -270,26 +361,11 @@ public class Predator extends Agent
 		}
 		else if (id == 0)
 		{
-			return new Position(0,0);
-		}
-		
-		int idCounter = 1;
-		for (ObjectSeen o : seen)
-		{
-			if (id == idCounter)
-			{
-				pos = o.pos;
-				break;
-			}
-			idCounter++;
-		}
-		if (pos != null)
-		{
-			return pos;		
+			return new ObjectSeen(AgentType.PREDATOR, 0, 0);
 		}
 		else
 		{
-			throw new Exception("Invalid object id");
+			return seen.get(id);
 		}
 	}
 	
@@ -318,26 +394,26 @@ public class Predator extends Agent
 		return Math.abs(xDist) + Math.abs(yDist);
 	}
 	
-	private Position getRoleTarget(Position target, Direction dir)
+	private Position getNewPos(Position pos, Direction dir)
 	{
-		Position roleTarget = new Position(target.x, target.y);
+		Position newPos = new Position(pos.x, pos.y);
 		if (dir.equals(Direction.UP))
 		{
-			roleTarget.y++;
+			newPos.y++;
 		}
 		else if (dir.equals(Direction.DOWN))
 		{
-			roleTarget.y--;
+			newPos.y--;
 		}
 		else if (dir.equals(Direction.RIGHT))
 		{
-			roleTarget.x++;
+			newPos.x++;
 		}
 		else if (dir.equals(Direction.LEFT))
 		{
-			roleTarget.x--;
+			newPos.x--;
 		}
-		return roleTarget;
+		return newPos;
 	}
 	
 	private boolean breakTie(Position pos1, Position pos2, Position ref)
@@ -394,7 +470,49 @@ public class Predator extends Agent
 		
 		return false;
 	}
+	
+	private LinkedList<Direction> getMovesPreference(int id, int maxDist)
+	{
+		Position prPos = null;
+		Position tPos = null;
+		try
+		{
+			prPos = getObject(id).pos;
+			tPos = getObject(targetID).pos;
+		}
+		catch (Exception e)
+		{
+			System.err.println(e);
+			e.printStackTrace();
+		}
+		LinkedList<Direction> moves = new LinkedList<Direction>();
+		for (Direction d : Direction.values())
+		{
+			moves.add(d);
+		}
+		Collections.sort(moves, new MoveComparator(prPos, tPos, roles.get(id), maxDist));
+		return moves;
+	}
+	
+	private int getMaxDistance(ObjectSeen prey)
+	{		
+		int max = Math.abs(prey.pos.x) + Math.abs(prey.pos.y);
+		for (ObjectSeen predator : seen)
+		{
+			if (predator.type.equals(AgentType.PREDATOR))
+			{
+				int distance = getDistance(prey.pos, predator.pos);
+				if (distance > max)
+				{
+					max = distance;
+				}
 
+			}
+		}
+		return max;
+	}
+
+	@Deprecated 
 	private boolean resultsInCollision(Direction move)
 	{
 		Position target = new Position(0,0);
