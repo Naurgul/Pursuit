@@ -1,5 +1,7 @@
 
-*java!
+*.gz
+*.java!
 *~
 *.class
+game.log
 game.log

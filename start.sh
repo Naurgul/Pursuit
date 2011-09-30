@@ -43,6 +43,6 @@ ${prey}     &
 sleep 1
 ${prey}      & 
 
-${monitor} -conf ${monitor_conf}       # start visualization
+#${monitor} -conf ${monitor_conf}       # start visualization
 
 wait

@@ -105,7 +105,6 @@ public class Predator extends Agent
 	    @Override
 	    public int compare(Direction dir1, Direction dir2) throws RuntimeException
 	    {
-
 	        int rank1 = getRank(dir1);
 	        int rank2 = getRank(dir2);
 
@@ -118,108 +117,207 @@ public class Predator extends Agent
 	            return +1;
 	        }
 	        else
-	        {
-	        	//needless to say, this should never occur!
-	        	throw new RuntimeException("Could not find strict preference over directions.");
+	        {   	
+	        	//resolve with arbitrary rule
+	        	if (arbitraryBetter(dir1, dir2))
+	        	{
+	        		return -1;
+	        	}
+	        	else
+	        	{
+	        		return +1;
+	        	}
 	        }
 	    }
-
+	    
 		private int getRank(Direction dir)
 		{
 			int roleDist = getDistance(getNewPos(predator, dir), getNewPos(target, role));
 			int targetDist = getDistance(getNewPos(predator, dir), target);
 			int curDist = getDistance(predator, target);
+			int minPredatorDist = getMinPredatorDist(getNewPos(predator, dir));
+			int rank = 0;
+			
+			
 			
 			//rank is mainly affected by which move gets us closer to the target
-			int rank = 150 - 10 * roleDist;		
+			rank += 15 - roleDist;
 			
-			//unless someone's really far away so we ought to wait up
-			if (roleDist < maxDist)
+			// if someone's really far away  we ought to wait up
+			if (roleDist < 1 && maxDist - roleDist > 2)
 			{
-				rank += 5 * (maxDist + roleDist);
+				rank -= 2*(maxDist - roleDist);
 			}
-	
+
 			
-			//each role has a minor preference over the type of move
-			if (role.equals(Direction.UP))
+			//a big boost if the predator is in the right quadrant
+			if (inQuadrant(role, getNewPos(predator,dir), target))
 			{
-				if (dir.equals(Direction.DOWN))
-				{
-					rank+=3;
-				}
-				else if (dir.equals(Direction.LEFT))
-				{
-					rank+=2;
-				}
-				else if (dir.equals(Direction.RIGHT))
-				{
-					rank+=1;
-				}
-				else if (dir.equals(Direction.UP))
-				{
-					rank--;
-				}
+				rank += 2*Math.abs(rank);	
 			}
-			if (role.equals(Direction.DOWN))
-			{
-				if (dir.equals(Direction.UP))
-				{
-					rank+=3;
-				}
-				else if (dir.equals(Direction.RIGHT))
-				{
-					rank+=2;
-				}
-				else if (dir.equals(Direction.LEFT))
-				{
-					rank+=1;
-				}
-				else if (dir.equals(Direction.DOWN))
-				{
-					rank--;
-				}
-			}
-			if (role.equals(Direction.RIGHT))
-			{
-				if (dir.equals(Direction.LEFT))
-				{
-					rank+=3;
-				}
-				else if (dir.equals(Direction.UP))
-				{
-					rank+=2;
-				}
-				else if (dir.equals(Direction.DOWN))
-				{
-					rank+=1;
-				}
-				else if (dir.equals(Direction.RIGHT))
-				{
-					rank--;
-				}
-			}
-			if (role.equals(Direction.LEFT))
-			{
-				if (dir.equals(Direction.RIGHT))
-				{
-					rank+=3;
-				}
-				else if (dir.equals(Direction.DOWN))
-				{
-					rank+=2;
-				}
-				else if (dir.equals(Direction.UP))
-				{
-					rank+=1;
-				}
-				else if (dir.equals(Direction.LEFT))
-				{
-					rank--;
-				}
-			}			
+			 
+			
+
+				
+			
+
+			
+			//also, try to avoid bumping into other predators...
+			//rank -= 9*minPredatorDist;		
 			
 			return rank;
 		}
+
+		private boolean arbitraryBetter(Direction dir1, Direction dir2)
+		{
+			//each role has a minor preference over the type of move to break ties
+			if (role.equals(Direction.UP))	// down > left > right > up
+			{
+				if (dir1.equals(Direction.DOWN))
+				{
+					return true;
+				}
+				else if (dir2.equals(Direction.DOWN))
+				{
+					return false;
+				}
+				else if (dir1.equals(Direction.LEFT))
+				{
+					return true;
+				}
+				else if (dir2.equals(Direction.LEFT))
+				{
+					return false;
+				}
+				else if (dir1.equals(Direction.RIGHT))
+				{
+					return true;
+				}
+				else if (dir2.equals(Direction.RIGHT))
+				{
+					return false;
+				}
+				else if (dir1.equals(Direction.UP))
+				{
+					return true;
+				}
+				else if (dir2.equals(Direction.UP))
+				{
+					return false;
+				}
+			}
+			else if (role.equals(Direction.DOWN))	// up > right > left > down
+			{
+				if (dir1.equals(Direction.UP))
+				{
+					return true;
+				}
+				else if (dir2.equals(Direction.UP))
+				{
+					return false;
+				}
+				else if (dir1.equals(Direction.RIGHT))
+				{
+					return true;
+				}
+				else if (dir2.equals(Direction.RIGHT))
+				{
+					return false;
+				}
+				else if (dir1.equals(Direction.LEFT))
+				{
+					return true;
+				}
+				else if (dir2.equals(Direction.LEFT))
+				{
+					return false;
+				}
+				else if (dir1.equals(Direction.DOWN))
+				{
+					return true;
+				}
+				else if (dir2.equals(Direction.DOWN))
+				{
+					return false;
+				}
+			}
+			else if (role.equals(Direction.RIGHT))	// left > up > down > right
+			{
+				if (dir1.equals(Direction.LEFT))
+				{
+					return true;
+				}
+				else if (dir2.equals(Direction.LEFT))
+				{
+					return false;
+				}
+				else if (dir1.equals(Direction.UP))
+				{
+					return true;
+				}
+				else if (dir2.equals(Direction.UP))
+				{
+					return false;
+				}				
+				else if (dir1.equals(Direction.DOWN))
+				{
+					return true;
+				}
+				else if (dir2.equals(Direction.DOWN))
+				{
+					return false;
+				}
+				else if (dir1.equals(Direction.RIGHT))
+				{
+					return true;
+				}
+				else if (dir2.equals(Direction.RIGHT))
+				{
+					return false;
+				}
+			}
+			else if (role.equals(Direction.LEFT))	//right > down > up > left
+			{
+				if (dir1.equals(Direction.RIGHT))
+				{
+					return true;
+				}
+				else if (dir2.equals(Direction.RIGHT))
+				{
+					return false;
+				}
+				else if (dir1.equals(Direction.DOWN))
+				{
+					return true;
+				}
+				else if (dir2.equals(Direction.DOWN))
+				{
+					return false;
+				}
+				else if (dir1.equals(Direction.UP))
+				{
+					return true;
+				}
+				else if (dir2.equals(Direction.UP))
+				{
+					return false;
+				}
+				else if (dir1.equals(Direction.LEFT))
+				{
+					return true;
+				}
+				else if (dir2.equals(Direction.LEFT))
+				{
+					return false;
+				}
+			}	
+			//needless to say, this should never occur!
+        	throw new RuntimeException("Could not find strict preference over directions.");
+        	//return true;
+		}
+
+
+
 	}
 
 
@@ -230,6 +328,8 @@ public class Predator extends Agent
 		roles = new HashMap<Integer, Direction>();
 		cycles = 0;
 	}
+
+
 
 	/**
 	 * This method initialize the predator by sending the initialization message
@@ -271,7 +371,7 @@ public class Predator extends Agent
 	
 	private Direction determineMovementDirection()
 	{
-		cycles = (++cycles)%10;
+		cycles++;
 		if (targetID == -1)
 		{
 			findTarget();
@@ -438,6 +538,10 @@ public class Predator extends Agent
 						//decide who gives way with an arbitrary deterministic rule 
 						if (breakTie(iSquare, jSquare, targetPrey.pos))
 						{
+							if (allMoves.get(j).isEmpty())
+							{
+								throw new RuntimeException("Out of alternate moves!");
+							}
 							Direction dir = allMoves.get(j).pollFirst();
 							ObjectSeen predator = null;
 							try
@@ -457,6 +561,10 @@ public class Predator extends Agent
 						}
 						else 
 						{
+							if (allMoves.get(i).isEmpty())
+							{
+								throw new RuntimeException("Out of alternate moves!");
+							}
 							Direction dir = allMoves.get(i).pollFirst();
 							ObjectSeen predator = null;
 							try
@@ -485,7 +593,7 @@ public class Predator extends Agent
 			}
 			
 			
-		}while (foundCollision && die.nextBoolean());
+		}while (foundCollision /*&& die.nextInt(cycles) < 25*/);
 		
 		
 		return nextMove.get(0);
@@ -660,6 +768,25 @@ public class Predator extends Agent
 		return max;
 	}
 	
+	private int getMinPredatorDist(Position pos)
+	{
+		int min = 15;
+		
+		for (ObjectSeen predator : seen)
+		{
+			if (predator.type.equals(AgentType.PREDATOR))
+			{
+				int dist = getDistance(pos, predator.pos);
+				if (dist < min)
+				{
+					min = dist;
+				}
+			}
+		}
+		
+		return min;
+	}
+	
 	private int getMaxRoleDistance(ObjectSeen prey)
 	{		
 		int id=0;
@@ -680,6 +807,31 @@ public class Predator extends Agent
 			}
 		}
 		return max;
+	}
+	
+	public boolean inQuadrant(Direction role, Position pos, Position ref)
+	{
+		float quad;
+		if (role.equals(Direction.UP) && pos.x >= ref.x && pos.y > ref.y)
+		{
+			return true;
+		}
+		else if (role.equals(Direction.RIGHT) && pos.x > ref.x && pos.y <= ref.y)
+		{
+			return true;
+		}
+		else if (role.equals(Direction.DOWN) && pos.x <= ref.x && pos.y < ref.y)
+		{
+			return true;
+		}
+		else if (role.equals(Direction.LEFT) && pos.x < ref.x && pos.y >= ref.y)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 	@Deprecated 
@@ -812,6 +964,7 @@ public class Predator extends Agent
 	public void preyCaught()
 	{
 		targetID = -1;
+		cycles = 0;
 		System.out.println("PREY CAUGHT\n");
 	}
 
