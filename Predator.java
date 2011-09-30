@@ -593,7 +593,7 @@ public class Predator extends Agent
 			}
 			
 			
-		}while (foundCollision /*&& die.nextInt(cycles) < 25*/);
+		}while (foundCollision && die.nextInt(cycles) < 35);
 		
 		
 		return nextMove.get(0);
