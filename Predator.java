@@ -8,6 +8,7 @@ public class Predator extends Agent
 	private int targetID;
 	private HashMap<Integer, Direction> roles;
 	public LinkedList<ObjectSeen> seen;
+	private int cycles;
 	
 	
 	public enum AgentType{PREY, PREDATOR};
@@ -133,9 +134,9 @@ public class Predator extends Agent
 			int rank = 150 - 10 * roleDist;		
 			
 			//unless someone's really far away so we ought to wait up
-			if (roleDist <= 2 && maxDist > 2 )
+			if (roleDist < maxDist)
 			{
-				rank = targetDist * 10;
+				rank += 5 * (maxDist + roleDist);
 			}
 	
 			
@@ -227,6 +228,7 @@ public class Predator extends Agent
 		seen = new LinkedList<ObjectSeen>();
 		targetID = -1;
 		roles = new HashMap<Integer, Direction>();
+		cycles = 0;
 	}
 
 	/**
@@ -269,11 +271,13 @@ public class Predator extends Agent
 	
 	private Direction determineMovementDirection()
 	{
+		cycles = (++cycles)%10;
 		if (targetID == -1)
 		{
 			findTarget();
 			castRoles();
 		}
+		
 		return followTarget();
 	}
 
@@ -355,7 +359,7 @@ public class Predator extends Agent
 				
 			}
 		}
-		System.out.println(roles.toString());
+		//System.out.println(roles.toString());
 	}
 
 
@@ -374,7 +378,7 @@ public class Predator extends Agent
 			System.err.println(e);
 		}
 		
-		int maxDist = getMaxDistance(targetPrey);
+		int maxDist = getMaxRoleDistance(targetPrey);
 		
 		//get lists for every predator's possible moves (ordered by preference) 
 		allMoves.put(0, getMovesPreference(0, maxDist));
@@ -413,6 +417,7 @@ public class Predator extends Agent
 		
 		//look through all pairs of predators
 		boolean foundCollision;
+		Random die = new Random();
 		do
 		{
 			Integer prIds[] = nextSquare.keySet().toArray(new Integer[nextSquare.keySet().size()]);
@@ -446,7 +451,7 @@ public class Predator extends Agent
 							}
 							Position newPos = getNewPos(predator.pos, dir);
 							
-							System.out.println("Changing move from " + nextMove.get(j) + " to " + dir + "(" + allMoves.get(j).size() + " alternates left)");
+							//System.out.println("Changing move from " + nextMove.get(j) + " to " + dir + "(" + allMoves.get(j).size() + " alternates left)");
 							nextMove.put(j, dir);
 							nextSquare.put(j, newPos);
 						}
@@ -465,7 +470,7 @@ public class Predator extends Agent
 							}
 							Position newPos = getNewPos(predator.pos, dir);
 							
-							System.out.println("Changing move from " + nextMove.get(i) + " to " + dir + "(" + allMoves.get(i).size() + " alternates left)");
+							//System.out.println("Changing move from " + nextMove.get(i) + " to " + dir + "(" + allMoves.get(i).size() + " alternates left)");
 							nextMove.put(i, dir);
 							nextSquare.put(i, newPos);
 						}
@@ -480,7 +485,7 @@ public class Predator extends Agent
 			}
 			
 			
-		}while (foundCollision);
+		}while (foundCollision && die.nextBoolean());
 		
 		
 		return nextMove.get(0);
@@ -645,6 +650,28 @@ public class Predator extends Agent
 			if (predator.type.equals(AgentType.PREDATOR))
 			{
 				int distance = getDistance(prey.pos, predator.pos);
+				if (distance > max)
+				{
+					max = distance;
+				}
+
+			}
+		}
+		return max;
+	}
+	
+	private int getMaxRoleDistance(ObjectSeen prey)
+	{		
+		int id=0;
+		Direction dir = roles.get(id);
+		int max = Math.abs(getNewPos(prey.pos, dir).x) + Math.abs(getNewPos(prey.pos, dir).x);		
+		for (ObjectSeen predator : seen)
+		{
+			id++;
+			if (predator.type.equals(AgentType.PREDATOR))
+			{
+				dir = roles.get(id);
+				int distance = getDistance(getNewPos(prey.pos,dir), predator.pos);
 				if (distance > max)
 				{
 					max = distance;
