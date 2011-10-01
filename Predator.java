@@ -1,6 +1,7 @@
 import java.io.*;
 import java.lang.*;
 import java.util.*;
+import java.util.Map.Entry;
 
 /** This class defines the functionality of the predator. */
 public class Predator extends Agent
@@ -71,8 +72,18 @@ public class Predator extends Agent
 		{
 			return Predator.this;
 		}
-
-
+	}
+	
+	class FloatVector
+	{
+		public float x;
+		public float y;
+		
+		FloatVector(float x, float y)
+		{
+			this.x = x;
+			this.y = y;
+		}
 	}
 
 	class ObjectSeen
@@ -92,14 +103,12 @@ public class Predator extends Agent
 		private Position predator;
 		private Position target;
 		private Direction role;
-		private int maxDist;
 		
-		public MoveComparator(Position predator, Position target, Direction role, int maxDist)
+		public MoveComparator(Position predator, Position target, Direction role)
 		{
 			this.predator = predator;
 			this.target = target;
 			this.role = role;
-			this.maxDist = maxDist;
 		}
 
 	    @Override
@@ -118,7 +127,7 @@ public class Predator extends Agent
 	        }
 	        else
 	        {   	
-	        	//resolve with arbitrary rule
+	        	//resolve tie with arbitrary rule
 	        	if (arbitraryBetter(dir1, dir2))
 	        	{
 	        		return -1;
@@ -136,34 +145,22 @@ public class Predator extends Agent
 			int targetDist = getDistance(getNewPos(predator, dir), target);
 			int curDist = getDistance(predator, target);
 			int minPredatorDist = getMinPredatorDist(getNewPos(predator, dir));
+			int maxDist = getMaxDistance(target);
 			int rank = 0;
 			
-			
-			
 			//rank is mainly affected by which move gets us closer to the target
-			rank += 15 - roleDist;
+			rank = 15 - roleDist;	
 			
-			// if someone's really far away  we ought to wait up
-			if (roleDist < 1 && maxDist - roleDist > 2)
-			{
-				rank -= 2*(maxDist - roleDist);
-			}
+			//weight the rank by how close to the right quadrant we are
+			//float quad = inQuadrant(role, getNewPos(predator,dir), target); 
+			//rank *= quad;				
 
 			
-			//a big boost if the predator is in the right quadrant
-			if (inQuadrant(role, getNewPos(predator,dir), target))
-			{
-				rank += 2*Math.abs(rank);	
-			}
-			 
-			
 
-				
-			
+			//also, try to avoid bumping into other predators...			
+			//rank += minPredatorDist/2;	
 
-			
-			//also, try to avoid bumping into other predators...
-			//rank -= 9*minPredatorDist;		
+					
 			
 			return rank;
 		}
@@ -331,6 +328,10 @@ public class Predator extends Agent
 
 
 
+
+
+
+
 	/**
 	 * This method initialize the predator by sending the initialization message
 	 * to the server.
@@ -340,10 +341,7 @@ public class Predator extends Agent
 		g_socket.send("(init predator)");
 	}
 
-	/**
-	 * This message determines a new movement command. Currently it only moves
-	 * random. This can be improved..
-	 */
+
 	public String determineMovementCommand()
 	{
 		Direction dir = determineMovementDirection();
@@ -372,8 +370,9 @@ public class Predator extends Agent
 	private Direction determineMovementDirection()
 	{
 		cycles++;
-		if (targetID == -1)
+		if (targetID == -1 || cycles == 5)
 		{
+			cycles = 0;
 			findTarget();
 			castRoles();
 		}
@@ -391,7 +390,7 @@ public class Predator extends Agent
 
 			if (prey.type.equals(AgentType.PREY))
 			{
-				int max = getMaxDistance(prey);
+				int max = getMaxDistance(prey.pos);
 				if (max < minMax)
 				{
 					minMax = max;
@@ -413,55 +412,136 @@ public class Predator extends Agent
 		catch (Exception e)
 		{
 			System.err.println(e);
-			e.printStackTrace();
+			return;
 		}
 		
-		for (Direction dir : Direction.values())
+
+		LinkedList<Integer> predatorList = new LinkedList<Integer>();
+		int id = 0;
+		predatorList.add(id);
+		for (ObjectSeen predator : seen)
 		{
-			if (!dir.equals(Direction.NONE))
-			{
-				int roleID = -1;
-				int min = 15;
-				Position minPos = null;
-				
-				Position roleTarget = getNewPos(target, dir);
-				if (!roles.containsKey(0))	//initialise role to self if we don't already have a role
-				{
-					roleID = 0;
-					min = Math.abs(roleTarget.x) + Math.abs(roleTarget.y);
-					minPos = new Position(0,0);
-				}
-				
-				int id = 0;
-				
-				for (ObjectSeen predator : seen)
-				{
-					id++;
-					if (predator.type.equals(AgentType.PREDATOR))
-					{	
-						if (roles.containsKey(id))
-						{
-							continue;
-						}
-						int distance = getDistance(roleTarget, predator.pos);
-						if (distance < min || (distance == min && breakTie(predator.pos, minPos, roleTarget)))
-						{
-							roleID = id;
-							minPos = predator.pos;
-							min = distance;
-						}
-					}
-				}
-				if (roleID >= 0)
-				{
-					roles.put(roleID, dir);	
-				}
-				
+			id++;
+			if (predator.type.equals(AgentType.PREDATOR))
+			{	
+				predatorList.add(id);
 			}
 		}
-		//System.out.println(roles.toString());
+		
+		boolean hasMore;
+		int minRoleCost = 100;
+		do
+		{
+			HashMap<Integer, Direction> tempRoles = new  HashMap<Integer, Direction>();
+			int i=0;
+			for (Direction dir : Direction.values())
+			{
+				if (!dir.equals(Direction.NONE))
+				{
+					tempRoles.put(predatorList.get(i), dir);
+					i++;	
+				}
+			}
+			int rolesCost = getRolesCost(tempRoles);
+			if (rolesCost < minRoleCost || (rolesCost == minRoleCost && metaBreakTie(roles, tempRoles, target)))
+			{
+				//System.out.println("Switching " + roles + "(" + minRoleCost + ") with " + tempRoles + "(" + rolesCost + ")");
+				roles = tempRoles;
+				minRoleCost = rolesCost;
+			}
+			int k, l;
+			hasMore = false;
+			for(k = predatorList.size()-2; k >= 0; k--)
+			{
+				if (predatorList.get(k) < predatorList.get(k+1))
+				{
+					hasMore = true;
+					break;
+				}
+			}
+			
+			if (!hasMore)
+			{
+				break;
+			}
+
+			for(l = predatorList.size()-1; l >= 0; l--)
+			{
+				if (predatorList.get(k) < predatorList.get(l))
+				{
+					break;
+				}
+			}
+
+			Collections.swap(predatorList, k, l);
+			List<Integer> lastPart = predatorList.subList(k+1, predatorList.size());
+			Collections.reverse(lastPart);
+		}
+		while(true);	//condition is inside: if (!hasMore) break;
+		
+		//System.out.println("Roles: " + roles + "(" + minRoleCost + ")");
+				
 	}
 
+	private boolean metaBreakTie(HashMap<Integer, Direction> roles1, HashMap<Integer, Direction> roles2, Position ref)
+	{
+		for (Direction dir : Direction.values())
+		{
+			ObjectSeen predator1 = reverseLookUp(roles1, dir);
+			ObjectSeen predator2 = reverseLookUp(roles2, dir);
+			if (!predator1.pos.equals(predator2.pos))
+			{
+				return breakTie(predator1.pos, predator2.pos, ref);
+			}
+		}
+		
+		throw new RuntimeException("Could not brake tie in roles!");
+	}
+
+
+	private ObjectSeen reverseLookUp(HashMap<Integer, Direction> rolesMap, Direction dir)
+	{
+		for (Entry<Integer, Direction> entry : rolesMap.entrySet())
+		{
+			if (entry.getValue().equals(dir))
+			{
+				try
+				{
+					return getObject(entry.getKey()); 
+				}
+				catch (Exception e)
+				{
+					System.err.println(e);
+					e.printStackTrace();
+				}
+			}
+		}
+		return null;
+	}
+
+
+	private int getRolesCost(HashMap<Integer, Direction> tempRoles)
+	{
+		int cost = 0;
+		for (int id : tempRoles.keySet())
+		{
+			ObjectSeen predator = null;
+			ObjectSeen prey = null;
+			try
+			{
+				predator = getObject(id);
+				prey = getObject(targetID);
+			}
+			catch (Exception e)
+			{
+				System.err.println(e);
+				e.printStackTrace();
+			}
+			Direction role = tempRoles.get(id);
+			cost += getDistance(predator.pos, getNewPos(prey.pos, role));
+		}
+		return cost;
+	}
 
 
 	private Direction followTarget()
@@ -478,16 +558,15 @@ public class Predator extends Agent
 			System.err.println(e);
 		}
 		
-		int maxDist = getMaxRoleDistance(targetPrey);
 		
 		//get lists for every predator's possible moves (ordered by preference) 
-		allMoves.put(0, getMovesPreference(0, maxDist));
+		allMoves.put(0, getMovesPreference(0));
 		int id = 1;
 		for (ObjectSeen predator : seen)
 		{
 			if (predator.type.equals(AgentType.PREDATOR))
 			{
-				allMoves.put(id, getMovesPreference(id, maxDist));
+				allMoves.put(id, getMovesPreference(id));
 				id++;	
 			}			
 		}
@@ -593,7 +672,8 @@ public class Predator extends Agent
 			}
 			
 			
-		}while (foundCollision && die.nextInt(cycles) < 35);
+		}
+		while (foundCollision /*&& die.nextInt(cycles) < 35*/);
 		
 		
 		return nextMove.get(0);
@@ -649,6 +729,28 @@ public class Predator extends Agent
 		return Math.abs(xDist) + Math.abs(yDist);
 	}
 	
+	private Position fixPosition(Position pos)
+	{
+		if (pos.x > 7)
+		{
+			pos.x -= 15;
+		}
+		else if (pos.x < -7)
+		{
+			pos.x += 15;
+		}
+		
+		if (pos.y > 7)
+		{
+			pos.y -= 15;
+		}
+		else if (pos.y < -7)
+		{
+			pos.y += 15;
+		}
+		return pos;
+	}
+	
 	private Position getNewPos(Position pos, Direction dir)
 	{
 		Position newPos = new Position(pos.x, pos.y);
@@ -668,11 +770,20 @@ public class Predator extends Agent
 		{
 			newPos.x--;
 		}
-		return newPos;
+		return fixPosition(newPos);
 	}
 	
 	private boolean breakTie(Position pos1, Position pos2, Position ref)
 	{
+		if (getDistance(pos1, ref) < getDistance(pos2,ref))
+		{
+			return true;
+		}
+		else if (getDistance(pos1, ref) > getDistance(pos2,ref))
+		{
+			return false;
+		}
+		
 		int xDist1 = pos1.x - ref.x;
 	
 		if (xDist1 > 7)
@@ -727,13 +838,13 @@ public class Predator extends Agent
 		return false;
 	}
 	
-	private LinkedList<Direction> getMovesPreference(int id, int maxDist)
+	private LinkedList<Direction> getMovesPreference(int id)
 	{
-		Position prPos = null;
+		Position predatorPos = null;
 		Position tPos = null;
 		try
 		{
-			prPos = getObject(id).pos;
+			predatorPos = getObject(id).pos;
 			tPos = getObject(targetID).pos;
 		}
 		catch (Exception e)
@@ -746,18 +857,160 @@ public class Predator extends Agent
 		{
 			moves.add(d);
 		}
-		Collections.sort(moves, new MoveComparator(prPos, tPos, roles.get(id), maxDist));
+		
+
+		Position expectedPreyPosition = getExpectedPosition(predatorPos, tPos);
+		if (!tPos.equals(expectedPreyPosition))
+		{
+			System.out.println("Will intercept " + getDistance(expectedPreyPosition, tPos) + " squares ahead of it, in " + getDistance(expectedPreyPosition, predatorPos) + " moves");
+			System.out.println("\tat (" + expectedPreyPosition.x + ", " + expectedPreyPosition.y + ") instead of (" + tPos.x + ", " + tPos.y + ")");
+		}
+
+		Collections.sort(moves, new MoveComparator(predatorPos, tPos, roles.get(id)));
 		return moves;
 	}
 	
-	private int getMaxDistance(ObjectSeen prey)
+	private Position getExpectedPosition(Position predator, Position prey)
 	{		
-		int max = Math.abs(prey.pos.x) + Math.abs(prey.pos.y);
+		int x_e;
+		int y_e;
+		Position e = new Position(0,0);
+		
+		FloatVector c = getCVector(prey);
+		
+		int dist = getDistance(predator, prey);		
+		int max = getMaxDistance(prey);
+		
+		float distWeight = 2.0f;		
+		if (dist > 1)
+		{
+			c.x *= distWeight*dist;
+			c.y *= distWeight*dist;	
+		}		
+		
+		if (c.x > 0 || c.y > 0)
+		{
+			System.out.println("dist=" + dist + ", c= (" + c.x + ", " + c.y + ")");		
+		}
+		
+		
+		// trial 1:
+		
+		x_e = Math.round( ( prey.x - c.y * prey.x + c.x * prey.y - c.x * (predator.x + predator.y) / ( 1 - c.x - c.y ) ) );
+		y_e = Math.round( ( prey.y - c.x * prey.y + c.y * prey.x - c.y * (predator.x + predator.y) / ( 1 - c.x - c.y ) ) );
+		
+		e.x = x_e; 
+		e.y = y_e;
+		e = fixPosition(e);
+		//System.out.println("1: " + x_e + " >= " + predator.x + " and " + y_e + " >= " + predator.y);
+		if (e.x >= predator.x && e.y >= predator.y)
+		{
+			return e;	
+		}
+		
+		// trial 2:
+		
+		x_e = Math.round( ( prey.x + c.y * prey.x - c.x * prey.y + c.x * (predator.x + predator.y) / ( 1 + c.x + c.y ) ) );
+		y_e = Math.round( ( prey.y + c.x * prey.y - c.y * prey.x + c.y * (predator.x + predator.y) / ( 1 + c.x + c.y ) ) );
+		
+		e.x = x_e; 
+		e.y = y_e;
+		e = fixPosition(e);
+		//System.out.println("2: " + x_e + " < " + predator.x + " and " + y_e + " < " + predator.y);
+		if (e.x < predator.x && e.y < predator.y)
+		{
+			return e;	
+		}
+		
+		// trial 3:
+		
+		x_e = Math.round( ( prey.x + c.y * prey.x - c.x * prey.y + c.x * (predator.y - predator.x) / ( 1 + c.y - c.x ) ) );
+		y_e = Math.round( ( prey.y - c.x * prey.y + c.y * prey.x + c.y * (predator.y - predator.x) / ( 1 + c.y - c.x ) ) );
+		
+		e.x = x_e; 
+		e.y = y_e;
+		e = fixPosition(e);
+		//System.out.println("3: " + x_e + " >= " + predator.x + " and " + y_e + " < " + predator.y);
+		if (e.x >= predator.x && e.y < predator.y)
+		{
+			return e;	
+		}
+		
+		// trial 4:
+		
+		x_e = Math.round( ( prey.x - c.y * prey.x + c.x * prey.y + c.x * (predator.x - predator.y) / ( 1 + c.x - c.y ) ) );
+		y_e = Math.round( ( prey.y + c.x * prey.y - c.y * prey.x + c.y * (predator.x - predator.y) / ( 1 + c.x - c.y ) ) );
+		
+		e.x = x_e; 
+		e.y = y_e;
+		e = fixPosition(e);
+		//System.out.println("4: " + x_e + " < " + predator.x + " and " + y_e + " >= " + predator.y);
+		if (e.x < predator.x && e.y >= predator.y)
+		{
+			return e;	
+		}
+		
+		System.out.println("System of equations wasn't solved!");
+		return prey;
+	}
+
+
+
+	private FloatVector getCVector(Position prey)
+	{
+
+		LinkedList<Direction> freeDirs = new LinkedList<Direction>();
+		for (Direction dir : Direction.values())
+		{
+			freeDirs.add(dir);
+		}
 		for (ObjectSeen predator : seen)
 		{
 			if (predator.type.equals(AgentType.PREDATOR))
 			{
-				int distance = getDistance(prey.pos, predator.pos);
+				for (Direction dir : Direction.values())
+				{
+					if (getNewPos(prey,dir).equals(predator.pos))
+					{
+						freeDirs.remove(dir);
+					}
+				}
+			}
+		}
+		
+		float c_x = 0;
+		float c_y = 0;
+		if (freeDirs.contains(Direction.UP) && !freeDirs.contains(Direction.DOWN))
+		{
+			c_y = (float)1 / (float)freeDirs.size(); 
+		}
+		else if (freeDirs.contains(Direction.DOWN) && !freeDirs.contains(Direction.UP))
+		{
+			c_y = -(float)1 / (float)freeDirs.size(); 
+		}
+		if (freeDirs.contains(Direction.LEFT) && !freeDirs.contains(Direction.RIGHT))
+		{
+			c_x = -(float)1 / (float)freeDirs.size(); 
+		}
+		else if (freeDirs.contains(Direction.RIGHT) && !freeDirs.contains(Direction.LEFT))
+		{
+			c_x = (float)1 / (float)freeDirs.size(); 
+		}
+		
+		//System.out.println(freeDirs + " are free, so c = (" + c_x + ", " + c_y + ")");
+		return new FloatVector(c_x, c_y);
+	}
+
+
+
+	private int getMaxDistance(Position prey)
+	{		
+		int max = Math.abs(prey.x) + Math.abs(prey.y);
+		for (ObjectSeen predator : seen)
+		{
+			if (predator.type.equals(AgentType.PREDATOR))
+			{
+				int distance = getDistance(prey, predator.pos);
 				if (distance > max)
 				{
 					max = distance;
@@ -809,30 +1062,62 @@ public class Predator extends Agent
 		return max;
 	}
 	
-	public boolean inQuadrant(Direction role, Position pos, Position ref)
+	public float inQuadrant(Direction role, Position pos, Position ref)
 	{
 		float quad;
-		if (role.equals(Direction.UP) && pos.x >= ref.x && pos.y > ref.y)
+		if (role.equals(Direction.UP))
 		{
-			return true;
+			if (pos.x >= ref.x && pos.y > ref.y)
+			{
+				return (float)1.0;
+			}
+			else
+			{
+				return (float)1.0 - (float)(ref.x - pos.x + ref.y-pos.y)/(float)10.0 ;
+			}
 		}
-		else if (role.equals(Direction.RIGHT) && pos.x > ref.x && pos.y <= ref.y)
+		else if (role.equals(Direction.RIGHT))
 		{
-			return true;
+			if (pos.x > ref.x && pos.y <= ref.y)
+			{
+				return (float)1.0;
+			}
+			else
+			{
+				return (float)1.0 - (float)(ref.x - pos.x + pos.y - ref.y)/(float)10.0 ;
+			}
+			
 		}
-		else if (role.equals(Direction.DOWN) && pos.x <= ref.x && pos.y < ref.y)
+		else if (role.equals(Direction.DOWN))
 		{
-			return true;
+			if (pos.x <= ref.x && pos.y < ref.y)
+			{
+				return (float)1.0;
+			}
+			else
+			{
+				return (float)1.0 - (float)(pos.x - ref.x + pos.y - ref.y)/(float)10.0 ;
+			}
+			
 		}
-		else if (role.equals(Direction.LEFT) && pos.x < ref.x && pos.y >= ref.y)
+		else if (role.equals(Direction.LEFT))
 		{
-			return true;
+			if (pos.x < ref.x && pos.y >= ref.y)
+			{
+				return (float)1.0;
+			}
+			else
+			{
+				return (float)1.0 - (float)(pos.x - ref.x + ref.y - pos.y)/(float)10.0 ;
+			}
 		}
 		else
 		{
-			return false;
+			//should never happen! 
+			return 0;
 		}
 	}
+	
 
 	@Deprecated 
 	private boolean resultsInCollision(Direction move)

@@ -33,16 +33,16 @@ ${pursuit} -conf ${pursuit_conf} &    # start the server (no visualization yet)
 sleep 1
 ${predator}  &                       
 sleep 1
-${predator} > /dev/null  & 
+${predator}  > /dev/null  & 
 sleep 1
-${predator} > /dev/null & 
+${predator}  > /dev/null  & 
 sleep 1
-${predator} > /dev/null & 
+${predator}  > /dev/null  & 
 sleep 1
 ${prey}     & 
 sleep 1
 ${prey}      & 
 
-#${monitor} -conf ${monitor_conf}       # start visualization
+${monitor} -conf ${monitor_conf}       # start visualization
 
 wait
