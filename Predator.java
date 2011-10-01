@@ -145,7 +145,7 @@ public class Predator extends Agent
 	        else
 	        {   	
 	        	//resolve tie with arbitrary rule
-	        	if (breakTie(getNewPos(predator, dir1), getNewPos(predator, dir2), targetNow))
+	        	if (breakTie(dir1, dir2))
 	        	{
 	        		return -1;
 	        	}
@@ -162,7 +162,7 @@ public class Predator extends Agent
 			int targetDist = getDistance(getNewPos(predator, dir), targetExpected);
 			//int curDist = getDistance(predator, target);
 			//int minPredatorDist = getMinPredatorDist(getNewPos(predator, dir));
-			//int maxDist = getMaxDistance(target);
+			int maxDist = getMaxDistance(targetNow);
 			Position preyDif = new Position(targetExpected.x- targetNow.x, targetExpected.y- targetNow.y);
 			Position predatorDif = new Position(getNewPos(predator, dir).x- predator.x, getNewPos(predator, dir).y- predator.y);
 			
@@ -170,22 +170,23 @@ public class Predator extends Agent
 			
 			//rank is mainly affected by which move gets us closer to the target
 			rank = 15 - roleDist;
-/*			
+			
 			//keep some distance until everyone's close
-			if (roleDist == 1 && maxDist > 2)
+			if (maxDist > 3 && targetDist <= 1 && roleDist == 0)
 			{
-				rank += 2;
+				//System.out.println("Waiting...");
+				rank = 0;
 			}
-*/	
+	
 			
 			//if the path ahead is obstructed or the prey is moving in the same direction as me
 			//then go the other way
-			System.out.println("obstructed=" + (!hasFreePath(predator, targetNow) || !hasFreePath(predator, targetExpected)) + ", preyDif=" + preyDif + ", predatorDif=" + predatorDif);
-			if (!hasFreePath(predator, targetNow) || !hasFreePath(predator, targetExpected) || preyDif.x * predatorDif.x > 0 || preyDif.y * predatorDif.y > 0)
-			{
-				
+			//System.out.println("obstructed=" + (!hasFreePath(predator, targetNow) || !hasFreePath(predator, targetExpected)) + ", preyDif=" + preyDif + ", predatorDif=" + predatorDif);
+			if (maxDist < 4 && !hasFreePath(predator, targetNow) /* || !hasFreePath(predator, targetExpected)  || preyDif.x * predatorDif.x > 0 || preyDif.y * predatorDif.y > 0 */ )
+			{				
 				rank = roleDist;
 			}
+		
 
 
 /*			
@@ -211,6 +212,11 @@ public class Predator extends Agent
 		roles = new HashMap<Integer, Direction>();
 		cycles = 0;
 	}
+
+
+
+
+
 
 
 
@@ -257,14 +263,13 @@ public class Predator extends Agent
 		{
 			findTarget();
 			castRoles();
-		}
-/*		
+		}		
  		else 
 		{
 			try
 			{
 				//ObjectSeen prey = getObject(targetID);
-				if (  getMaxDistance(prey.pos) > 2  &&  cycles >= 20  )
+				if ( /* getMaxDistance(prey.pos) > 2  && */ cycles >= 20  )
 				{
 					System.out.println("Reset!");
 					cycles = 0;
@@ -277,7 +282,7 @@ public class Predator extends Agent
 				e.printStackTrace();
 			}
 		}
-*/
+
 
 		
 		
@@ -446,7 +451,7 @@ public class Predator extends Agent
 		//this operation yields different results if the order of the predators is different
 		//so the list of predators used here should be exactly the same in each predator's instance
 		boolean foundCollision;
-		//Random die = new Random();
+		Random die = new Random();
 		do
 		{			
 			LinkedList<Direction> predators = new LinkedList<Direction>(Arrays.asList(Direction.values()));
@@ -528,7 +533,7 @@ public class Predator extends Agent
 			
 			
 		}
-		while (foundCollision /*&& die.nextInt(cycles) < 35*/);
+		while (foundCollision && die.nextInt(cycles+1) < 10);
 		
 		
 		return nextMove.get(roles.get(0));
@@ -709,6 +714,66 @@ public class Predator extends Agent
 		return false;
 	}
 	
+	public boolean breakTie(Direction dir1, Direction dir2)
+	{
+		int score = 0;
+		if (dir1.equals(Direction.UP))
+		{
+			score+=5;
+		}
+		if (dir2.equals(Direction.UP))
+		{
+			score-=5;
+		}
+		
+		if (dir1.equals(Direction.RIGHT))
+		{
+			score+=4;
+		}
+		if (dir2.equals(Direction.RIGHT))
+		{
+			score-=4;
+		}
+		
+		if (dir1.equals(Direction.DOWN))
+		{
+			score+=3;
+		}
+		if (dir2.equals(Direction.DOWN))
+		{
+			score-=3;
+		}
+		
+		if (dir1.equals(Direction.LEFT))
+		{
+			score+=2;
+		}
+		if (dir2.equals(Direction.LEFT))
+		{
+			score-=2;
+		}
+		
+		if (dir1.equals(Direction.NONE))
+		{
+			score+=1;
+		}
+		if (dir2.equals(Direction.NONE))
+		{
+			score-=1;
+		}
+		
+		if (score > 0)
+		{
+			return true;
+		}
+		else if (score < 0)
+		{
+			return false;
+		}
+		
+		throw new RuntimeException("Could not resolve tie!");
+	}
+	
 	private boolean metaBreakTie(HashMap<Integer, Direction> roles1, HashMap<Integer, Direction> roles2, Position ref)
 	{
 		for (Direction dir : Direction.values())
@@ -814,14 +879,14 @@ public class Predator extends Agent
 		int dist = getDistance(predator, prey);		
 		int max = getMaxDistance(prey);
 		
-		
+/*		
   		float weight = 1.5f;		
 		if (dist > 3)
 		{
 			c.x *= weight;
 			c.y *= weight;	
 		}
-/*		
+		
 		if (c.x > 0 || c.y > 0)
 		{
 			System.out.println("dist=" + dist + ", c= " + c);		
