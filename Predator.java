@@ -1,7 +1,10 @@
+
+
 import java.io.*;
 import java.lang.*;
 import java.util.*;
 import java.util.Map.Entry;
+
 
 /** This class defines the functionality of the predator. */
 public class Predator extends Agent
@@ -17,6 +20,12 @@ public class Predator extends Agent
 	
 	class Position
 	{
+		@Override
+		public String toString()
+		{
+			return "(" + x + ", " + y + ")";
+		}
+
 		public int x;
 		public int y;
 		
@@ -84,6 +93,12 @@ public class Predator extends Agent
 			this.x = x;
 			this.y = y;
 		}
+
+		@Override
+		public String toString()
+		{
+			return "(" + x + ", " + y + ")";
+		}
 	}
 
 	class ObjectSeen
@@ -101,13 +116,15 @@ public class Predator extends Agent
 	public class MoveComparator implements Comparator<Direction>
 	{
 		private Position predator;
-		private Position target;
+		private Position targetNow;
+		private Position targetExpected;
 		private Direction role;
 		
-		public MoveComparator(Position predator, Position target, Direction role)
+		public MoveComparator(Position predator, Position targetNow, Position targetExpected, Direction role)
 		{
 			this.predator = predator;
-			this.target = target;
+			this.targetNow = targetNow;
+			this.targetExpected = targetExpected;
 			this.role = role;
 		}
 
@@ -128,7 +145,7 @@ public class Predator extends Agent
 	        else
 	        {   	
 	        	//resolve tie with arbitrary rule
-	        	if (arbitraryBetter(dir1, dir2))
+	        	if (breakTie(getNewPos(predator, dir1), getNewPos(predator, dir2), targetNow))
 	        	{
 	        		return -1;
 	        	}
@@ -141,178 +158,47 @@ public class Predator extends Agent
 	    
 		private int getRank(Direction dir)
 		{
-			int roleDist = getDistance(getNewPos(predator, dir), getNewPos(target, role));
-			int targetDist = getDistance(getNewPos(predator, dir), target);
-			int curDist = getDistance(predator, target);
-			int minPredatorDist = getMinPredatorDist(getNewPos(predator, dir));
-			int maxDist = getMaxDistance(target);
+			int roleDist = getDistance(getNewPos(predator, dir), getNewPos(targetExpected, role));
+			int targetDist = getDistance(getNewPos(predator, dir), targetExpected);
+			//int curDist = getDistance(predator, target);
+			//int minPredatorDist = getMinPredatorDist(getNewPos(predator, dir));
+			//int maxDist = getMaxDistance(target);
+			Position preyDif = new Position(targetExpected.x- targetNow.x, targetExpected.y- targetNow.y);
+			Position predatorDif = new Position(getNewPos(predator, dir).x- predator.x, getNewPos(predator, dir).y- predator.y);
+			
 			int rank = 0;
 			
 			//rank is mainly affected by which move gets us closer to the target
-			rank = 15 - roleDist;	
+			rank = 15 - roleDist;
+/*			
+			//keep some distance until everyone's close
+			if (roleDist == 1 && maxDist > 2)
+			{
+				rank += 2;
+			}
+*/	
 			
-			//weight the rank by how close to the right quadrant we are
-			//float quad = inQuadrant(role, getNewPos(predator,dir), target); 
-			//rank *= quad;				
+			//if the path ahead is obstructed or the prey is moving in the same direction as me
+			//then go the other way
+			System.out.println("obstructed=" + (!hasFreePath(predator, targetNow) || !hasFreePath(predator, targetExpected)) + ", preyDif=" + preyDif + ", predatorDif=" + predatorDif);
+			if (!hasFreePath(predator, targetNow) || !hasFreePath(predator, targetExpected) || preyDif.x * predatorDif.x > 0 || preyDif.y * predatorDif.y > 0)
+			{
+				
+				rank = roleDist;
+			}
 
-			
+
+/*			
+			//weight the rank by how close to the right quadrant we are
+			float quad = inQuadrant(role, getNewPos(predator,dir), target); 
+			rank += 3*quad;				
 
 			//also, try to avoid bumping into other predators...			
-			//rank += minPredatorDist/2;	
-
-					
+			rank += minPredatorDist/2;
+*/								
 			
 			return rank;
 		}
-
-		private boolean arbitraryBetter(Direction dir1, Direction dir2)
-		{
-			//each role has a minor preference over the type of move to break ties
-			if (role.equals(Direction.UP))	// down > left > right > up
-			{
-				if (dir1.equals(Direction.DOWN))
-				{
-					return true;
-				}
-				else if (dir2.equals(Direction.DOWN))
-				{
-					return false;
-				}
-				else if (dir1.equals(Direction.LEFT))
-				{
-					return true;
-				}
-				else if (dir2.equals(Direction.LEFT))
-				{
-					return false;
-				}
-				else if (dir1.equals(Direction.RIGHT))
-				{
-					return true;
-				}
-				else if (dir2.equals(Direction.RIGHT))
-				{
-					return false;
-				}
-				else if (dir1.equals(Direction.UP))
-				{
-					return true;
-				}
-				else if (dir2.equals(Direction.UP))
-				{
-					return false;
-				}
-			}
-			else if (role.equals(Direction.DOWN))	// up > right > left > down
-			{
-				if (dir1.equals(Direction.UP))
-				{
-					return true;
-				}
-				else if (dir2.equals(Direction.UP))
-				{
-					return false;
-				}
-				else if (dir1.equals(Direction.RIGHT))
-				{
-					return true;
-				}
-				else if (dir2.equals(Direction.RIGHT))
-				{
-					return false;
-				}
-				else if (dir1.equals(Direction.LEFT))
-				{
-					return true;
-				}
-				else if (dir2.equals(Direction.LEFT))
-				{
-					return false;
-				}
-				else if (dir1.equals(Direction.DOWN))
-				{
-					return true;
-				}
-				else if (dir2.equals(Direction.DOWN))
-				{
-					return false;
-				}
-			}
-			else if (role.equals(Direction.RIGHT))	// left > up > down > right
-			{
-				if (dir1.equals(Direction.LEFT))
-				{
-					return true;
-				}
-				else if (dir2.equals(Direction.LEFT))
-				{
-					return false;
-				}
-				else if (dir1.equals(Direction.UP))
-				{
-					return true;
-				}
-				else if (dir2.equals(Direction.UP))
-				{
-					return false;
-				}				
-				else if (dir1.equals(Direction.DOWN))
-				{
-					return true;
-				}
-				else if (dir2.equals(Direction.DOWN))
-				{
-					return false;
-				}
-				else if (dir1.equals(Direction.RIGHT))
-				{
-					return true;
-				}
-				else if (dir2.equals(Direction.RIGHT))
-				{
-					return false;
-				}
-			}
-			else if (role.equals(Direction.LEFT))	//right > down > up > left
-			{
-				if (dir1.equals(Direction.RIGHT))
-				{
-					return true;
-				}
-				else if (dir2.equals(Direction.RIGHT))
-				{
-					return false;
-				}
-				else if (dir1.equals(Direction.DOWN))
-				{
-					return true;
-				}
-				else if (dir2.equals(Direction.DOWN))
-				{
-					return false;
-				}
-				else if (dir1.equals(Direction.UP))
-				{
-					return true;
-				}
-				else if (dir2.equals(Direction.UP))
-				{
-					return false;
-				}
-				else if (dir1.equals(Direction.LEFT))
-				{
-					return true;
-				}
-				else if (dir2.equals(Direction.LEFT))
-				{
-					return false;
-				}
-			}	
-			//needless to say, this should never occur!
-        	throw new RuntimeException("Could not find strict preference over directions.");
-        	//return true;
-		}
-
 
 
 	}
@@ -325,9 +211,6 @@ public class Predator extends Agent
 		roles = new HashMap<Integer, Direction>();
 		cycles = 0;
 	}
-
-
-
 
 
 
@@ -370,12 +253,33 @@ public class Predator extends Agent
 	private Direction determineMovementDirection()
 	{
 		cycles++;
-		if (targetID == -1 || cycles == 5)
+		if (targetID == -1)
 		{
-			cycles = 0;
 			findTarget();
 			castRoles();
 		}
+/*		
+ 		else 
+		{
+			try
+			{
+				//ObjectSeen prey = getObject(targetID);
+				if (  getMaxDistance(prey.pos) > 2  &&  cycles >= 20  )
+				{
+					System.out.println("Reset!");
+					cycles = 0;
+					castRoles();
+				}
+			}
+			catch (Exception e)
+			{
+				System.err.println(e);
+				e.printStackTrace();
+			}
+		}
+*/
+
+		
 		
 		return followTarget();
 	}
@@ -483,65 +387,7 @@ public class Predator extends Agent
 				
 	}
 
-	private boolean metaBreakTie(HashMap<Integer, Direction> roles1, HashMap<Integer, Direction> roles2, Position ref)
-	{
-		for (Direction dir : Direction.values())
-		{
-			ObjectSeen predator1 = reverseLookUp(roles1, dir);
-			ObjectSeen predator2 = reverseLookUp(roles2, dir);
-			if (!predator1.pos.equals(predator2.pos))
-			{
-				return breakTie(predator1.pos, predator2.pos, ref);
-			}
-		}
-		
-		throw new RuntimeException("Could not brake tie in roles!");
-	}
 
-
-	private ObjectSeen reverseLookUp(HashMap<Integer, Direction> rolesMap, Direction dir)
-	{
-		for (Entry<Integer, Direction> entry : rolesMap.entrySet())
-		{
-			if (entry.getValue().equals(dir))
-			{
-				try
-				{
-					return getObject(entry.getKey()); 
-				}
-				catch (Exception e)
-				{
-					System.err.println(e);
-					e.printStackTrace();
-				}
-			}
-		}
-		return null;
-	}
-
-
-	private int getRolesCost(HashMap<Integer, Direction> tempRoles)
-	{
-		int cost = 0;
-		for (int id : tempRoles.keySet())
-		{
-			ObjectSeen predator = null;
-			ObjectSeen prey = null;
-			try
-			{
-				predator = getObject(id);
-				prey = getObject(targetID);
-			}
-			catch (Exception e)
-			{
-				System.err.println(e);
-				e.printStackTrace();
-			}
-			Direction role = tempRoles.get(id);
-			cost += getDistance(predator.pos, getNewPos(prey.pos, role));
-		}
-		return cost;
-	}
 
 
 	private Direction followTarget()
@@ -561,19 +407,21 @@ public class Predator extends Agent
 		
 		//get lists for every predator's possible moves (ordered by preference) 
 		allMoves.put(0, getMovesPreference(0));
+		//System.out.println(roles.get(0) + ": " + getMovesPreference(0));
 		int id = 1;
 		for (ObjectSeen predator : seen)
 		{
 			if (predator.type.equals(AgentType.PREDATOR))
 			{
+				//System.out.println(roles.get(0) + ": " + getMovesPreference(id));
 				allMoves.put(id, getMovesPreference(id));
 				id++;	
 			}			
 		}
 		
 		//start with each predator's most preferred move
-		HashMap<Integer, Position> nextSquare = new HashMap<Integer, Position>();
-		HashMap<Integer, Direction> nextMove = new HashMap<Integer, Direction>();	
+		HashMap<Direction, Position> nextSquare = new HashMap<Direction, Position>();
+		HashMap<Direction, Direction> nextMove = new HashMap<Direction, Direction>();	
 		for (int predatorID : allMoves.keySet())
 		{
 			Direction dir = allMoves.get(predatorID).pollFirst();
@@ -589,43 +437,50 @@ public class Predator extends Agent
 			}
 			Position newPos = getNewPos(predator.pos, dir);
 			
-			nextMove.put(predatorID, dir);
-			nextSquare.put(predatorID, newPos);
+			nextMove.put(roles.get(predatorID), dir);
+			nextSquare.put(roles.get(predatorID), newPos);
 		}
 
 		
-		//look through all pairs of predators
+		//look through all pairs of predators 
+		//this operation yields different results if the order of the predators is different
+		//so the list of predators used here should be exactly the same in each predator's instance
 		boolean foundCollision;
-		Random die = new Random();
+		//Random die = new Random();
 		do
-		{
-			Integer prIds[] = nextSquare.keySet().toArray(new Integer[nextSquare.keySet().size()]);
-			foundCollision = false;
+		{			
+			LinkedList<Direction> predators = new LinkedList<Direction>(Arrays.asList(Direction.values()));
+			predators.remove(Direction.NONE);
+			//System.out.println(roles.get(0) + ": " + predators);
 			
-			for (int i = 0; i < prIds.length-1; i++)
+			foundCollision = false;			
+			for (int i = 0; i < predators.size()-1; i++)
 			{
-				for (int j = i+1; j < prIds.length; j++)
+				for (int j = i+1; j < predators.size(); j++)
 				{
-					Position iSquare = nextSquare.get(prIds[i]);
-					Position jSquare = nextSquare.get(prIds[j]);
+					Position iSquare = nextSquare.get(predators.get(i));
+					Position jSquare = nextSquare.get(predators.get(j));
+					int iID = getID(predators.get(i));
+					int jID = getID(predators.get(j));					
 					
 					//check if their plans lead to a collision
 					if (iSquare.equals(jSquare))
 					{
 						foundCollision = true;
 						
-						//decide who gives way with an arbitrary deterministic rule 
+						//decide who gives way with an (arbitrary) deterministic rule 
 						if (breakTie(iSquare, jSquare, targetPrey.pos))
 						{
-							if (allMoves.get(j).isEmpty())
+							
+							if (allMoves.get(jID).isEmpty())
 							{
 								throw new RuntimeException("Out of alternate moves!");
 							}
-							Direction dir = allMoves.get(j).pollFirst();
+							Direction dir = allMoves.get(jID).pollFirst();
 							ObjectSeen predator = null;
 							try
 							{
-								predator = getObject(j);
+								predator = getObject(jID);
 							}
 							catch (Exception e)
 							{
@@ -634,21 +489,21 @@ public class Predator extends Agent
 							}
 							Position newPos = getNewPos(predator.pos, dir);
 							
-							//System.out.println("Changing move from " + nextMove.get(j) + " to " + dir + "(" + allMoves.get(j).size() + " alternates left)");
-							nextMove.put(j, dir);
-							nextSquare.put(j, newPos);
+							//System.out.println(predators.get(j) + " changed his move from " + nextMove.get(predators.get(j)) + " to " + dir + " to avoid colliding with " + predators.get(i));
+							nextMove.put(predators.get(j), dir);
+							nextSquare.put(predators.get(j), newPos);
 						}
 						else 
 						{
-							if (allMoves.get(i).isEmpty())
+							if (allMoves.get(iID).isEmpty())
 							{
 								throw new RuntimeException("Out of alternate moves!");
 							}
-							Direction dir = allMoves.get(i).pollFirst();
+							Direction dir = allMoves.get(iID).pollFirst();
 							ObjectSeen predator = null;
 							try
 							{
-								predator = getObject(i);
+								predator = getObject(iID);
 							}
 							catch (Exception e)
 							{
@@ -657,9 +512,9 @@ public class Predator extends Agent
 							}
 							Position newPos = getNewPos(predator.pos, dir);
 							
-							//System.out.println("Changing move from " + nextMove.get(i) + " to " + dir + "(" + allMoves.get(i).size() + " alternates left)");
-							nextMove.put(i, dir);
-							nextSquare.put(i, newPos);
+							//System.out.println(predators.get(i) + " changed his move from " + nextMove.get(predators.get(i)) + " to " + dir + " to avoid colliding with " + predators.get(j));
+							nextMove.put(predators.get(i), dir);
+							nextSquare.put(predators.get(i), newPos);
 						}
 						break;
 
@@ -676,9 +531,11 @@ public class Predator extends Agent
 		while (foundCollision /*&& die.nextInt(cycles) < 35*/);
 		
 		
-		return nextMove.get(0);
+		return nextMove.get(roles.get(0));
 	}
 	
+
+
 
 	/* 
 	 	-1		no one
@@ -687,7 +544,6 @@ public class Predator extends Agent
 	*/
 	private ObjectSeen getObject(int id) throws Exception
 	{
-		//we assume that targetID has a valid value here
 		Position pos = null;
 		
 		if (id < 0)
@@ -704,8 +560,23 @@ public class Predator extends Agent
 		}
 	}
 	
+	private int getID(Direction role)
+	{
+		for (int id : roles.keySet())
+		{
+			if (roles.get(id).equals(role))
+			{
+				return id;
+			}
+		}
+		return -1;
+	}
+	
 	private int getDistance(Position pos1, Position pos2)
 	{
+		pos1 = fixPosition(pos1);
+		pos2 = fixPosition(pos2);
+		
 		int xDist = pos1.x - pos2.x;
 		if (xDist > 7)
 		{
@@ -735,7 +606,7 @@ public class Predator extends Agent
 		{
 			pos.x -= 15;
 		}
-		else if (pos.x < -7)
+		if (pos.x < -7)
 		{
 			pos.x += 15;
 		}
@@ -744,7 +615,7 @@ public class Predator extends Agent
 		{
 			pos.y -= 15;
 		}
-		else if (pos.y < -7)
+		if (pos.y < -7)
 		{
 			pos.y += 15;
 		}
@@ -838,6 +709,66 @@ public class Predator extends Agent
 		return false;
 	}
 	
+	private boolean metaBreakTie(HashMap<Integer, Direction> roles1, HashMap<Integer, Direction> roles2, Position ref)
+	{
+		for (Direction dir : Direction.values())
+		{
+			ObjectSeen predator1 = reverseLookUp(roles1, dir);
+			ObjectSeen predator2 = reverseLookUp(roles2, dir);
+			if (!predator1.pos.equals(predator2.pos))
+			{
+				return breakTie(predator1.pos, predator2.pos, ref);
+			}
+		}
+		
+		throw new RuntimeException("Could not brake tie in roles!");
+	}
+
+
+	private ObjectSeen reverseLookUp(HashMap<Integer, Direction> rolesMap, Direction dir)
+	{
+		for (Entry<Integer, Direction> entry : rolesMap.entrySet())
+		{
+			if (entry.getValue().equals(dir))
+			{
+				try
+				{
+					return getObject(entry.getKey()); 
+				}
+				catch (Exception e)
+				{
+					System.err.println(e);
+					e.printStackTrace();
+				}
+			}
+		}
+		return null;
+	}
+
+
+	private int getRolesCost(HashMap<Integer, Direction> tempRoles)
+	{
+		int cost = 0;
+		for (int id : tempRoles.keySet())
+		{
+			ObjectSeen predator = null;
+			ObjectSeen prey = null;
+			try
+			{
+				predator = getObject(id);
+				prey = getObject(targetID);
+			}
+			catch (Exception e)
+			{
+				System.err.println(e);
+				e.printStackTrace();
+			}
+			Direction role = tempRoles.get(id);
+			cost += getDistance(predator.pos, getNewPos(prey.pos, role));
+		}
+		return cost;
+	}
+	
 	private LinkedList<Direction> getMovesPreference(int id)
 	{
 		Position predatorPos = null;
@@ -860,13 +791,15 @@ public class Predator extends Agent
 		
 
 		Position expectedPreyPosition = getExpectedPosition(predatorPos, tPos);
-		if (!tPos.equals(expectedPreyPosition))
+/*		
+		if (getDistance(tPos, expectedPreyPosition) > 0)
 		{
-			System.out.println("Will intercept " + getDistance(expectedPreyPosition, tPos) + " squares ahead of it, in " + getDistance(expectedPreyPosition, predatorPos) + " moves");
-			System.out.println("\tat (" + expectedPreyPosition.x + ", " + expectedPreyPosition.y + ") instead of (" + tPos.x + ", " + tPos.y + ")");
+			System.out.println("Moving towards " + expectedPreyPosition + " instead of " + tPos + " to intercept target;");
+			System.out.println("\t the two points have a distance of " + getDistance(tPos, expectedPreyPosition) + " between them.");
 		}
+*/	
 
-		Collections.sort(moves, new MoveComparator(predatorPos, tPos, roles.get(id)));
+		Collections.sort(moves, new MoveComparator(predatorPos, tPos, expectedPreyPosition, roles.get(id)));	
 		return moves;
 	}
 	
@@ -881,17 +814,19 @@ public class Predator extends Agent
 		int dist = getDistance(predator, prey);		
 		int max = getMaxDistance(prey);
 		
-		float distWeight = 2.0f;		
-		if (dist > 1)
-		{
-			c.x *= distWeight*dist;
-			c.y *= distWeight*dist;	
-		}		
 		
+  		float weight = 1.5f;		
+		if (dist > 3)
+		{
+			c.x *= weight;
+			c.y *= weight;	
+		}
+/*		
 		if (c.x > 0 || c.y > 0)
 		{
-			System.out.println("dist=" + dist + ", c= (" + c.x + ", " + c.y + ")");		
+			System.out.println("dist=" + dist + ", c= " + c);		
 		}
+*/		
 		
 		
 		// trial 1:
@@ -950,7 +885,8 @@ public class Predator extends Agent
 			return e;	
 		}
 		
-		System.out.println("System of equations wasn't solved!");
+		//System.out.println("System of equations wasn't solved!");
+		//return the current position if something goes wrong.
 		return prey;
 	}
 
@@ -997,12 +933,13 @@ public class Predator extends Agent
 			c_x = (float)1 / (float)freeDirs.size(); 
 		}
 		
-		//System.out.println(freeDirs + " are free, so c = (" + c_x + ", " + c_y + ")");
+		//System.out.println(freeDirs + " are free, so c = " + new FloatVector(c_x, c_y));
 		return new FloatVector(c_x, c_y);
 	}
 
 
 
+	//gets the distance between a prey and the predator who's the farthest from it
 	private int getMaxDistance(Position prey)
 	{		
 		int max = Math.abs(prey.x) + Math.abs(prey.y);
@@ -1118,42 +1055,40 @@ public class Predator extends Agent
 		}
 	}
 	
-
-	@Deprecated 
-	private boolean resultsInCollision(Direction move)
+	public boolean hasFreePath(Position start, Position finish)
 	{
-		Position target = new Position(0,0);
-		
-		if (move.equals(Direction.UP))
+		for (Direction dir : Direction.values())
 		{
-			target.y = 1;
-		}		
-		if (move.equals(Direction.DOWN))
-		{
-			target.y = -1;
-		}
-		if (move.equals(Direction.RIGHT))
-		{
-			target.x = 1;
-		}
-		if (move.equals(Direction.LEFT))
-		{
-			target.x = -1;
-		}
-		
-		for (ObjectSeen other : seen)
-		{
-			if (other.type.equals(AgentType.PREDATOR))
+			Position nextSquare = getNewPos(start, dir);
+			if (nextSquare.equals(finish))
 			{
-				if (Math.abs(target.x - other.pos.x) + Math.abs(target.y - other.pos.y) <= 1)
-				{
-					return true;
-				}
+				return true;
+			}
+			else if (getDistance(nextSquare, finish) < getDistance(start, finish) && isFree(nextSquare))
+			{
+				return hasFreePath(nextSquare, finish);
 			}
 		}
 		return false;
-		
 	}
+	
+
+	private boolean isFree(Position nextSquare)
+	{
+		for (ObjectSeen o : seen)
+		{
+			if (o.type.equals(AgentType.PREDATOR) && o.pos.equals(nextSquare))
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+
+
+
+
+	
 
 	/**
 	 * This method processes the vQisual information. It receives a message
