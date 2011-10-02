@@ -39,6 +39,6 @@ ${prey}     > /dev/null &
 sleep 1
 ${prey}     > /dev/null & 
 
-#${monitor} -conf ${monitor_conf}       # start visualization
+${monitor} -conf ${monitor_conf}       # start visualization
 
 wait

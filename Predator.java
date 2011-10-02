@@ -154,12 +154,12 @@ public class Predator extends Agent
 			}
 		}
 		
-		//cover longest dimension first
+		//cover shortest dimension first
 		if (getDistance(getNewPos(me, defaultDir), target) < getDistance(me, target))
 		{
 			return defaultDir;
 		}
-		if (Math.abs(target.x) >= Math.abs(target.y))
+		if (Math.abs(target.x) <= Math.abs(target.y) && Math.abs(target.x) != 0)
 		{
 			if (target.x > 0)
 			{
