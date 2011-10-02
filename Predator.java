@@ -7,6 +7,71 @@ public class Predator extends Agent
 {
 	public enum AgentType{PREY, PREDATOR};
 	public enum Direction{UP, DOWN, LEFT, RIGHT, NONE};
+	
+	class Position
+	{
+		@Override
+		public String toString()
+		{
+			return "(" + x + ", " + y + ")";
+		}
+
+		public int x;
+		public int y;
+		
+		Position(int x, int y)
+		{
+			this.x = x;
+			this.y = y;
+		}
+
+		@Override
+		public int hashCode()
+		{
+			final int prime = 31;
+			int result = 1;
+			result = prime * result + getOuterType().hashCode();
+			result = prime * result + x;
+			result = prime * result + y;
+			return result;
+		}
+
+		@Override
+		public boolean equals(Object obj)
+		{
+			if (this == obj)
+			{
+				return true;
+			}
+			if (obj == null)
+			{
+				return false;
+			}
+			if (!(obj instanceof Position))
+			{
+				return false;
+			}
+			Position other = (Position) obj;
+			if (!getOuterType().equals(other.getOuterType()))
+			{
+				return false;
+			}
+			if (x != other.x)
+			{
+				return false;
+			}
+			if (y != other.y)
+			{
+				return false;
+			}
+			return true;
+		}
+
+		private Predator getOuterType()
+		{
+			return Predator.this;
+		}
+	}
 
 	class ObjectSeen
 	{
@@ -23,11 +88,14 @@ public class Predator extends Agent
 	}
 
 	public LinkedList<ObjectSeen> seen;
+	public Direction defaultDir;
+	public Position me;
 
 	public Predator()
 	{
 		seen = new LinkedList<ObjectSeen>();
-		
+		defaultDir = Direction.NONE;
+		me = new Position(0,0);
 	}
 
 	/**
@@ -70,8 +138,7 @@ public class Predator extends Agent
 	
 	private Direction determineMovementDirection()
 	{
-		int targetX = 0;
-		int targetY = 0;
+		Position target = me;
 		int bestDist = Integer.MAX_VALUE;
 		
 		for (ObjectSeen o : seen)
@@ -82,53 +149,88 @@ public class Predator extends Agent
 				if (dist < bestDist)
 				{
 					bestDist = dist;
-					targetX = o.x;
-					targetY = o.y;
+					target = new Position (o.x, o.y);
 				}
 			}
 		}
 		
-		//select path randomly
-		if (new Random().nextInt(2) == 0)
+		//cover longest dimension first
+		if (getDistance(getNewPos(me, defaultDir), target) < getDistance(me, target))
 		{
-			if (targetX > 0)
+			return defaultDir;
+		}
+		if (Math.abs(target.x) >= Math.abs(target.y))
+		{
+			if (target.x > 0)
 			{
-				return Direction.RIGHT;
+				defaultDir = Direction.RIGHT;
 			}
-			else if (targetX < 0)
+			else 
 			{
-				return Direction.LEFT;
-			}
-			else if (targetY > 0)
-			{
-				return Direction.UP;
-			}
-			else if (targetY < 0)
-			{
-				return Direction.DOWN;
+				defaultDir = Direction.LEFT;
 			}
 		}
 		else
 		{
-			if (targetY > 0)
+			if (target.y > 0)
 			{
-				return Direction.UP;
+				defaultDir = Direction.UP;
 			}
-			else if (targetY < 0)
+			else
 			{
-				return Direction.DOWN;
-			}
-			else if (targetX > 0)
-			{
-				return Direction.RIGHT;
-			}
-			else if (targetX < 0)
-			{
-				return Direction.LEFT;
+				defaultDir = Direction.DOWN;
 			}
 		}
 		
-		return Direction.NONE;
+		return defaultDir;
+	}
+	
+	private int getDistance(Position pos1, Position pos2)
+	{
+		
+		int xDist = pos1.x - pos2.x;
+		if (xDist > 7)
+		{
+			xDist -= 15;
+		}
+		else if (xDist < -7)
+		{
+			xDist += 15;
+		}
+		
+		int yDist = pos1.y - pos2.y;
+		if (yDist > 7)
+		{
+			yDist -= 15;
+		}
+		else if (yDist < -7)
+		{
+			yDist += 15;
+		}
+		
+		return Math.abs(xDist) + Math.abs(yDist);
+	}
+	
+	private Position getNewPos(Position pos, Direction dir)
+	{
+		Position newPos = new Position(pos.x, pos.y);
+		if (dir.equals(Direction.UP))
+		{
+			newPos.y++;
+		}
+		else if (dir.equals(Direction.DOWN))
+		{
+			newPos.y--;
+		}
+		else if (dir.equals(Direction.RIGHT))
+		{
+			newPos.x++;
+		}
+		else if (dir.equals(Direction.LEFT))
+		{
+			newPos.x--;
+		}
+		return newPos;
 	}
 	
 
