@@ -2,11 +2,111 @@ import java.io.*;
 import java.lang.*;
 import java.util.*;
 
+import Predator.State;
+
 /** This class defines the functionality of the predator. */
 public class Predator
   extends Agent
 {
-  public Predator() {}
+	class Position
+	{
+		@Override
+		public String toString()
+		{
+			return "(" + x + ", " + y + ")";
+		}
+
+		public int x;
+		public int y;
+		
+		Position(int x, int y)
+		{
+			this.x = x;
+			this.y = y;
+		}
+
+		@Override
+		public int hashCode()
+		{
+			final int prime = 31;
+			int result = 1;
+			result = prime * result + getOuterType().hashCode();
+			result = prime * result + x;
+			result = prime * result + y;
+			return result;
+		}
+
+		@Override
+		public boolean equals(Object obj)
+		{
+			if (this == obj)
+			{
+				return true;
+			}
+			if (obj == null)
+			{
+				return false;
+			}
+			if (!(obj instanceof Position))
+			{
+				return false;
+			}
+			Position other = (Position) obj;
+			if (!getOuterType().equals(other.getOuterType()))
+			{
+				return false;
+			}
+			if (x != other.x)
+			{
+				return false;
+			}
+			if (y != other.y)
+			{
+				return false;
+			}
+			return true;
+		}
+
+		private Predator getOuterType()
+		{
+			return Predator.this;
+		}
+	}
+	
+	class State
+	{
+		public Position predatorPos;
+		public Position preyPos;
+		State(Position predatorPos, Position preyPos)
+		{
+			this.predatorPos = predatorPos;
+			this.preyPos = preyPos;
+		}
+	}
+	
+	class StateAction
+	{
+		public State s;
+		public Direction a;
+		StateAction(State s, Direction a)
+		{
+			this.s = s;
+			this.a = a;
+		}
+	}
+	
+	public enum AgentType{PREY, PREDATOR};
+	public enum Direction{UP, DOWN, LEFT, RIGHT, NONE};
+	private HashMap<StateAction, Double> Q;
+	private State currentState;
+	private int cycles;
+	
+	
+  public Predator() 
+  {
+	  Q = new HashMap<StateAction, Double>();
+	  cycles = 0;
+  }
   
   /** This method initialize the predator by sending the initialization message
       to the server. */
@@ -18,20 +118,95 @@ public class Predator
   
   /** This message determines a new movement command. Currently it only moves
       random. This can be improved.. */
-  public String determineMovementCommand()
-  {  
-    switch( (int)(Math.random()*4) )
-    {
-      case 0:  return( "(move north)" );
-      case 1:  return( "(move south)" );
-      case 2:  return( "(move east)"  );
-      case 3:  return( "(move west)"  );
-      default: return( "(move none)"  );
-    }
-  }
+	public String determineMovementCommand()
+	{
+		Direction dir = determineMovementDirection();
+		if (dir.equals(Direction.UP))
+		{
+			return ("(move north)");
+		}
+		else if (dir.equals(Direction.DOWN))
+		{
+			return ("(move south)");
+		}
+		else if (dir.equals(Direction.LEFT))
+		{
+			return ("(move west)");
+		}
+		else if (dir.equals(Direction.RIGHT))
+		{
+			return ("(move east)");
+		}
+		else
+		{
+			return ("(move none)");
+		}
+	}
   
   
-  /** This method processes the visual information. It receives a message
+  private Direction determineMovementDirection()
+{
+	  cycles++;
+	updateQValues();
+	return getAction();
+}
+
+private void updateQValues()
+{
+	// TODO Auto-generated method stub	
+}
+
+private Direction getAction()
+{
+	double[] probabilities = new double[5];
+	int i=0;
+	for (Direction a : Direction.values())
+	{
+		if (i > 0)
+		{
+			probabilities[i] = getProb(a) + probabilities[i-1];	
+		}
+		else
+		{
+			probabilities[i] = getProb(a);
+		}
+		
+		i++;
+	}
+	Random die = new Random();
+	double result = die.nextDouble();
+	i = 0;
+	for (Direction a: Direction.values())
+	{
+		if (result < probabilities[i])
+		{
+			return a;
+		}
+		i++;
+	}
+	throw new RuntimeException("Could not choose an action");
+}
+
+private double getProb(Direction a)
+{
+	StateAction sa = new StateAction(currentState, a);
+	double numerator = Math.exp(Q.get(sa)/ getTau());
+	double denominator = 0;
+	for (Direction aPrime : Direction.values())
+	{
+		StateAction sa_prime = new StateAction(currentState, aPrime);
+		denominator += Math.exp(Q.get(sa_prime)/ getTau());
+	}
+	return numerator / denominator;
+}
+
+private Double getTau()
+{
+	// TODO Auto-generated method stub
+	return null;
+}
+
+/** This method processes the visual information. It receives a message
       containing the information of the preys and the predators that are
       currently  in the visible range of the predator. */
   public void processVisualInformation( String strMessage ) 
