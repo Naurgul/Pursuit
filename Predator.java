@@ -2,11 +2,9 @@ import java.io.*;
 import java.lang.*;
 import java.util.*;
 
-import Predator.State;
 
 /** This class defines the functionality of the predator. */
-public class Predator
-  extends Agent
+public class Predator extends Agent
 {
 	class Position
 	{
@@ -18,7 +16,7 @@ public class Predator
 
 		public int x;
 		public int y;
-		
+
 		Position(int x, int y)
 		{
 			this.x = x;
@@ -72,229 +70,333 @@ public class Predator
 			return Predator.this;
 		}
 	}
-	
+
 	class State
 	{
 		public Position predatorPos;
 		public Position preyPos;
+
 		State(Position predatorPos, Position preyPos)
 		{
 			this.predatorPos = predatorPos;
 			this.preyPos = preyPos;
 		}
 	}
-	
+
 	class StateAction
 	{
 		public State s;
 		public Direction a;
+
 		StateAction(State s, Direction a)
 		{
 			this.s = s;
 			this.a = a;
 		}
 	}
-	
-	public enum AgentType{PREY, PREDATOR};
-	public enum Direction{UP, DOWN, LEFT, RIGHT, NONE};
+
+	public enum AgentType
+	{
+		PREY, PREDATOR
+	};
+
+	public enum Direction
+	{
+		UP, DOWN, LEFT, RIGHT, NONE
+	}
+
 	private HashMap<StateAction, Double> Q;
 	private State currentState;
-	private int cycles;
+	private State previousState;
+	private Direction lastAction;
+	private double reward;
+	private double TAU;
+	private static final double TAU_MIN = Double.MIN_VALUE;
+	private static final double TAU_MAX = 1.0f;
+	private static final double TAU_STEP = 0.05f;
+	private static final double Q_DEFAULT = 0.0f;
+	private static final double LAMBDA = 0.5;	//TODO: Should lambda change throughout the learning process?
+	private static final double GAMMA = 0.9;
 	
-	
-  public Predator() 
-  {
-	  Q = new HashMap<StateAction, Double>();
-	  cycles = 0;
-  }
-  
-  /** This method initialize the predator by sending the initialization message
-      to the server. */
-  public void initialize()
-    throws IOException
-  {
-    g_socket.send( "(init predator)" );
-  }
-  
-  /** This message determines a new movement command. Currently it only moves
-      random. This can be improved.. */
+
+	public Predator()
+	{
+		Q = new HashMap<StateAction, Double>();
+		currentState = null;
+		previousState = null;
+		lastAction = null;
+		reward = 0.0f;
+		TAU = TAU_MAX;
+	}
+
+	/**
+	 * This method initialize the predator by sending the initialization message
+	 * to the server.
+	 */
+	public void initialize() throws IOException
+	{
+		g_socket.send("(init predator)");
+	}
+
+	/**
+	 * This message determines a new movement command. Currently it only moves
+	 * random. This can be improved..
+	 */
 	public String determineMovementCommand()
 	{
 		Direction dir = determineMovementDirection();
 		if (dir.equals(Direction.UP))
 		{
 			return ("(move north)");
-		}
-		else if (dir.equals(Direction.DOWN))
+		} else if (dir.equals(Direction.DOWN))
 		{
 			return ("(move south)");
-		}
-		else if (dir.equals(Direction.LEFT))
+		} else if (dir.equals(Direction.LEFT))
 		{
 			return ("(move west)");
-		}
-		else if (dir.equals(Direction.RIGHT))
+		} else if (dir.equals(Direction.RIGHT))
 		{
 			return ("(move east)");
-		}
-		else
+		} else
 		{
 			return ("(move none)");
 		}
 	}
-  
-  
-  private Direction determineMovementDirection()
-{
-	  cycles++;
-	updateQValues();
-	return getAction();
-}
 
-private void updateQValues()
-{
-	// TODO Auto-generated method stub	
-}
-
-private Direction getAction()
-{
-	double[] probabilities = new double[5];
-	int i=0;
-	for (Direction a : Direction.values())
+	private Direction determineMovementDirection()
 	{
-		if (i > 0)
+		updateQValues();
+		lastAction = getAction();
+		reward = 0.0f;
+		return lastAction;
+	}
+
+	private void updateQValues()
+	{
+		if (previousState != null)
 		{
-			probabilities[i] = getProb(a) + probabilities[i-1];	
+			double V = getV(currentState);
+			StateAction previousStateAction = new StateAction(previousState, lastAction);
+			double oldQval = getQ(previousStateAction);
+			double newQval = (1.0f - LAMBDA) * oldQval + LAMBDA * (reward + GAMMA * V);
+			Q.put(previousStateAction, newQval);
+			if (Math.abs(oldQval - newQval) > 0.01f)
+			{
+				System.out.print("\nQ-value changed from " + oldQval + " to " + newQval + ".");	
+			}			
+		}
+	}
+
+	private double getV(State state)
+	{
+		double v = Double.NEGATIVE_INFINITY;
+		for (Direction action : Direction.values())
+		{
+			StateAction sa = new StateAction(state, action);
+			double qVal = getQ(sa);
+			if (qVal > v)
+			{
+				v = qVal;
+			}
+		}
+		return v;
+	}
+
+	private Direction getAction()
+	{
+		double[] probabilities = new double[Direction.values().length];
+		int i = 0;
+		for (Direction a : Direction.values())
+		{
+			if (i > 0)
+			{
+				probabilities[i] = getProb(a) + probabilities[i - 1];
+			} else
+			{
+				probabilities[i] = getProb(a);
+			}
+
+			i++;
+		}
+		Random die = new Random();
+		double result = die.nextDouble();
+		i = 0;
+		for (Direction a : Direction.values())
+		{
+			if (result < probabilities[i])
+			{
+				return a;
+			}
+			i++;
+		}
+		throw new RuntimeException("Could not choose an action");
+	}
+
+	private double getProb(Direction a)
+	{
+		StateAction sa = new StateAction(currentState, a);
+		double numerator = Math.exp(getQ(sa) / TAU);
+		double denominator = 0;
+		for (Direction aPrime : Direction.values())
+		{
+			StateAction sa_prime = new StateAction(currentState, aPrime);
+			denominator += Math.exp(getQ(sa_prime) / TAU);
+		}
+		double prob = numerator / denominator;
+		System.out.print("\tp(" + a + ") = " + prob);
+		return prob;
+	}
+
+	private double getQ(StateAction sa)
+	{
+		Double qVal = Q.get(sa);
+		
+		if (qVal == null)
+		{
+			fixTau(true);
+			return Q_DEFAULT;
 		}
 		else
 		{
-			probabilities[i] = getProb(a);
+			fixTau(false);
+			return qVal;
 		}
+	}
+
+	private void fixTau(boolean moreExploration)
+	{
+			//TODO: Is this a good way to decide the value of tau?
 		
-		i++;
+			// higher TAU values make the probabilities for the action to be close to each other
+			if (moreExploration)
+			{
+				TAU += TAU_STEP;
+				if (TAU > TAU_MAX)
+				{
+					TAU = TAU_MAX;
+				}
+			}
+			// smaller TAU values give a boost to the probabilities of the most valuable actions
+			else
+			{
+				TAU -= TAU_STEP;
+				if (TAU < TAU_MIN)
+				{
+					TAU = TAU_MIN;
+				}				
+			}
 	}
-	Random die = new Random();
-	double result = die.nextDouble();
-	i = 0;
-	for (Direction a: Direction.values())
+
+	/**
+	 * This method processes the visual information. It receives a message
+	 * containing the information of the preys and the predators that are
+	 * currently in the visible range of the predator.
+	 */
+	public void processVisualInformation(String strMessage)
 	{
-		if (result < probabilities[i])
+		Position predatorPos = null;
+		Position preyPos = null;
+		int i = 0, x = 0, y = 0;
+		String strName = "";
+		StringTokenizer tok = new StringTokenizer(strMessage.substring(5),
+				") (");
+
+		while (tok.hasMoreTokens())
 		{
-			return a;
+			if (i == 0)
+				strName = tok.nextToken(); // 1st = name
+			if (i == 1)
+				x = Integer.parseInt(tok.nextToken()); // 2nd = x coord
+			if (i == 2)
+				y = Integer.parseInt(tok.nextToken()); // 3rd = y coord
+			if (i == 2)
+			{
+				if (strName.equals("prey"))
+				{
+					preyPos = new Position(x,y);
+				} else if (strName.equals("predator"))
+				{
+					predatorPos = new Position(x,y);
+				}
+				//System.out.println(strName + " seen at (" + x + ", " + y + ")");
+			}
+			i = (i + 1) % 3;
 		}
-		i++;
+		previousState = currentState;
+		if (predatorPos == null || preyPos == null)
+		{
+			throw new RuntimeException("Could not get complete information for current state.");
+		}
+		currentState = new State(predatorPos, preyPos);
 	}
-	throw new RuntimeException("Could not choose an action");
-}
 
-private double getProb(Direction a)
-{
-	StateAction sa = new StateAction(currentState, a);
-	double numerator = Math.exp(Q.get(sa)/ getTau());
-	double denominator = 0;
-	for (Direction aPrime : Direction.values())
+	/**
+	 * This method is called after a communication message has arrived from
+	 * another predator.
+	 */
+	public void processCommunicationInformation(String strMessage)
 	{
-		StateAction sa_prime = new StateAction(currentState, aPrime);
-		denominator += Math.exp(Q.get(sa_prime)/ getTau());
+		// TODO: exercise 3 to improve capture times
 	}
-	return numerator / denominator;
+
+	/**
+	 * This method is called and can be used to send a message to all other
+	 * predators. Note that this only will have effect when communication is
+	 * turned on in the server.
+	 */
+	public String determineCommunicationCommand()
+	{
+		// TODO: exercise 3 to improve capture times
+		return ""; 
+	}
+
+	/**
+	 * This method is called when an episode is ended and can be used to reset
+	 * some variables.
+	 */
+	public void episodeEnded()
+	{
+		// this method is called when an episode has ended and can be used to
+		// reinitialize some variables
+		System.out.println("EPISODE ENDED\n");
+		reward = 1.0f;
+	}
+
+	/**
+	 * This method is called when this predator is involved in a collision.
+	 */
+	public void collisionOccured()
+	{
+		// this method is called when a collision occured and can be used to
+		// reinitialize some variables
+		System.out.println("COLLISION OCCURED\n");
+	}
+
+	/**
+	 * This method is called when this predator is involved in a penalization.
+	 */
+	public void penalizeOccured()
+	{
+		// this method is called when a predator is penalized and can be used to
+		// reinitialize some variables
+		System.out.println("PENALIZED\n");
+	}
+
+	/**
+	 * This method is called when this predator is involved in a capture of a
+	 * prey.
+	 */
+	public void preyCaught()
+	{
+		System.out.println("PREY CAUGHT\n");
+	}
+
+	public static void main(String[] args)
+	{
+		Predator predator = new Predator();
+		if (args.length == 2)
+			predator.connect(args[0], Integer.parseInt(args[1]));
+		else
+			predator.connect();
+	}
 }
-
-private Double getTau()
-{
-	// TODO Auto-generated method stub
-	return null;
-}
-
-/** This method processes the visual information. It receives a message
-      containing the information of the preys and the predators that are
-      currently  in the visible range of the predator. */
-  public void processVisualInformation( String strMessage ) 
-  {
-    int i = 0, x = 0, y = 0;
-    String strName = "";
-    StringTokenizer tok = new StringTokenizer( strMessage.substring(5), ") (");
-    
-    while( tok.hasMoreTokens( ) )
-    {
-      if( i == 0 ) strName = tok.nextToken();                // 1st = name
-      if( i == 1 ) x = Integer.parseInt( tok.nextToken() );  // 2nd = x coord
-      if( i == 2 ) y = Integer.parseInt( tok.nextToken() );  // 3rd = y coord
-      if( i == 2 )
-      {	
-        System.out.println( strName + " seen at (" + x + ", " + y + ")" );
-      // TODO: do something nice with this information!
-      }
-      i = (i+1)%3;
-    }
-  }
-
-
-  /** This method is called after a communication message has arrived from
-      another predator. */
-  public void processCommunicationInformation( String strMessage) 
-  {
-    // TODO: exercise 3 to improve capture times
-  }
-  
-  /** This method is called and can be used to send a message to all other
-       predators. Note that this only will have effect when communication is
-      turned on in the server. */
-  public String determineCommunicationCommand() 
-  { 
-    // TODO: exercise 3 to improve capture times
-    return "" ; 
-  }
-
-  /**
-   * This method is called when an episode is ended and can be used to
-   * reset some variables.
-   */
-  public void episodeEnded( )
-  {
-     // this method is called when an episode has ended and can be used to
-     // reinitialize some variables
-     System.out.println( "EPISODE ENDED\n" );
-  }
-
-  /**
-   * This method is called when this predator is involved in a
-   * collision.
-   */
-  public void collisionOccured( )
-  {
-     // this method is called when a collision occured and can be used to
-     // reinitialize some variables
-     System.out.println( "COLLISION OCCURED\n" );
-  }
-
-  /**
-   * This method is called when this predator is involved in a
-   * penalization.
-   */
-  public void penalizeOccured( )
-  {
-    // this method is called when a predator is penalized and can be used to
-    // reinitialize some variables
-    System.out.println( "PENALIZED\n" );
-  }
-
-  /**
-   * This method is called when this predator is involved in a
-   * capture of a prey.
-   */
-  public void preyCaught( )
-  {
-    System.out.println( "PREY CAUGHT\n" );
-  }
- 
-  public static void main( String[] args )
-  {
-    Predator predator = new Predator();
-    if( args.length == 2 )
-      predator.connect( args[0], Integer.parseInt( args[1] ) );
-    else
-      predator.connect();
-  }
-}
-  
