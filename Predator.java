@@ -250,8 +250,7 @@ public class Predator extends Agent
 
 	private Direction determineMovementDirection()
 	{
-		int dist = Math.abs(previousState.preyPos.x) + Math.abs(previousState.preyPos.y);
-		if (previousState == null || dist > AUTOPILOT_DIST)
+		if (previousState == null || Math.abs(previousState.preyPos.x) + Math.abs(previousState.preyPos.y) > AUTOPILOT_DIST)
 		{
 			return autopilotAction();
 		}
