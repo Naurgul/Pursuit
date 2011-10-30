@@ -201,6 +201,7 @@ public class Predator extends Agent
 	private static final double Q_DEFAULT = 0.0d;
 	private static final double LAMBDA = 0.5d;	//TODO: Should lambda change throughout the learning process?
 	private static final double GAMMA = 0.9d;
+	private static final int AUTOPILOT_DIST = 3;
 	
 
 	public Predator()
@@ -249,10 +250,62 @@ public class Predator extends Agent
 
 	private Direction determineMovementDirection()
 	{
-		updateQValues();
-		lastAction = getAction();
-		reward = 0.0d;
-		return lastAction;
+		if (previousState == null || Math.abs(previousState.preyPos.x) + Math.abs(previousState.preyPos.y) > AUTOPILOT_DIST)
+		{
+			return autopilotAction();
+		}
+		else
+		{
+			updateQValues();
+			lastAction = getAction();
+			reward = 0.0d;
+			return lastAction;	
+		}		
+	}
+
+	private Direction autopilotAction()
+	{
+		//select path randomly
+		if (new Random().nextInt(2) == 0)
+		{
+			if (currentState.preyPos.x > 0)
+			{
+				return Direction.RIGHT;
+			}
+			else if (currentState.preyPos.x < 0)
+			{
+				return Direction.LEFT;
+			}
+			else if (currentState.preyPos.y > 0)
+			{
+				return Direction.UP;
+			}
+			else if (currentState.preyPos.y < 0)
+			{
+				return Direction.DOWN;
+			}
+		}
+		else
+		{
+			if (currentState.preyPos.y > 0)
+			{
+				return Direction.UP;
+			}
+			else if (currentState.preyPos.y < 0)
+			{
+				return Direction.DOWN;
+			}
+			else if (currentState.preyPos.x > 0)
+			{
+				return Direction.RIGHT;
+			}
+			else if (currentState.preyPos.x < 0)
+			{
+				return Direction.LEFT;
+			}
+		}
+		
+		return Direction.NONE;
 	}
 
 	private void updateQValues()
