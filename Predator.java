@@ -73,8 +73,16 @@ public class Predator extends Agent
 
 	class State
 	{
-		public Position predatorPos;
-		public Position preyPos;
+		public Position predator1Pos;
+		public Position predator2Pos;
+		public Position preyPos;		
+
+		State(Position predator1Pos, Position predator2Pos, Position preyPos)
+		{
+			this.predator1Pos = predator1Pos;
+			this.predator2Pos = predator2Pos;
+			this.preyPos = preyPos;
+		}
 
 		@Override
 		public int hashCode()
@@ -83,7 +91,9 @@ public class Predator extends Agent
 			int result = 1;
 			result = prime * result + getOuterType().hashCode();
 			result = prime * result
-					+ ((predatorPos == null) ? 0 : predatorPos.hashCode());
+					+ ((predator1Pos == null) ? 0 : predator1Pos.hashCode());
+			result = prime * result
+					+ ((predator2Pos == null) ? 0 : predator2Pos.hashCode());
 			result = prime * result
 					+ ((preyPos == null) ? 0 : preyPos.hashCode());
 			return result;
@@ -101,11 +111,17 @@ public class Predator extends Agent
 			State other = (State) obj;
 			if (!getOuterType().equals(other.getOuterType()))
 				return false;
-			if (predatorPos == null)
+			if (predator1Pos == null)
 			{
-				if (other.predatorPos != null)
+				if (other.predator1Pos != null)
 					return false;
-			} else if (!predatorPos.equals(other.predatorPos))
+			} else if (!predator1Pos.equals(other.predator1Pos))
+				return false;
+			if (predator2Pos == null)
+			{
+				if (other.predator2Pos != null)
+					return false;
+			} else if (!predator2Pos.equals(other.predator2Pos))
 				return false;
 			if (preyPos == null)
 			{
@@ -116,10 +132,51 @@ public class Predator extends Agent
 			return true;
 		}
 
-		State(Position predatorPos, Position preyPos)
+		private Predator getOuterType()
 		{
-			this.predatorPos = predatorPos;
-			this.preyPos = preyPos;
+			return Predator.this;
+		}
+	}
+	
+	class JointAction
+	{
+		public Direction d1;
+		public Direction d2;
+		
+		JointAction (Direction d1, Direction d2)
+		{
+			this.d1 = d1;
+			this.d2 = d2;
+		}
+
+		@Override
+		public int hashCode()
+		{
+			final int prime = 31;
+			int result = 1;
+			result = prime * result + getOuterType().hashCode();
+			result = prime * result + ((d1 == null) ? 0 : d1.hashCode());
+			result = prime * result + ((d2 == null) ? 0 : d2.hashCode());
+			return result;
+		}
+
+		@Override
+		public boolean equals(Object obj)
+		{
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			JointAction other = (JointAction) obj;
+			if (!getOuterType().equals(other.getOuterType()))
+				return false;
+			if (d1 != other.d1)
+				return false;
+			if (d2 != other.d2)
+				return false;
+			return true;
 		}
 
 		private Predator getOuterType()
@@ -131,7 +188,15 @@ public class Predator extends Agent
 	class StateAction
 	{
 		public State s;
-		public Direction a;
+		public JointAction a;
+
+
+		StateAction(State s, JointAction a)
+		{
+			this.s = s;
+			this.a = a;
+		}
+
 
 		@Override
 		public int hashCode()
@@ -144,8 +209,9 @@ public class Predator extends Agent
 			return result;
 		}
 
+
 		@Override
-		public boolean equals(Object obj) 
+		public boolean equals(Object obj)
 		{
 			if (this == obj)
 				return true;
@@ -156,7 +222,11 @@ public class Predator extends Agent
 			StateAction other = (StateAction) obj;
 			if (!getOuterType().equals(other.getOuterType()))
 				return false;
-			if (a != other.a)
+			if (a == null)
+			{
+				if (other.a != null)
+					return false;
+			} else if (!a.equals(other.a))
 				return false;
 			if (s == null)
 			{
@@ -167,16 +237,12 @@ public class Predator extends Agent
 			return true;
 		}
 
-		StateAction(State s, Direction a)
-		{
-			this.s = s;
-			this.a = a;
-		}
-
 		private Predator getOuterType()
 		{
 			return Predator.this;
 		}
+
+
 	}
 
 	public enum AgentType
@@ -192,7 +258,7 @@ public class Predator extends Agent
 	private HashMap<StateAction, Double> Q;
 	private State currentState;
 	private State previousState;
-	private Direction lastAction;
+	private JointAction lastAction;
 	private double reward;
 	private double TAU;
 	private static final double TAU_MIN = 0.1d;
@@ -202,6 +268,9 @@ public class Predator extends Agent
 	private static final double LAMBDA = 0.5d;	//TODO: Should lambda change throughout the learning process?
 	private static final double GAMMA = 0.9d;
 	private static final int AUTOPILOT_DIST = 3;
+	private boolean rolesCast;
+	private boolean amFirst;
+	private Random die;
 	
 
 	public Predator()
@@ -212,6 +281,8 @@ public class Predator extends Agent
 		lastAction = null;
 		reward = 0.0d;
 		TAU = TAU_MAX;
+		rolesCast = false; 
+		die = new Random(57);	//Grothendieck prime :D
 	}
 
 	/**
@@ -264,7 +335,15 @@ public class Predator extends Agent
 				reward = 0.25d / dist;			
 			}
 
-			return lastAction;	
+			if (amFirst)
+			{
+				return lastAction.d1;	
+			}
+			else
+			{
+				return lastAction.d2;
+			}
+				
 		}		
 	}
 
@@ -332,62 +411,76 @@ public class Predator extends Agent
 	private double getV(State state)
 	{
 		double v = Double.NEGATIVE_INFINITY;
-		for (Direction action : Direction.values())
+		for (Direction action1 : Direction.values())
 		{
-			StateAction sa = new StateAction(state, action);
-			double qVal = getQ(sa);
-			if (qVal > v)
+			for (Direction action2 : Direction.values())
 			{
-				v = qVal;
+				StateAction sa = new StateAction(state, new JointAction(action1, action2));
+				double qVal = getQ(sa);
+				if (qVal > v)
+				{
+					v = qVal;
+				}
 			}
 		}
 		return v;
 	}
 
-	private Direction getAction()
+	private JointAction getAction()
 	{
-		double[] probabilities = new double[Direction.values().length];
+		double[] probabilities = new double[(int) Math.pow(Direction.values().length,2)];
 		int i = 0;
-		for (Direction a : Direction.values())
+		for (Direction a1 : Direction.values())
 		{
-			if (i > 0)
-			{
-				probabilities[i] = getProb(a) + probabilities[i - 1];
-			} else
-			{
-				probabilities[i] = getProb(a);
+			for (Direction a2 : Direction.values())
+			{ 
+				JointAction a = new JointAction(a1, a2);
+				if (i > 0)
+				{
+					probabilities[i] = getProb(a) + probabilities[i - 1];
+				} else
+				{
+					probabilities[i] = getProb(a);
+				}
+	
+				i++;
 			}
-
-			i++;
 		}
-		Random die = new Random();
+		
 		double result = die.nextDouble();
 		i = 0;
-		for (Direction a : Direction.values())
+		for (Direction a1 : Direction.values())
 		{
-			if (result < probabilities[i] || i >= (Direction.values().length)-1)
+			for (Direction a2 : Direction.values())
 			{
-				return a;
+				JointAction a = new JointAction(a1, a2);
+				if (result < probabilities[i] || i >= (Direction.values().length)-1)
+				{
+					return a;
+				}
+				i++;
 			}
-			i++;
 		}
 		throw new RuntimeException("Could not choose an action");
 	}
 
-	private double getProb(Direction a)
+	private double getProb(JointAction a)
 	{
 		StateAction sa = new StateAction(currentState, a);
 		double numerator = Math.exp(getQ(sa) / TAU);
 		double denominator = 0;
-		for (Direction aPrime : Direction.values())
+		for (Direction aPrime1 : Direction.values())
 		{
-			StateAction sa_prime = new StateAction(currentState, aPrime);
-			denominator += Math.exp(getQ(sa_prime) / TAU);
+			for (Direction aPrime2 : Direction.values())
+			{
+				StateAction sa_prime = new StateAction(currentState, new JointAction(aPrime1, aPrime2));
+				denominator += Math.exp(getQ(sa_prime) / TAU);
+			}
 		}
 		double prob = numerator / denominator;
 		if (prob >= 0.21d || prob <= 0.19d)
 		{
-			System.out.println("p(" + a + ") = " + prob);	
+			System.out.println("p(" + a.d1 + "," + a.d2 + ") = " + prob);	
 		}		
 		return prob;
 	}
@@ -469,7 +562,31 @@ public class Predator extends Agent
 		{
 			throw new RuntimeException("Could not get complete information for current state.");
 		}
-		currentState = new State(predatorPos, preyPos);
+		
+		Position mePos = new Position(0,0);
+		
+		if (!rolesCast)
+		{
+			if (breakTie(mePos, predatorPos, preyPos))
+			{
+				amFirst = true;	
+			}
+			else
+			{
+				amFirst = false;
+			}
+			rolesCast = true;			
+		}
+		
+		if (amFirst)
+		{
+			currentState = new State(mePos, predatorPos, preyPos);
+		}
+		else
+		{
+			currentState = new State(predatorPos, mePos, preyPos);
+		}	
+		
 	}
 
 	/**
@@ -478,7 +595,8 @@ public class Predator extends Agent
 	 */
 	public void processCommunicationInformation(String strMessage)
 	{
-		// TODO: exercise 3 to improve capture times
+		// to be used in exercise 3 to improve capture times
+		// (but there is no such thing as exercise 3!)
 	}
 
 	/**
@@ -488,7 +606,8 @@ public class Predator extends Agent
 	 */
 	public String determineCommunicationCommand()
 	{
-		// TODO: exercise 3 to improve capture times
+		// to be used in exercise 3 to improve capture times
+		// (but there is no such thing as exercise 3!)
 		return ""; 
 	}
 
@@ -536,6 +655,99 @@ public class Predator extends Agent
 	{
 		//System.out.println("PREY CAUGHT\n");
 	}
+	
+	//auxialiary methods:
+	
+	private int getDistance(Position pos1, Position pos2)
+	{
+		
+		int xDist = pos1.x - pos2.x;
+		if (xDist > 7)
+		{
+			xDist -= 15;
+		}
+		else if (xDist < -7)
+		{
+			xDist += 15;
+		}
+		
+		int yDist = pos1.y - pos2.y;
+		if (yDist > 7)
+		{
+			yDist -= 15;
+		}
+		else if (yDist < -7)
+		{
+			yDist += 15;
+		}
+		
+		return Math.abs(xDist) + Math.abs(yDist);
+	}
+	
+	private boolean breakTie(Position pos1, Position pos2, Position ref)
+	{
+		if (getDistance(pos1, ref) < getDistance(pos2,ref))
+		{
+			return true;
+		}
+		else if (getDistance(pos1, ref) > getDistance(pos2,ref))
+		{
+			return false;
+		}
+		
+		int xDist1 = pos1.x - ref.x;
+	
+		if (xDist1 > 7)
+		{
+			xDist1 -= 15;
+		}
+		else if (xDist1 < -7)
+		{
+			xDist1 += 15;
+		}		
+		int yDist1 = pos1.y - ref.y;
+		if (yDist1 > 7)
+		{
+			yDist1 -= 15;
+		}
+		else if (yDist1 < -7)
+		{
+			yDist1 += 15;
+		}
+		
+		int xDist2 = pos2.x - ref.x;
+		if (xDist2 > 7)
+		{
+			xDist2 -= 15;
+		}
+		else if (xDist2 < -7)
+		{
+			xDist2 += 15;
+		}		
+		int yDist2 = pos2.y - ref.y;
+		if (yDist2 > 7)
+		{
+			yDist2 -= 15;
+		}
+		else if (yDist2 < -7)
+		{
+			yDist2 += 15;
+		}
+		
+		if (xDist1 > xDist2)
+		{
+			return true;
+		}
+		else if (xDist1 == xDist2)
+		{
+			if (yDist1 > yDist2)
+			{
+				return true;
+			}
+		}
+		
+		return false;
+	}
 
 	public static void main(String[] args)
 	{
@@ -545,4 +757,5 @@ public class Predator extends Agent
 		else
 			predator.connect();
 	}
+
 }
