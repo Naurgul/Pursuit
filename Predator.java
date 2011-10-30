@@ -76,10 +76,55 @@ public class Predator extends Agent
 		public Position predatorPos;
 		public Position preyPos;
 
+		@Override
+		public int hashCode()
+		{
+			final int prime = 31;
+			int result = 1;
+			result = prime * result + getOuterType().hashCode();
+			result = prime * result
+					+ ((predatorPos == null) ? 0 : predatorPos.hashCode());
+			result = prime * result
+					+ ((preyPos == null) ? 0 : preyPos.hashCode());
+			return result;
+		}
+
+		@Override
+		public boolean equals(Object obj)
+		{
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			State other = (State) obj;
+			if (!getOuterType().equals(other.getOuterType()))
+				return false;
+			if (predatorPos == null)
+			{
+				if (other.predatorPos != null)
+					return false;
+			} else if (!predatorPos.equals(other.predatorPos))
+				return false;
+			if (preyPos == null)
+			{
+				if (other.preyPos != null)
+					return false;
+			} else if (!preyPos.equals(other.preyPos))
+				return false;
+			return true;
+		}
+
 		State(Position predatorPos, Position preyPos)
 		{
 			this.predatorPos = predatorPos;
 			this.preyPos = preyPos;
+		}
+
+		private Predator getOuterType()
+		{
+			return Predator.this;
 		}
 	}
 
@@ -88,10 +133,49 @@ public class Predator extends Agent
 		public State s;
 		public Direction a;
 
+		@Override
+		public int hashCode()
+		{
+			final int prime = 31;
+			int result = 1;
+			result = prime * result + getOuterType().hashCode();
+			result = prime * result + ((a == null) ? 0 : a.hashCode());
+			result = prime * result + ((s == null) ? 0 : s.hashCode());
+			return result;
+		}
+
+		@Override
+		public boolean equals(Object obj) 
+		{
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			StateAction other = (StateAction) obj;
+			if (!getOuterType().equals(other.getOuterType()))
+				return false;
+			if (a != other.a)
+				return false;
+			if (s == null)
+			{
+				if (other.s != null)
+					return false;
+			} else if (!s.equals(other.s))
+				return false;
+			return true;
+		}
+
 		StateAction(State s, Direction a)
 		{
 			this.s = s;
 			this.a = a;
+		}
+
+		private Predator getOuterType()
+		{
+			return Predator.this;
 		}
 	}
 
@@ -206,6 +290,7 @@ public class Predator extends Agent
 	{
 		double[] probabilities = new double[Direction.values().length];
 		int i = 0;
+		System.out.println();
 		for (Direction a : Direction.values())
 		{
 			if (i > 0)
@@ -223,7 +308,7 @@ public class Predator extends Agent
 		i = 0;
 		for (Direction a : Direction.values())
 		{
-			if (result < probabilities[i])
+			if (result < probabilities[i] || i >= (Direction.values().length)-1)
 			{
 				return a;
 			}
@@ -243,7 +328,7 @@ public class Predator extends Agent
 			denominator += Math.exp(getQ(sa_prime) / TAU);
 		}
 		double prob = numerator / denominator;
-		System.out.print("\tp(" + a + ") = " + prob);
+		System.out.print(" p(" + a + ")=" + prob);
 		return prob;
 	}
 
