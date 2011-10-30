@@ -195,12 +195,12 @@ public class Predator extends Agent
 	private Direction lastAction;
 	private double reward;
 	private double TAU;
-	private static final double TAU_MIN = Double.MIN_VALUE;
-	private static final double TAU_MAX = 1.0f;
-	private static final double TAU_STEP = 0.05f;
-	private static final double Q_DEFAULT = 0.0f;
-	private static final double LAMBDA = 0.5;	//TODO: Should lambda change throughout the learning process?
-	private static final double GAMMA = 0.9;
+	private static final double TAU_MIN = 0.1d;
+	private static final double TAU_MAX = 1.0d;
+	private static final double TAU_STEP = 0.05d;
+	private static final double Q_DEFAULT = 0.0d;
+	private static final double LAMBDA = 0.5d;	//TODO: Should lambda change throughout the learning process?
+	private static final double GAMMA = 0.9d;
 	
 
 	public Predator()
@@ -209,7 +209,7 @@ public class Predator extends Agent
 		currentState = null;
 		previousState = null;
 		lastAction = null;
-		reward = 0.0f;
+		reward = 0.0d;
 		TAU = TAU_MAX;
 	}
 
@@ -251,7 +251,7 @@ public class Predator extends Agent
 	{
 		updateQValues();
 		lastAction = getAction();
-		reward = 0.0f;
+		reward = 0.0d;
 		return lastAction;
 	}
 
@@ -262,11 +262,11 @@ public class Predator extends Agent
 			double V = getV(currentState);
 			StateAction previousStateAction = new StateAction(previousState, lastAction);
 			double oldQval = getQ(previousStateAction);
-			double newQval = (1.0f - LAMBDA) * oldQval + LAMBDA * (reward + GAMMA * V);
+			double newQval = (1.0d - LAMBDA) * oldQval + LAMBDA * (reward + GAMMA * V);
 			Q.put(previousStateAction, newQval);
-			if (Math.abs(oldQval - newQval) > 0.01f)
+			if (Math.abs(oldQval - newQval) > 0.01d)
 			{
-				System.out.print("\nQ-value changed from " + oldQval + " to " + newQval + ".");	
+				System.out.println("\nQ-value changed from " + oldQval + " to " + newQval + ".");	
 			}			
 		}
 	}
@@ -290,7 +290,6 @@ public class Predator extends Agent
 	{
 		double[] probabilities = new double[Direction.values().length];
 		int i = 0;
-		System.out.println();
 		for (Direction a : Direction.values())
 		{
 			if (i > 0)
@@ -328,7 +327,10 @@ public class Predator extends Agent
 			denominator += Math.exp(getQ(sa_prime) / TAU);
 		}
 		double prob = numerator / denominator;
-		System.out.print(" p(" + a + ")=" + prob);
+		if (prob >= 0.21d || prob <= 0.19d)
+		{
+			System.out.println("p(" + a + ") = " + prob);	
+		}		
 		return prob;
 	}
 
@@ -368,8 +370,9 @@ public class Predator extends Agent
 				if (TAU < TAU_MIN)
 				{
 					TAU = TAU_MIN;
-				}				
+				}
 			}
+					
 	}
 
 	/**
@@ -443,8 +446,9 @@ public class Predator extends Agent
 	{
 		// this method is called when an episode has ended and can be used to
 		// reinitialize some variables
+		System.out.println("TAU = " + TAU);
 		System.out.println("EPISODE ENDED\n");
-		reward = 1.0f;
+		reward = 1.0d;
 	}
 
 	/**
@@ -454,7 +458,7 @@ public class Predator extends Agent
 	{
 		// this method is called when a collision occured and can be used to
 		// reinitialize some variables
-		System.out.println("COLLISION OCCURED\n");
+		//System.out.println("COLLISION OCCURED\n");
 	}
 
 	/**
@@ -464,7 +468,7 @@ public class Predator extends Agent
 	{
 		// this method is called when a predator is penalized and can be used to
 		// reinitialize some variables
-		System.out.println("PENALIZED\n");
+		//System.out.println("PENALIZED\n");
 	}
 
 	/**
@@ -473,7 +477,7 @@ public class Predator extends Agent
 	 */
 	public void preyCaught()
 	{
-		System.out.println("PREY CAUGHT\n");
+		//System.out.println("PREY CAUGHT\n");
 	}
 
 	public static void main(String[] args)
