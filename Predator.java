@@ -197,7 +197,7 @@ public class Predator extends Agent
 	private double TAU;
 	private static final double TAU_MIN = 0.1d;
 	private static final double TAU_MAX = 1.0d;
-	private static final double TAU_STEP = 0.05d;
+	private static final double TAU_STEP = 0.001d;
 	private static final double Q_DEFAULT = 0.0d;
 	private static final double LAMBDA = 0.5d;	//TODO: Should lambda change throughout the learning process?
 	private static final double GAMMA = 0.9d;
@@ -258,7 +258,12 @@ public class Predator extends Agent
 		{
 			updateQValues();
 			lastAction = getAction();
-			reward = 0.0d;
+			int dist = Math.abs(currentState.preyPos.x) + Math.abs(currentState.preyPos.y);
+			if (dist != 0)
+			{
+				reward = 0.25d / dist;			
+			}
+
 			return lastAction;	
 		}		
 	}
@@ -393,20 +398,16 @@ public class Predator extends Agent
 		
 		if (qVal == null)
 		{
-			fixTau(true);
 			return Q_DEFAULT;
 		}
 		else
 		{
-			fixTau(false);
 			return qVal;
 		}
 	}
 
 	private void fixTau(boolean moreExploration)
 	{
-			//TODO: Is this a good way to decide the value of tau?
-		
 			// higher TAU values make the probabilities for the action to be close to each other
 			if (moreExploration)
 			{
@@ -499,6 +500,7 @@ public class Predator extends Agent
 	{
 		// this method is called when an episode has ended and can be used to
 		// reinitialize some variables
+		fixTau(false);
 		System.out.println("TAU = " + TAU);
 		System.out.println("EPISODE ENDED\n");
 		reward = 1.0d;
@@ -512,6 +514,7 @@ public class Predator extends Agent
 		// this method is called when a collision occured and can be used to
 		// reinitialize some variables
 		//System.out.println("COLLISION OCCURED\n");
+		reward = -0.1d;
 	}
 
 	/**
@@ -522,6 +525,7 @@ public class Predator extends Agent
 		// this method is called when a predator is penalized and can be used to
 		// reinitialize some variables
 		//System.out.println("PENALIZED\n");
+		reward = -0.1d;
 	}
 
 	/**
