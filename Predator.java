@@ -321,7 +321,8 @@ public class Predator extends Agent
 
 	private Direction determineMovementDirection()
 	{
-		if (previousState == null || Math.abs(previousState.preyPos.x) + Math.abs(previousState.preyPos.y) > AUTOPILOT_DIST)
+				
+		if (previousState == null || getDistance(previousState.predator1Pos, previousState.preyPos) > AUTOPILOT_DIST || getDistance(previousState.predator2Pos, previousState.preyPos) > AUTOPILOT_DIST)
 		{
 			return autopilotAction();
 		}
@@ -329,12 +330,11 @@ public class Predator extends Agent
 		{
 			updateQValues();
 			lastAction = getAction();
-			int dist = Math.abs(currentState.preyPos.x) + Math.abs(currentState.preyPos.y);
-			if (dist != 0)
-			{
-				reward = 0.25d / dist;			
-			}
-
+			int dist1 = getDistance(currentState.predator1Pos, currentState.preyPos);
+			int dist2 = getDistance(currentState.predator2Pos, currentState.preyPos);
+			reward = 0.5d / (dist1 + dist2);	
+			
+			//System.out.println("1:" + lastAction.d1 + "\t2:" + lastAction.d2);
 			if (amFirst)
 			{
 				return lastAction.d1;	
@@ -349,6 +349,11 @@ public class Predator extends Agent
 
 	private Direction autopilotAction()
 	{
+		if (Math.abs(currentState.preyPos.x) + Math.abs(currentState.preyPos.y) == 1)
+		{
+			return Direction.NONE;
+		}
+		
 		//select path randomly
 		if (new Random().nextInt(2) == 0)
 		{
@@ -478,7 +483,7 @@ public class Predator extends Agent
 			}
 		}
 		double prob = numerator / denominator;
-		if (prob >= 0.21d || prob <= 0.19d)
+		if (prob >= 0.05d || prob <= 0.03d)
 		{
 			System.out.println("p(" + a.d1 + "," + a.d2 + ") = " + prob);	
 		}		
