@@ -85,6 +85,13 @@ public class Predator extends Agent
 		}
 
 		@Override
+		public String toString()
+		{
+			return "[" + predator1Pos + ", "
+					+ predator2Pos + ", " + preyPos + "]";
+		}
+
+		@Override
 		public int hashCode()
 		{
 			final int prime = 31;
@@ -150,6 +157,12 @@ public class Predator extends Agent
 		}
 
 		@Override
+		public String toString()
+		{
+			return "[" + d1 + ", " + d2 + "]";
+		}
+
+		@Override
 		public int hashCode()
 		{
 			final int prime = 31;
@@ -189,6 +202,13 @@ public class Predator extends Agent
 	{
 		public State s;
 		public JointAction a;
+
+
+		@Override
+		public String toString()
+		{
+			return "s=" + s + ", a=" + a;
+		}
 
 
 		StateAction(State s, JointAction a)
@@ -260,17 +280,21 @@ public class Predator extends Agent
 	private State previousState;
 	private JointAction lastAction;
 	private double reward;
-	private double TAU;
-	private static final double TAU_MIN = 0.1d;
-	private static final double TAU_MAX = 1.0d;
-	private static final double TAU_STEP = 0.001d;
 	private static final double Q_DEFAULT = 0.0d;
-	private static final double LAMBDA = 0.5d;	//TODO: Should lambda change throughout the learning process?
-	private static final double GAMMA = 0.9d;
+	private double TAU;
+	private static final double TAU_MIN = 0.01d;
+	private static final double TAU_MAX = 0.5d;
+	private static final double TAU_STEP = 0.0005d;
+	private double LAMBDA;
+	private static final double LAMBDA_STEP = 0.0005d;
+	private static final double LAMBDA_MAX = 1.0d;
+	private static final double LAMBDA_MIN = 0.75d;
+	private static final double GAMMA = 0.99d;	
 	private static final int AUTOPILOT_DIST = 3;
 	private boolean rolesCast;
 	private boolean amFirst;
 	private Random die;
+	private boolean autopilot;
 	
 
 	public Predator()
@@ -281,8 +305,10 @@ public class Predator extends Agent
 		lastAction = null;
 		reward = 0.0d;
 		TAU = TAU_MAX;
+		LAMBDA = LAMBDA_MAX;
 		rolesCast = false; 
 		die = new Random(57);	//Grothendieck prime :D
+		autopilot = true;
 	}
 
 	/**
@@ -321,29 +347,38 @@ public class Predator extends Agent
 
 	private Direction determineMovementDirection()
 	{
-				
-		if (previousState == null || getDistance(previousState.predator1Pos, previousState.preyPos) > AUTOPILOT_DIST || getDistance(previousState.predator2Pos, previousState.preyPos) > AUTOPILOT_DIST)
+		
+		if (!autopilot)
 		{
+			updateQValues();
+		}		
+
+		int dist1 = getDistance(currentState.predator1Pos, currentState.preyPos);
+		int dist2 = getDistance(currentState.predator2Pos, currentState.preyPos);
+		
+		//reward = 0.5d / (dist1 + dist2);
+		reward = 0.0d;			
+
+		if (dist1 > AUTOPILOT_DIST || dist2 > AUTOPILOT_DIST)
+		{
+			autopilot = true;
+			//System.out.println("AUTO");
 			return autopilotAction();
 		}
 		else
 		{
-			updateQValues();
-			lastAction = getAction();
-			int dist1 = getDistance(currentState.predator1Pos, currentState.preyPos);
-			int dist2 = getDistance(currentState.predator2Pos, currentState.preyPos);
-			reward = 0.5d / (dist1 + dist2);	
-			
-			//System.out.println("1:" + lastAction.d1 + "\t2:" + lastAction.d2);
+			autopilot = false;
+			lastAction = getAction();				
 			if (amFirst)
 			{
+				//System.out.println("me:" + lastAction.d1 + "\tother:" + lastAction.d2);	
 				return lastAction.d1;	
 			}
 			else
 			{
+				//System.out.println("me:" + lastAction.d2 + "\tother:" + lastAction.d1);
 				return lastAction.d2;
-			}
-				
+			}				
 		}		
 	}
 
@@ -408,7 +443,7 @@ public class Predator extends Agent
 			Q.put(previousStateAction, newQval);
 			if (Math.abs(oldQval - newQval) > 0.01d)
 			{
-				System.out.println("\nQ-value changed from " + oldQval + " to " + newQval + ".");	
+				System.out.println("\nQ(" + previousStateAction +  ") changed from " + oldQval + " to " + newQval + ".");	
 			}			
 		}
 	}
@@ -459,7 +494,8 @@ public class Predator extends Agent
 			for (Direction a2 : Direction.values())
 			{
 				JointAction a = new JointAction(a1, a2);
-				if (result < probabilities[i] || i >= (Direction.values().length)-1)
+				//System.out.println("a=" + a + ", res=" + result + ", prob[" + i + "]=" + probabilities[i]);
+				if (result < probabilities[i] || i == probabilities.length-1)
 				{
 					return a;
 				}
@@ -483,7 +519,7 @@ public class Predator extends Agent
 			}
 		}
 		double prob = numerator / denominator;
-		if (prob >= 0.05d || prob <= 0.03d)
+		if (prob >= 0.25d)
 		{
 			System.out.println("p(" + a.d1 + "," + a.d2 + ") = " + prob);	
 		}		
@@ -523,8 +559,27 @@ public class Predator extends Agent
 				{
 					TAU = TAU_MIN;
 				}
+			}					
+	}
+	
+	private void fixLambda(boolean moreLearning)
+	{
+			if (moreLearning)
+			{
+				LAMBDA += LAMBDA_STEP;
+				if (LAMBDA > LAMBDA_MAX)
+				{
+					LAMBDA = LAMBDA_MAX;
+				}
 			}
-					
+			else
+			{
+				LAMBDA -= LAMBDA_STEP;
+				if (LAMBDA < LAMBDA_MIN)
+				{
+					LAMBDA = LAMBDA_MIN;
+				}
+			}					
 	}
 
 	/**
@@ -625,9 +680,10 @@ public class Predator extends Agent
 		// this method is called when an episode has ended and can be used to
 		// reinitialize some variables
 		fixTau(false);
-		System.out.println("TAU = " + TAU);
+		fixLambda(false);
 		System.out.println("EPISODE ENDED\n");
-		reward = 1.0d;
+		System.out.println("TAU = " + TAU + " , LAMBDA = " + LAMBDA);
+		//reward = 1.0d;
 	}
 
 	/**
@@ -638,7 +694,7 @@ public class Predator extends Agent
 		// this method is called when a collision occured and can be used to
 		// reinitialize some variables
 		//System.out.println("COLLISION OCCURED\n");
-		reward = -0.1d;
+		//reward = -0.1d;
 	}
 
 	/**
@@ -649,7 +705,7 @@ public class Predator extends Agent
 		// this method is called when a predator is penalized and can be used to
 		// reinitialize some variables
 		//System.out.println("PENALIZED\n");
-		reward = -0.1d;
+		//reward = -0.1d;
 	}
 
 	/**
@@ -659,6 +715,7 @@ public class Predator extends Agent
 	public void preyCaught()
 	{
 		//System.out.println("PREY CAUGHT\n");
+		reward = 1.0d;
 	}
 	
 	//auxialiary methods:
