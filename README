@@ -1,0 +1,22 @@
+Lab Course
+
+This lab course consists of two assignments about the predator-prey simulator (pursuit domain). In each assignment you have to program the behavior of the predators to capture the preys as quickly as possible. In addition, for each assignment a small report (4 or 5 pages) needs to be written in Dutch or English, where you present your approach and results. 
+
+Assignments
+
+Before you start on the assignments, read the assignment introduction first. Important: make sure you use the default settings in pursuit.conf file for ALL assignments. The default settings are given in the introduction.
+
+Assignment introduction: http://sites.google.com/site/matthijssnel/files/mas/assign-intro.pdf
+Assignment 1 - Independent agents and multiagent coordination: http://sites.google.com/site/matthijssnel/files/mas/assign1.pdf
+Assignment 2 - (Multiagent) Reinforcement Learning:  http://sites.google.com/site/matthijssnel/files/mas/assign2.pdf
+
+
+Software
+
+The software that is used for this lab course is the Pursuit Domain Package. This package has been developed by former colleague Jelle Kok and is used since spring 2001 for the lab course of the course Multi-Agent Systems. The software needs to be run on Linux (or Mac). 
+
+Download
+
+Software documentation: http://staff.science.uva.nl/%7Emsnel/teaching/mas/papers/IAS-UVA-03-03.pdf
+Source code: http://staff.science.uva.nl/%7Emsnel/teaching/mas/software/pursuit-package-v0.9-src.tar.gz
+Pursuit Domain binaries (Linux): http://staff.science.uva.nl/%7Emsnel/teaching/mas/software/pursuit-package-v0.9-bin.tar.gz
